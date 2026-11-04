@@ -12,7 +12,5 @@
 		"autoDocstring.docstringFormat": "google-notypes",
 		"ruff.enable": true,
 		"ruff.lint.enable": false,
-		// このワークスペース上のみ特定のキーバインドを有効にする設定
-		"myworkspace.keybindings": true,
 	},
 }
