@@ -1,14 +1,17 @@
 from enum import Enum
 
 from tranp.app.compatible.cpp.cvar import CP
+from tranp.app.compatible.python.embed import Embed
 from UE5.Core.Math.MathFwd import PI
 from UE5.Engine.Materials.MaterialExpressionTextureSample import MaterialSamplerType
 
 from App.Editor.Material.MFBuilder import MFBuilder, MFExp
+from App.Main.Const.ProjectConst import ClassPrefixs
 from App.Main.Core.Lang.Json.Json import Json
 from compatible.error import Errors
 
 
+@Embed.alias(ClassPrefixs.General.value, prefix=True)
 class MFBuildCommand:
 	"""ビルドコマンド"""
 
@@ -140,6 +143,7 @@ class MFBuildCommand:
 		return [MFBuildCommand(under) for under in self.data.at(0).entries]
 
 
+@Embed.alias(ClassPrefixs.General.value, prefix=True)
 class MFBuildCommandRunner:
 	"""ビルドコマンドランナー"""
 

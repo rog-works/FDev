@@ -10,11 +10,12 @@ from UE5.Engine.Materials.MaterialFunction import MaterialFunction
 from App.Editor.Asset.AssetMaker import AssetMaker
 from App.Editor.Material.MFBuildCommand import MFBuildCommand, MFBuildCommandRunner
 from App.Editor.Material.MFBuilder import MFBuilder
+from App.Main.Const.ProjectConst import ClassPrefixs
 from App.Main.Core.Asset.AssetPaths import AssetPaths
 from const.const_asset import AssetDomains, AssetNames
 
 
-@Embed.alias('U', prefix=True)
+@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
 @UCLASS(BlueprintType)
 class MFAssetMaker(AssetMaker):
 	"""アセット生成モジュール(マテリアル関数)"""

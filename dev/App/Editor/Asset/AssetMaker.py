@@ -5,13 +5,14 @@ from UE5.CoreUObject.UObject.Object import CreatePackage, ObjectFlags_, Package,
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UFUNCTION, Abstract, BlueprintCallable, BlueprintType
 from UE5.CoreUObject.UObject.SavePackage import SavePackageArgs
 
+from App.Main.Const.ProjectConst import ClassPrefixs
 from App.Main.Core.Asset.AssetPaths import AssetPaths
 from App.Main.Core.Asset.Assets import Assets
 from App.Main.Core.Lang.Convertion import safe_addr
 from compatible.error import Errors
 
 
-@Embed.alias('U', prefix=True)
+@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
 @UCLASS(Abstract, BlueprintType)
 class AssetMaker(UObject):
 	"""アセット生成モジュール(基底)"""

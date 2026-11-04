@@ -7,6 +7,7 @@ from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UFUNCTION, BlueprintCal
 
 from App.Editor.Asset.AssetMaker import AssetMaker
 from App.Editor.Asset.MFAssetMaker import MFAssetMaker
+from App.Main.Const.ProjectConst import ClassPrefixs
 from App.Main.Core.Asset.Assets import Assets
 from App.Main.Core.Asset.AssetStorageImpl import AssetStorageImpl, MasterStorageImpl
 
@@ -17,7 +18,7 @@ class MakerTags(Enum):
 	MFs = 'mfs'
 
 
-@Embed.alias('U', prefix=True)
+@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
 @UCLASS()
 class AssetMakerFactory(UObject):
 	"""アセット生成モジュールファクトリー"""

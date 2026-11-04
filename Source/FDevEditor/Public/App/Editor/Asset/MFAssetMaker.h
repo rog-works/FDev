@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"04c92998a163bf1df6c3d5e75add4198","path":"App.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"895e4adf367a8b461d20adbbeffe74bc","path":"App.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/NameTypes.h"
 #include "UObject/Object.h"
@@ -7,6 +7,7 @@
 #include "App/Editor/Asset/AssetMaker.h"
 #include "App/Editor/Material/MFBuildCommand.h"
 #include "App/Editor/Material/MFBuilder.h"
+#include "App/Main/Const/ProjectConst.h"
 #include "App/Main/Core/Asset/AssetPaths.h"
 #include "MFAssetMaker.generated.h"
 // #include "typing.h"
@@ -17,24 +18,24 @@
  * アセット生成モジュール(マテリアル関数)
  */
 UCLASS(BlueprintType)
-class FDEVEDITOR_API UMFAssetMaker : public UAssetMaker {
+class FDEVEDITOR_API UFDevMFAssetMaker : public UFDevAssetMaker {
 	GENERATED_BODY()
-	private: TMap<FString, TTuple<FString, MFBuildCommand>> __commands;
+	private: TMap<FString, TTuple<FString, FDevMFBuildCommand>> __commands;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UMFAssetMaker() : UAssetMaker(), __commands() {}
+	UFDevMFAssetMaker() : UFDevAssetMaker(), __commands() {}
 	public:
 	/**
 	 *
 	 * @return コマンド一覧
 	 */
-	const TMap<FString, TTuple<FString, MFBuildCommand>>& commands() {
+	const TMap<FString, TTuple<FString, FDevMFBuildCommand>>& commands() {
 		if (this->__commands.Num() == 0) {
 			FFDevJson data = this->assets()->master_of(FDevAssetPaths::to_path("master/app", "mfs"));
 			// FIXME 名前とパスが混在して微妙。GetFNameの結果に依存するべきではない
-			for (auto& [src, command] : MFBuildCommandRunner::parse(data)) {
+			for (auto& [src, command] : FDevMFBuildCommandRunner::parse(data)) {
 				this->__commands.Add(FDevAssetPaths::pick_name(src), {src, command});
 			}
 		}
@@ -46,7 +47,7 @@ class FDEVEDITOR_API UMFAssetMaker : public UAssetMaker {
 	 * @param name アセット名
 	 * @return コマンド
 	 */
-	MFBuildCommand command_by(const FString& name) {
+	FDevMFBuildCommand command_by(const FString& name) {
 		return this->commands()[name].Get<1>();
 	}
 	public:
@@ -113,8 +114,8 @@ class FDEVEDITOR_API UMFAssetMaker : public UAssetMaker {
 	void build_asset_impl(UObject* asset) override {
 		UMaterialFunction* mf = static_cast<UMaterialFunction*>(asset);
 		FString name = mf->GetFName().ToString();
-		MFBuilder builder{this->assets(), mf};
-		MFBuildCommandRunner::run((&(builder)), this->command_by(name));
+		FDevMFBuilder builder{this->assets(), mf};
+		FDevMFBuildCommandRunner::run((&(builder)), this->command_by(name));
 		this->apply_hash(asset, this->command_by(mf->GetName()).hash());
 	}
 };

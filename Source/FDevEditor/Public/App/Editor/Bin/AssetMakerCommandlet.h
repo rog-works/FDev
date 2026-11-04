@@ -1,8 +1,9 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"ed2e52d73f50fcf89c9af98b0faf5205","path":"App.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"ba420ec0f3ea29649db856850d5e5377","path":"App.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/ObjectMacros.h"
 #include "Commandlets/Commandlet.h"
 #include "App/Editor/Asset/AssetMakerFactory.h"
+#include "App/Main/Const/ProjectConst.h"
 #include "App/Main/Core/Core.h"
 #include "AssetMakerCommandlet.generated.h"
 // #include "enum.h"
@@ -14,7 +15,7 @@
  * コマンドランナー(アセット生成)
  */
 UCLASS()
-class FDEVEDITOR_API UAssetMakerCommandlet : public UCommandlet {
+class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 	GENERATED_BODY()
 	public:
 	/**
@@ -73,7 +74,7 @@ class FDEVEDITOR_API UAssetMakerCommandlet : public UCommandlet {
 	 * @param force True = 強制実行
 	 */
 	void make_asset(const FString& tag, const FString& target, bool force) {
-		UAssetMaker* maker = UAssetMakerFactory::create(tag, (this));
+		UFDevAssetMaker* maker = UFDevAssetMakerFactory::create(tag, (this));
 		if (target == "all") {
 			maker->create_all(force);
 		} else {

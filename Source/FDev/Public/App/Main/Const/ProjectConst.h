@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"adc1bbfcd0b00413b87465df71ee7d8e","path":"App.Main.Const.ProjectConst"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"9347639c0cd59cebfe7e5fdf7431be96","path":"App.Main.Const.ProjectConst"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 // #include "enum.h"
 // #include "typing.h"

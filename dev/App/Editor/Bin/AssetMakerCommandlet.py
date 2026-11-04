@@ -7,6 +7,7 @@ from UE5.CoreUObject.UObject.ObjectMacros import UCLASS
 from UE5.Engine.Commandlets.Commandlet import Commandlet
 
 from App.Editor.Asset.AssetMakerFactory import AssetMakerFactory
+from App.Main.Const.ProjectConst import ClassPrefixs
 
 
 @Embed.python
@@ -21,7 +22,7 @@ class ArgKeys(Enum):
 	Maker = 'Maker'
 
 
-@Embed.alias('U', prefix=True)
+@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
 @UCLASS()
 class AssetMakerCommandlet(Commandlet):
 	"""コマンドランナー(アセット生成)"""

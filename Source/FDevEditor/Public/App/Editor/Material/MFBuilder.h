@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"5709832d647b32a03c83168720e9e810","path":"App.Editor.Material.MFBuilder"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"67b460c4c5d7c03338b427f25599809a","path":"App.Editor.Material.MFBuilder"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/Color.h"
 #include "Math/MathFwd.h"
@@ -59,6 +59,7 @@
 #include "Materials/MaterialExpressionVectorParameter.h"
 #include "Materials/MaterialFunction.h"
 #include "Materials/MaterialParameterCollection.h"
+#include "App/Main/Const/ProjectConst.h"
 #include "App/Main/Core/Asset/AssetPaths.h"
 #include "App/Main/Core/Asset/Assets.h"
 #include "App/Main/Core/Core.h"
@@ -70,7 +71,7 @@
 /**
  * 整形データ
  */
-struct MFAlign {
+struct FDevMFAlign {
 	private: inline static int __SpaceX = 200;
 	private: inline static int __SpaceY = 250;
 	private: inline static int __FoldY = 50;
@@ -81,7 +82,7 @@ struct MFAlign {
 	/**
 	 * インスタンスを生成
 	 */
-	MFAlign() : lines(0), folds(0), rows(0) {}
+	FDevMFAlign() : lines(0), folds(0), rows(0) {}
 	public:
 	/**
 	 * 行を追加
@@ -120,7 +121,7 @@ struct MFAlign {
 /**
  * 式PIN
  */
-struct MFExp {
+struct FDevMFExp {
 	public: UMaterialExpression* exp;
 	public: int index;
 	public:
@@ -129,40 +130,40 @@ struct MFExp {
 	 * @param exp マテリアル関数式
 	 * @param index 使用する出力番号 (default = 0)
 	 */
-	MFExp(UMaterialExpression* exp, int index = 0) : exp(exp), index(index) {}
+	FDevMFExp(UMaterialExpression* exp, int index = 0) : exp(exp), index(index) {}
 	public:
 	/**
 	 * 出力番号を変更した複製を生成
 	 * @param index 使用する出力番号
 	 * @return インスタンス
 	 */
-	MFExp new_index(int index) {
-		return MFExp(this->exp, index);
+	FDevMFExp new_index(int index) {
+		return FDevMFExp(this->exp, index);
 	}
 };
 /**
  * アセットビルダー(マテリアル関数)
  */
-class MFBuilder {
+class FDevMFBuilder {
 	private: inline static FString __io_base_id = "2DCF9ED5B0F44A31A2BDB35BBEAAB986";
 	private: UFDevAssets* __assets;
 	private: UMaterialFunction* __mf;
-	private: TMap<FString, MFExp> __symbols;
-	private: MFAlign __align;
+	private: TMap<FString, FDevMFExp> __symbols;
+	private: FDevMFAlign __align;
 	public:
 	/**
 	 * インスタンスを生成
 	 * @param assets アセットマネージャー
 	 * @param mf マテリアル関数
 	 */
-	MFBuilder(UFDevAssets* assets, UMaterialFunction* mf) : __assets(assets), __mf(mf), __symbols(), __align() {}
+	FDevMFBuilder(UFDevAssets* assets, UMaterialFunction* mf) : __assets(assets), __mf(mf), __symbols(), __align() {}
 	public:
 	/**
 	 * シンボル名の式PINを解決
 	 * @param symbol シンボル名
 	 * @return 式PIN
 	 */
-	MFExp resolve_symbol(const FString& symbol) {
+	FDevMFExp resolve_symbol(const FString& symbol) {
 		return this->__symbols[symbol];
 	}
 	public:
@@ -190,7 +191,7 @@ class MFBuilder {
 	 * @param comment 仮引数コメント
 	 * @return 変数
 	 */
-	MFExp param(const FString& type_name, const FString& symbol, MFExp preview, const FString& comment) {
+	FDevMFExp param(const FString& type_name, const FString& symbol, FDevMFExp preview, const FString& comment) {
 		static TMap<FString, EFunctionInputType> to_type = {
 			{"bool", EFunctionInputType::FunctionInput_StaticBool},
 			{"float", EFunctionInputType::FunctionInput_Scalar},
@@ -209,7 +210,7 @@ class MFBuilder {
 		exp->SortPriority = this->__count_of_exps();
 		exp->bUsePreviewValueAsDefault = true;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -219,7 +220,7 @@ class MFBuilder {
 	 * @param comment コメント
 	 * @return 戻り値
 	 */
-	MFExp returns(const FString& symbol, MFExp result, const FString& comment) {
+	FDevMFExp returns(const FString& symbol, FDevMFExp result, const FString& comment) {
 		UMaterialExpressionFunctionOutput* exp = NewObject<UMaterialExpressionFunctionOutput>(this->__mf);
 		exp->OutputName = FName(symbol);
 		exp->Description = comment;
@@ -228,7 +229,7 @@ class MFBuilder {
 		LexFromString(exp->Id, (*this->__publish_id_for_returns()));
 		exp->SortPriority = this->__count_of_exps();
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- 変数 -----
 	public:
@@ -238,13 +239,13 @@ class MFBuilder {
 	 * @param var 入力値
 	 * @return 変数
 	 */
-	MFExp var(const FString& symbol, MFExp var) {
+	FDevMFExp var(const FString& symbol, FDevMFExp var) {
 		UMaterialExpressionNamedRerouteDeclaration* exp = NewObject<UMaterialExpressionNamedRerouteDeclaration>(this->__mf);
 		exp->Name = FName(symbol);
 		exp->Input.Connect(var.index, var.exp);
 		LexFromString(exp->VariableGuid, (*this->__publish_id_for_var()));
 		this->__append_exp(exp);
-		this->__symbols.Add(symbol, MFExp(exp));
+		this->__symbols.Add(symbol, FDevMFExp(exp));
 		return this->__symbols[symbol];
 	}
 	public:
@@ -254,7 +255,7 @@ class MFBuilder {
 	 * @param result 結果値(call/sample)
 	 * @return 変数
 	 */
-	MFExp vars(const TArray<FString>& symbols, MFExp result) {
+	FDevMFExp vars(const TArray<FString>& symbols, FDevMFExp result) {
 		for (auto index = 0; index < symbols.Num(); index += 1) {
 			this->var(symbols[index], result.new_index(index));
 		}
@@ -267,13 +268,13 @@ class MFBuilder {
 	 * @return 変数参照
 	 * @note @deprecated 原因は不明だが、戻り値の使用番号の2番目以降が使えなくなる不具合(?)のため使用NG
 	 */
-	MFExp var_ref(const FString& symbol) {
+	FDevMFExp var_ref(const FString& symbol) {
 		UMaterialExpressionNamedRerouteUsage* exp = NewObject<UMaterialExpressionNamedRerouteUsage>(this->__mf);
 		UMaterialExpressionNamedRerouteDeclaration* via = CastChecked<UMaterialExpressionNamedRerouteDeclaration>(this->__symbols[symbol].exp);
 		exp->Declaration = TObjectPtr<UMaterialExpressionNamedRerouteDeclaration>(via);
 		exp->DeclarationGuid = via->VariableGuid;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -285,7 +286,7 @@ class MFBuilder {
 	 * @param desc コメント
 	 * @return 変数
 	 */
-	MFExp ex_bool(const FString& symbol, const FString& group, const FString& uid, bool value, const FString& desc) {
+	FDevMFExp ex_bool(const FString& symbol, const FString& group, const FString& uid, bool value, const FString& desc) {
 		UMaterialExpressionStaticBoolParameter* exp = NewObject<UMaterialExpressionStaticBoolParameter>(this->__mf);
 		exp->ParameterName = FName(symbol);
 		exp->Group = FName(group);
@@ -293,7 +294,7 @@ class MFBuilder {
 		exp->Desc = desc;
 		LexFromString(exp->ExpressionGUID, (*uid));
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -307,7 +308,7 @@ class MFBuilder {
 	 * @param maximum 上限値
 	 * @return 変数
 	 */
-	MFExp ex_float(const FString& symbol, const FString& group, const FString& uid, float value, const FString& desc, float minimum, float maximum) {
+	FDevMFExp ex_float(const FString& symbol, const FString& group, const FString& uid, float value, const FString& desc, float minimum, float maximum) {
 		UMaterialExpressionScalarParameter* exp = NewObject<UMaterialExpressionScalarParameter>(this->__mf);
 		exp->ParameterName = FName(symbol);
 		exp->Group = FName(group);
@@ -317,7 +318,7 @@ class MFBuilder {
 		exp->Desc = desc;
 		LexFromString(exp->ExpressionGUID, (*uid));
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -336,7 +337,7 @@ class MFBuilder {
 	 * XXX aを使えないケースが多々あるため、予めfloat3として扱う
 	 * ```
 	 */
-	MFExp ex_float3(const FString& symbol, const FString& group, const FString& uid, float x, float y, float z, const FString& desc) {
+	FDevMFExp ex_float3(const FString& symbol, const FString& group, const FString& uid, float x, float y, float z, const FString& desc) {
 		UMaterialExpressionVectorParameter* exp = NewObject<UMaterialExpressionVectorParameter>(this->__mf);
 		exp->ParameterName = FName(symbol);
 		exp->Group = FName(group);
@@ -344,7 +345,7 @@ class MFBuilder {
 		exp->Desc = desc;
 		LexFromString(exp->ExpressionGUID, (*uid));
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -357,7 +358,7 @@ class MFBuilder {
 	 * @param sampler テクスチャーサンプル種別
 	 * @return 変数
 	 */
-	MFExp ex_texture(const FString& symbol, const FString& group, const FString& uid, const FString& src, const FString& desc, const FString& sampler) {
+	FDevMFExp ex_texture(const FString& symbol, const FString& group, const FString& uid, const FString& src, const FString& desc, const FString& sampler) {
 		UMaterialExpressionTextureObjectParameter* exp = NewObject<UMaterialExpressionTextureObjectParameter>(this->__mf);
 		exp->ParameterName = FName(symbol);
 		exp->Group = FName(group);
@@ -366,7 +367,7 @@ class MFBuilder {
 		exp->SamplerType = this->__to_sampler(sampler);
 		LexFromString(exp->ExpressionGUID, (*uid));
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// @deprecated
 	// @Embed.python
@@ -406,11 +407,11 @@ class MFBuilder {
 	 * @param value 値
 	 * @return bool
 	 */
-	MFExp literal_b(bool value) {
+	FDevMFExp literal_b(bool value) {
 		UMaterialExpressionStaticBool* exp = NewObject<UMaterialExpressionStaticBool>(this->__mf);
 		exp->Value = (int(value));
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -418,11 +419,11 @@ class MFBuilder {
 	 * @param value 値
 	 * @return float
 	 */
-	MFExp literal_f(float value) {
+	FDevMFExp literal_f(float value) {
 		UMaterialExpressionConstant* exp = NewObject<UMaterialExpressionConstant>(this->__mf);
 		exp->R = value;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -431,12 +432,12 @@ class MFBuilder {
 	 * @param y 値
 	 * @return ベクトル(2次元)
 	 */
-	MFExp literal_f2(float x, float y) {
+	FDevMFExp literal_f2(float x, float y) {
 		UMaterialExpressionConstant2Vector* exp = NewObject<UMaterialExpressionConstant2Vector>(this->__mf);
 		exp->R = x;
 		exp->G = y;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -446,11 +447,11 @@ class MFBuilder {
 	 * @param z 値
 	 * @return ベクトル(3次元)
 	 */
-	MFExp literal_f3(float x, float y, float z) {
+	FDevMFExp literal_f3(float x, float y, float z) {
 		UMaterialExpressionConstant3Vector* exp = NewObject<UMaterialExpressionConstant3Vector>(this->__mf);
 		exp->Constant = FLinearColor(x, y, z, 1.0f);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -461,11 +462,11 @@ class MFBuilder {
 	 * @param a 値
 	 * @return ベクトル(4次元)
 	 */
-	MFExp literal_f4(float r, float g, float b, float a) {
+	FDevMFExp literal_f4(float r, float g, float b, float a) {
 		UMaterialExpressionConstant4Vector* exp = NewObject<UMaterialExpressionConstant4Vector>(this->__mf);
 		exp->Constant = FLinearColor(r, g, b, a);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- 四則演算 -----
 	public:
@@ -475,7 +476,7 @@ class MFBuilder {
 	 * @param right 右オペランド
 	 * @return 結果
 	 */
-	MFExp add(MFExp left, MFExp right) {
+	FDevMFExp add(FDevMFExp left, FDevMFExp right) {
 		return this->__exp_bin<UMaterialExpressionAdd>(left, right);
 	}
 	public:
@@ -485,7 +486,7 @@ class MFBuilder {
 	 * @param right 右オペランド
 	 * @return 結果
 	 */
-	MFExp sub(MFExp left, MFExp right) {
+	FDevMFExp sub(FDevMFExp left, FDevMFExp right) {
 		return this->__exp_bin<UMaterialExpressionSubtract>(left, right);
 	}
 	public:
@@ -495,7 +496,7 @@ class MFBuilder {
 	 * @param right 右オペランド
 	 * @return 結果
 	 */
-	MFExp mul(MFExp left, MFExp right) {
+	FDevMFExp mul(FDevMFExp left, FDevMFExp right) {
 		return this->__exp_bin<UMaterialExpressionMultiply>(left, right);
 	}
 	public:
@@ -505,7 +506,7 @@ class MFBuilder {
 	 * @param right 右オペランド
 	 * @return 結果
 	 */
-	MFExp div(MFExp left, MFExp right) {
+	FDevMFExp div(FDevMFExp left, FDevMFExp right) {
 		return this->__exp_bin<UMaterialExpressionDivide>(left, right);
 	}
 	public:
@@ -515,7 +516,7 @@ class MFBuilder {
 	 * @param right 右オペランド
 	 * @return 結果
 	 */
-	MFExp mod(MFExp left, MFExp right) {
+	FDevMFExp mod(FDevMFExp left, FDevMFExp right) {
 		return this->__exp_bin<UMaterialExpressionFmod>(left, right);
 	}
 	public:
@@ -524,7 +525,7 @@ class MFBuilder {
 	 * @param value 値
 	 * @return 結果
 	 */
-	MFExp one_minus(MFExp value) {
+	FDevMFExp one_minus(FDevMFExp value) {
 		return this->__exp_unary<UMaterialExpressionOneMinus>(value);
 	}
 	// ----- 算術演算 -----
@@ -534,7 +535,7 @@ class MFBuilder {
 	 * @param value 値
 	 * @return 絶対値
 	 */
-	MFExp abs(MFExp value) {
+	FDevMFExp abs(FDevMFExp value) {
 		return this->__exp_unary<UMaterialExpressionAbs>(value);
 	}
 	// @deprecated
@@ -562,13 +563,13 @@ class MFBuilder {
 	 * @return クランプ後の値
 	 * @note min/maxを初期値で利用する場合はsaturateを使用することを推奨
 	 */
-	MFExp clamp(MFExp value, MFExp minimum, MFExp maximum) {
+	FDevMFExp clamp(FDevMFExp value, FDevMFExp minimum, FDevMFExp maximum) {
 		UMaterialExpressionClamp* exp = NewObject<UMaterialExpressionClamp>(this->__mf);
 		exp->Input.Connect(value.index, value.exp);
 		exp->Min.Connect(minimum.index, minimum.exp);
 		exp->Max.Connect(maximum.index, maximum.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -577,12 +578,12 @@ class MFBuilder {
 	 * @param period 1周の基数 (default = 1.0)
 	 * @return 0 ~ 1
 	 */
-	MFExp cos(MFExp ratio, float period = 1.0f) {
+	FDevMFExp cos(FDevMFExp ratio, float period = 1.0f) {
 		UMaterialExpressionCosine* exp = NewObject<UMaterialExpressionCosine>(this->__mf);
 		exp->Input.Connect(ratio.index, ratio.exp);
 		exp->Period = period;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -590,7 +591,7 @@ class MFBuilder {
 	 * @param value 値
 	 * @return 整数部
 	 */
-	MFExp floor(MFExp value) {
+	FDevMFExp floor(FDevMFExp value) {
 		return this->__exp_unary<UMaterialExpressionFloor>(value);
 	}
 	public:
@@ -599,7 +600,7 @@ class MFBuilder {
 	 * @param vector ベクトル
 	 * @return ベクトルの長さ
 	 */
-	MFExp length(MFExp vector) {
+	FDevMFExp length(FDevMFExp vector) {
 		return this->__exp_unary<UMaterialExpressionLength>(vector);
 	}
 	public:
@@ -610,13 +611,13 @@ class MFBuilder {
 	 * @param alpha α値
 	 * @return 合成後の値
 	 */
-	MFExp lerp(MFExp a, MFExp b, MFExp alpha) {
+	FDevMFExp lerp(FDevMFExp a, FDevMFExp b, FDevMFExp alpha) {
 		UMaterialExpressionLinearInterpolate* exp = NewObject<UMaterialExpressionLinearInterpolate>(this->__mf);
 		exp->A.Connect(a.index, a.exp);
 		exp->B.Connect(b.index, b.exp);
 		exp->Alpha.Connect(alpha.index, alpha.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -625,7 +626,7 @@ class MFBuilder {
 	 * @param b 値2
 	 * @return 大きい方の値
 	 */
-	MFExp max(MFExp a, MFExp b) {
+	FDevMFExp max(FDevMFExp a, FDevMFExp b) {
 		return this->__exp_bin<UMaterialExpressionMax>(a, b);
 	}
 	public:
@@ -635,7 +636,7 @@ class MFBuilder {
 	 * @param b 値2
 	 * @return 小さい方の値
 	 */
-	MFExp min(MFExp a, MFExp b) {
+	FDevMFExp min(FDevMFExp a, FDevMFExp b) {
 		return this->__exp_bin<UMaterialExpressionMin>(a, b);
 	}
 	public:
@@ -645,12 +646,12 @@ class MFBuilder {
 	 * @param exponent 指数
 	 * @return べき乗した値
 	 */
-	MFExp power(MFExp value, MFExp exponent) {
+	FDevMFExp power(FDevMFExp value, FDevMFExp exponent) {
 		UMaterialExpressionPower* exp = NewObject<UMaterialExpressionPower>(this->__mf);
 		exp->Base.Connect(value.index, value.exp);
 		exp->Exponent.Connect(exponent.index, exponent.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -659,7 +660,7 @@ class MFBuilder {
 	 * @return 値(0 ~ 1)
 	 * @note clamp(x, 0, 1)と数学的には等価。HLSL的に高速
 	 */
-	MFExp saturate(MFExp value) {
+	FDevMFExp saturate(FDevMFExp value) {
 		return this->__exp_unary<UMaterialExpressionSaturate>(value);
 	}
 	public:
@@ -669,12 +670,12 @@ class MFBuilder {
 	 * @param period 1周の基数 (default = 1.0)
 	 * @return 0 ~ 1
 	 */
-	MFExp sin(MFExp ratio, float period = 1.0f) {
+	FDevMFExp sin(FDevMFExp ratio, float period = 1.0f) {
 		UMaterialExpressionSine* exp = NewObject<UMaterialExpressionSine>(this->__mf);
 		exp->Input.Connect(ratio.index, ratio.exp);
 		exp->Period = period;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -684,13 +685,13 @@ class MFBuilder {
 	 * @param value 値
 	 * @return 0 ~ 1
 	 */
-	MFExp smoothstep(MFExp minimum, MFExp maximum, MFExp value) {
+	FDevMFExp smoothstep(FDevMFExp minimum, FDevMFExp maximum, FDevMFExp value) {
 		UMaterialExpressionSmoothStep* exp = NewObject<UMaterialExpressionSmoothStep>(this->__mf);
 		exp->Min.Connect(minimum.index, minimum.exp);
 		exp->Max.Connect(maximum.index, maximum.exp);
 		exp->Value.Connect(value.index, value.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -699,12 +700,12 @@ class MFBuilder {
 	 * @param threshold 閾値
 	 * @return 0 or 1
 	 */
-	MFExp step(MFExp value, MFExp threshold) {
+	FDevMFExp step(FDevMFExp value, FDevMFExp threshold) {
 		UMaterialExpressionStep* exp = NewObject<UMaterialExpressionStep>(this->__mf);
 		exp->Y.Connect(value.index, value.exp);
 		exp->X.Connect(threshold.index, threshold.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -713,12 +714,12 @@ class MFBuilder {
 	 * @param period 1周の基数 (default = 1.0)
 	 * @return 0 ~ 1
 	 */
-	MFExp tan(MFExp ratio, float period = 1.0f) {
+	FDevMFExp tan(FDevMFExp ratio, float period = 1.0f) {
 		UMaterialExpressionTangent* exp = NewObject<UMaterialExpressionTangent>(this->__mf);
 		exp->Input.Connect(ratio.index, ratio.exp);
 		exp->Period = period;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- ベクトル操作 -----
 	public:
@@ -728,7 +729,7 @@ class MFBuilder {
 	 * @param x 追加する要素
 	 * @return ベクトル(2次元)
 	 */
-	MFExp append(MFExp value, MFExp x) {
+	FDevMFExp append(FDevMFExp value, FDevMFExp x) {
 		return this->__exp_bin<UMaterialExpressionAppendVector>(value, x);
 	}
 	public:
@@ -738,7 +739,7 @@ class MFBuilder {
 	 * @param b ベクトル2
 	 * @return 外積
 	 */
-	MFExp cross(MFExp a, MFExp b) {
+	FDevMFExp cross(FDevMFExp a, FDevMFExp b) {
 		return this->__exp_bin<UMaterialExpressionCrossProduct>(a, b);
 	}
 	public:
@@ -748,7 +749,7 @@ class MFBuilder {
 	 * @param b ベクトル2
 	 * @return 内積
 	 */
-	MFExp dot(MFExp a, MFExp b) {
+	FDevMFExp dot(FDevMFExp a, FDevMFExp b) {
 		return this->__exp_bin<UMaterialExpressionDotProduct>(a, b);
 	}
 	public:
@@ -758,7 +759,7 @@ class MFBuilder {
 	 * @param y Y座標
 	 * @return ベクトル(2次元)
 	 */
-	MFExp make_float2(MFExp x, MFExp y) {
+	FDevMFExp make_float2(FDevMFExp x, FDevMFExp y) {
 		return this->__exp_bin<UMaterialExpressionAppendVector>(x, y);
 	}
 	public:
@@ -769,8 +770,8 @@ class MFBuilder {
 	 * @param z Z座標
 	 * @return ベクトル(3次元)
 	 */
-	MFExp make_float3(MFExp x, MFExp y, MFExp z) {
-		MFExp xy = this->__exp_bin<UMaterialExpressionAppendVector>(x, y);
+	FDevMFExp make_float3(FDevMFExp x, FDevMFExp y, FDevMFExp z) {
+		FDevMFExp xy = this->__exp_bin<UMaterialExpressionAppendVector>(x, y);
 		return this->__exp_bin<UMaterialExpressionAppendVector>(xy, z);
 	}
 	public:
@@ -782,9 +783,9 @@ class MFBuilder {
 	 * @param w W座標
 	 * @return ベクトル(4次元)
 	 */
-	MFExp make_float4(MFExp x, MFExp y, MFExp z, MFExp w) {
-		MFExp xy = this->__exp_bin<UMaterialExpressionAppendVector>(x, y);
-		MFExp xyz = this->__exp_bin<UMaterialExpressionAppendVector>(xy, z);
+	FDevMFExp make_float4(FDevMFExp x, FDevMFExp y, FDevMFExp z, FDevMFExp w) {
+		FDevMFExp xy = this->__exp_bin<UMaterialExpressionAppendVector>(x, y);
+		FDevMFExp xyz = this->__exp_bin<UMaterialExpressionAppendVector>(xy, z);
 		return this->__exp_bin<UMaterialExpressionAppendVector>(xyz, w);
 	}
 	public:
@@ -794,7 +795,7 @@ class MFBuilder {
 	 * @param key キー名
 	 * @return float or ベクトル
 	 */
-	MFExp mask(MFExp value, const FString& key) {
+	FDevMFExp mask(FDevMFExp value, const FString& key) {
 		UMaterialExpressionComponentMask* exp = NewObject<UMaterialExpressionComponentMask>(this->__mf);
 		exp->Input.Connect(value.index, value.exp);
 		exp->R = String::count(key, "x") > 0;
@@ -802,7 +803,7 @@ class MFBuilder {
 		exp->B = String::count(key, "z") > 0;
 		exp->A = key == "w";
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -810,11 +811,11 @@ class MFBuilder {
 	 * @param vector ベクトル
 	 * @return 単位ベクトル
 	 */
-	MFExp normalize(MFExp vector) {
+	FDevMFExp normalize(FDevMFExp vector) {
 		UMaterialExpressionNormalize* exp = NewObject<UMaterialExpressionNormalize>(this->__mf);
 		exp->VectorInput.Connect(vector.index, vector.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- カラー操作 -----
 	public:
@@ -823,7 +824,7 @@ class MFBuilder {
 	 * @param rgb RGB
 	 * @return HSV
 	 */
-	MFExp rgb_to_hsv(MFExp rgb) {
+	FDevMFExp rgb_to_hsv(FDevMFExp rgb) {
 		return this->__exp_unary<UMaterialExpressionRgbToHsv>(rgb);
 	}
 	public:
@@ -832,7 +833,7 @@ class MFBuilder {
 	 * @param hsv HSV
 	 * @return RGB
 	 */
-	MFExp hsv_to_rgb(MFExp rgb) {
+	FDevMFExp hsv_to_rgb(FDevMFExp rgb) {
 		return this->__exp_unary<UMaterialExpressionHsvToRgb>(rgb);
 	}
 	// ----- テクスチャー操作 -----
@@ -843,12 +844,12 @@ class MFBuilder {
 	 * @param speed スクロール速度
 	 * @return UV座標
 	 */
-	MFExp panner(MFExp uv, MFExp speed) {
+	FDevMFExp panner(FDevMFExp uv, FDevMFExp speed) {
 		UMaterialExpressionPanner* exp = NewObject<UMaterialExpressionPanner>(this->__mf);
 		exp->Coordinate.Connect(uv.index, uv.exp);
 		exp->Speed.Connect(speed.index, speed.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -856,11 +857,11 @@ class MFBuilder {
 	 * @param index UVインデックス
 	 * @return UV座標
 	 */
-	MFExp tex_coord(int index) {
+	FDevMFExp tex_coord(int index) {
 		UMaterialExpressionTextureCoordinate* exp = NewObject<UMaterialExpressionTextureCoordinate>(this->__mf);
 		exp->CoordinateIndex = index;
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -869,12 +870,12 @@ class MFBuilder {
 	 * @param sampler テクスチャーサンプル種別
 	 * @return テクスチャー
 	 */
-	MFExp texture(const FString& src, const FString& sampler) {
+	FDevMFExp texture(const FString& src, const FString& sampler) {
 		UMaterialExpressionTextureObject* exp = NewObject<UMaterialExpressionTextureObject>(this->__mf);
 		exp->Texture = TObjectPtr<UTexture>(this->__assets->asset_of<UTexture>(FDevAssetPaths::to_path("image/texture", src)));
 		exp->SamplerType = this->__to_sampler(sampler);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -885,13 +886,13 @@ class MFBuilder {
 	 * @return RGBA
 	 * @note 返却値はRGBA(5番)に限定
 	 */
-	MFExp sample(MFExp texture, MFExp uv, const FString& sampler) {
+	FDevMFExp sample(FDevMFExp texture, FDevMFExp uv, const FString& sampler) {
 		UMaterialExpressionTextureSample* exp = NewObject<UMaterialExpressionTextureSample>(this->__mf);
 		exp->TextureObject.Connect(texture.index, texture.exp);
 		exp->Coordinates.Connect(uv.index, uv.exp);
 		exp->SamplerType = this->__to_sampler(sampler);
 		this->__append_exp(exp);
-		return MFExp(exp, 5);
+		return FDevMFExp(exp, 5);
 	}
 	// ----- ピクセルシェーダー -----
 	public:
@@ -900,11 +901,11 @@ class MFBuilder {
 	 * @param value 値
 	 * @return 勾配
 	 */
-	MFExp ddx(MFExp value) {
+	FDevMFExp ddx(FDevMFExp value) {
 		UMaterialExpressionDDX* exp = NewObject<UMaterialExpressionDDX>(this->__mf);
 		exp->Value.Connect(value.index, value.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	public:
 	/**
@@ -912,11 +913,11 @@ class MFBuilder {
 	 * @param value 値
 	 * @return 勾配
 	 */
-	MFExp ddy(MFExp value) {
+	FDevMFExp ddy(FDevMFExp value) {
 		UMaterialExpressionDDY* exp = NewObject<UMaterialExpressionDDY>(this->__mf);
 		exp->Value.Connect(value.index, value.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- パラメーターコレクション -----
 	public:
@@ -926,14 +927,14 @@ class MFBuilder {
 	 * @return 定数値(float)
 	 * @note @deprecated 未使用
 	 */
-	MFExp const_by(const FString& name) {
+	FDevMFExp const_by(const FString& name) {
 		UMaterialExpressionCollectionParameter* exp = NewObject<UMaterialExpressionCollectionParameter>(this->__mf);
 		UMaterialParameterCollection* collection = this->__assets->asset_of<UMaterialParameterCollection>(FDevAssetPaths::to_path("material/const", "parameters"));
 		exp->Collection = TObjectPtr<UMaterialParameterCollection>(collection);
 		exp->ParameterName = FName(name);
 		exp->ParameterId = collection->GetParameterId(exp->ParameterName);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- 時間 -----
 	public:
@@ -941,10 +942,10 @@ class MFBuilder {
 	 * 経過時間を生成
 	 * @return 経過時間
 	 */
-	MFExp time() {
+	FDevMFExp time() {
 		UMaterialExpressionTime* exp = NewObject<UMaterialExpressionTime>(this->__mf);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- フロー制御 -----
 	public:
@@ -955,13 +956,13 @@ class MFBuilder {
 	 * @param on 真偽値
 	 * @return 結果
 	 */
-	MFExp ternary(MFExp then, MFExp reject, MFExp on) {
+	FDevMFExp ternary(FDevMFExp then, FDevMFExp reject, FDevMFExp on) {
 		UMaterialExpressionStaticSwitch* exp = NewObject<UMaterialExpressionStaticSwitch>(this->__mf);
 		exp->A.Connect(then.index, then.exp);
 		exp->B.Connect(reject.index, reject.exp);
 		exp->Value.Connect(on.index, on.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- 関数コール -----
 	public:
@@ -971,7 +972,7 @@ class MFBuilder {
 	 * @param args 引数リスト
 	 * @return 戻り値のリスト
 	 */
-	MFExp call(const FString& func_name, const TArray<MFExp>& args) {
+	FDevMFExp call(const FString& func_name, const TArray<FDevMFExp>& args) {
 		UMaterialExpressionMaterialFunctionCall* exp = NewObject<UMaterialExpressionMaterialFunctionCall>(this->__mf);
 		// XXX 関数名の接頭辞をフォルダー名とする
 		FString src = FString::Printf(TEXT("%s/%s"), *String::split(func_name, "_")[0], *func_name);
@@ -982,7 +983,7 @@ class MFBuilder {
 			index++;
 		}
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	// ----- ここまで -----
 	private:
@@ -1007,11 +1008,11 @@ class MFBuilder {
 	 * @return 結果
 	 */
 	template<typename T_Unary>
-	MFExp __exp_unary(MFExp value) {
+	FDevMFExp __exp_unary(FDevMFExp value) {
 		T_Unary* exp = NewObject<T_Unary>(this->__mf);
 		exp->Input.Connect(value.index, value.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	private:
 	/**
@@ -1022,12 +1023,12 @@ class MFBuilder {
 	 * @return 結果
 	 */
 	template<typename T_Bin>
-	MFExp __exp_bin(MFExp a, MFExp b) {
+	FDevMFExp __exp_bin(FDevMFExp a, FDevMFExp b) {
 		T_Bin* exp = NewObject<T_Bin>(this->__mf);
 		exp->A.Connect(a.index, a.exp);
 		exp->B.Connect(b.index, b.exp);
 		this->__append_exp(exp);
-		return MFExp(exp);
+		return FDevMFExp(exp);
 	}
 	private:
 	/**

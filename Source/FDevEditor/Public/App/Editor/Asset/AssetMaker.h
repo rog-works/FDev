@@ -1,9 +1,10 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"54d2f96a95ab61db41f55f6cff305bc7","path":"App.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"cf5740af16ac651adf7c6cd5ce9f09a4","path":"App.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
 #include "UObject/SavePackage.h"
+#include "App/Main/Const/ProjectConst.h"
 #include "App/Main/Core/Asset/AssetPaths.h"
 #include "App/Main/Core/Asset/Assets.h"
 #include "App/Main/Core/Lang/Convertion.h"
@@ -16,14 +17,14 @@
  * アセット生成モジュール(基底)
  */
 UCLASS(Abstract, BlueprintType)
-class FDEVEDITOR_API UAssetMaker : public UObject {
+class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	GENERATED_BODY()
 	private: UFDevAssets* __assets;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UAssetMaker() : UObject(), __assets(nullptr) {}
+	UFDevAssetMaker() : UObject(), __assets(nullptr) {}
 	public:
 	/**
 	 * 依存を注入
@@ -217,7 +218,7 @@ class FDEVEDITOR_API UAssetMaker : public UObject {
 		FSavePackageArgs save_args{};
 		save_args.TopLevelFlags = EObjectFlags::RF_Public | EObjectFlags::RF_Standalone;
 		if (!package->SavePackage(package, asset, (*filepath), save_args)) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Fatal]: %s, %s, %s"), TEXT("UAssetMaker::save_asset"), *asset->GetPathName(), *filepath));
+			throw CoreError(FString::Printf(TEXT("[Errors::Fatal]: %s, %s, %s"), TEXT("UFDevAssetMaker::save_asset"), *asset->GetPathName(), *filepath));
 		}
 	}
 	public:

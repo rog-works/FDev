@@ -1,9 +1,10 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"d2ad1a4cab04d07a3112c8669b21cbd5","path":"App.Editor.Asset.AssetMakerFactory"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"d8e5ca994d208484d9358f899c1823f0","path":"App.Editor.Asset.AssetMakerFactory"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
 #include "App/Editor/Asset/AssetMaker.h"
 #include "App/Editor/Asset/MFAssetMaker.h"
+#include "App/Main/Const/ProjectConst.h"
 #include "App/Main/Core/Asset/Assets.h"
 #include "App/Main/Core/Asset/AssetStorageImpl.h"
 #include "AssetMakerFactory.generated.h"
@@ -15,7 +16,7 @@
  * アセット生成モジュールファクトリー
  */
 UCLASS()
-class FDEVEDITOR_API UAssetMakerFactory : public UObject {
+class FDEVEDITOR_API UFDevAssetMakerFactory : public UObject {
 	GENERATED_BODY()
 	public:
 	/**
@@ -24,8 +25,8 @@ class FDEVEDITOR_API UAssetMakerFactory : public UObject {
 	 * @param outer 管理オブジェクト
 	 * @return アセット生成モジュール
 	 */
-	static UAssetMaker* create(const FString& tag, UObject* outer) {
-		return UAssetMakerFactory::from_class(UAssetMakerFactory::to_uclass(tag), outer);
+	static UFDevAssetMaker* create(const FString& tag, UObject* outer) {
+		return UFDevAssetMakerFactory::from_class(UFDevAssetMakerFactory::to_uclass(tag), outer);
 	}
 	public:
 	/**
@@ -35,9 +36,9 @@ class FDEVEDITOR_API UAssetMakerFactory : public UObject {
 	 * @return アセット生成モジュール
 	 */
 	UFUNCTION(BlueprintCallable, meta=(DefaultToSelf="outer"))
-	static UAssetMaker* from_class(UClass* uclass, UObject* outer) {
-		UAssetMaker* instance = NewObject<UAssetMaker>(outer, uclass);
-		instance->injection(UAssetMakerFactory::new_assets(outer));
+	static UFDevAssetMaker* from_class(UClass* uclass, UObject* outer) {
+		UFDevAssetMaker* instance = NewObject<UFDevAssetMaker>(outer, uclass);
+		instance->injection(UFDevAssetMakerFactory::new_assets(outer));
 		return instance;
 	}
 	public:
@@ -47,7 +48,7 @@ class FDEVEDITOR_API UAssetMakerFactory : public UObject {
 	 * @return クラスの型情報
 	 */
 	static UClass* to_uclass(const FString& tag) {
-		static TMap<FString, UClass*> to_uclasses = {{"mfs", UMFAssetMaker::StaticClass()}};
+		static TMap<FString, UClass*> to_uclasses = {{"mfs", UFDevMFAssetMaker::StaticClass()}};
 		return to_uclasses[tag];
 	}
 	public:
