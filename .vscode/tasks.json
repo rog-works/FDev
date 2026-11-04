@@ -75,7 +75,7 @@
 				"//c",
 				"'${workspaceFolder}\\..\\..\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor-Cmd.exe'",
 				"'${workspaceFolder}\\${workspaceFolderBasename}.uproject'",
-				"-run=AssetMakerCommandlet",
+				"-run=FDevAssetMakerCommandlet",
 				"-Maker=\"mfs\"",
 			],
 			"problemMatcher": "$msCompile",
