@@ -45,8 +45,10 @@ class PackageConst:
 	Attributes:
 		Script: C++パッケージの先頭パス
 		Game: アセットパッケージの先頭パス
-		AppSource: ソースコードのルートディレクトリー名
+		App: アプリケーションのルートモジュールパス
+		AppMain: アプリケーションのGameモジュールパス
 	"""
 	Script: ClassVar = '/Script'
 	Game: ClassVar = '/Game'
-	AppSource: ClassVar = 'FDev'
+	App: ClassVar = 'FDev'
+	AppMain: ClassVar = 'FDev.Main'

@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"cbe600c5e4bf440f397e0f6545794250","path":"FDev.Main.Const.ProjectConst"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"c5f7c398f8ec61c33d225bfea2c64f61","path":"FDev.Main.Const.ProjectConst"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 // #include "enum.h"
 // #include "typing.h"
@@ -16,5 +16,6 @@ class FDevProjectConst {
 class FDevPackageConst {
 	public: inline static FString Script = "/Script";
 	public: inline static FString Game = "/Game";
-	public: inline static FString AppSource = "FDev";
+	public: inline static FString App = "FDev";
+	public: inline static FString AppMain = "FDev.Main";
 };

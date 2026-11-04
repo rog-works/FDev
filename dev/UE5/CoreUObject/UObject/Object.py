@@ -982,9 +982,9 @@ class Objects:
 	def package_by_utype(cls, utype: CP[UStruct]) -> CP[Package]:
 		"""Args: utype: 型情報 Returns: パッケージ"""
 		elems = utype.on.origin.__module__.split('.')
-		if elems[0] == PackageConst.AppSource and elems[1] != 'Main':
+		if elems[0] == PackageConst.App and elems[1] != 'Main':
 			return cls.package_by_name(f'{PackageConst.Script}/{ProjectConst.Name}{elems[1]}')
-		elif elems[0] == PackageConst.AppSource or elems[0] == 'tests':
+		elif elems[0] == PackageConst.App or elems[0] == 'tests':
 			return cls.package_by_name(f'{PackageConst.Script}/{ProjectConst.Name}')
 		else:
 			return cls.package_by_name(f'{PackageConst.Script}/{elems[1]}')
