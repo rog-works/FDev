@@ -4,11 +4,11 @@ from tranp.app.compatible.cpp.classes import char
 from tranp.app.compatible.cpp.cvar import CP
 from tranp.app.compatible.python.embed import Embed
 
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Lang.String import String
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class JsonEntryTypes(Enum):
 	"""JSONエントリー種別"""
 	Boolean = 0
@@ -20,7 +20,7 @@ class JsonEntryTypes(Enum):
 	Unknown = 6
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class JsonParseInfo:
 	"""Json解析情報"""
 
@@ -56,7 +56,7 @@ class JsonParseInfo:
 		self.entries = []
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class JsonParser:
 	"""JSONパーサー"""
 

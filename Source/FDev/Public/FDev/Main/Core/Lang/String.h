@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"5fe70756d99154caef265cbcfb0e03c1","path":"FDev.Main.Core.Lang.String"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"69cf9807b6bfe65c077263cdcfa21502","path":"FDev.Main.Core.Lang.String"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "FDev/Main/Const/ProjectConst.h"

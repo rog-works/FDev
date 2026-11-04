@@ -9,7 +9,7 @@ from UE5.CoreUObject.UObject.ObjectMacros import USTRUCT
 
 from compatible.cvar import unpack_shared
 from compatible.error import Errors
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Lang.DSN.DSN import DSN
 from FDev.Main.Core.Lang.Json.JsonEntry import JsonEntry
 from FDev.Main.Core.Lang.Json.JsonParser import JsonEntryTypes, JsonParseInfo, JsonParser
@@ -17,7 +17,7 @@ from FDev.Main.Core.Lang.String import String
 
 
 @Embed.struct
-@Embed.alias(ClassPrefixs.Struct.value, prefix=True)
+@Embed.alias(Aliases.Struct.value, prefix=True)
 @Embed.ignore(GenStruct)
 @USTRUCT()
 class Json(GenStruct):

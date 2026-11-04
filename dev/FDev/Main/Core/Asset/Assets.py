@@ -4,13 +4,13 @@ from UE5.CoreUObject.UObject.Object import UObject
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UFUNCTION
 
 from const.const_asset import AssetDomains
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Asset.AssetStorage import IAssetStorage, IMasterStorage
 from FDev.Main.Core.Lang.Convertion import safe_addr
 from FDev.Main.Core.Lang.Json.Json import Json
 
 
-@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
+@Embed.alias(Aliases.UObject.value, prefix=True)
 @UCLASS()
 class Assets(UObject):
 	"""アセットマネージャー"""

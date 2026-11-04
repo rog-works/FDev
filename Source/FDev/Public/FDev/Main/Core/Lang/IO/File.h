@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"335ab90c3cca0ce89e6d0b67e8841f19","path":"FDev.Main.Core.Lang.IO.File"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"cb371c6250115e257ebddeca53fe7711","path":"FDev.Main.Core.Lang.IO.File"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Containers/StringConv.h"
 #include "Misc/FileHelper.h"
@@ -38,7 +38,7 @@ class FDevFiles {
 		TArray<uint8>& output = buffer;
 		bool ok = FFileHelper::LoadFileToArray(output, (*abs_filepath));
 		if (!ok) {
-			throw CoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("FDevFiles::load"), *abs_filepath));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("FDevFiles::load"), *abs_filepath));
 		}
 		return FDevFiles::__to_str(output);
 	}

@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"9bcd6d8ad89940c74913ff1e7f03dcfb","path":"FDev.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"bfe8c2f6297a21cdeab5346ac3e4c2b5","path":"FDev.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "FDev/Main/Const/ProjectConst.h"
@@ -33,7 +33,7 @@ class FDevAssetPaths {
 	 */
 	static FString pick_name(const FString& path) {
 		if (FDevString::count(path, ".") != 0 || FDevString::count(path, "#") != 0) {
-			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::pick_name"), *path));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::pick_name"), *path));
 		}
 		return path.Mid(path.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd) + 1, path.Len() - (path.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd) + 1));
 	}
@@ -79,7 +79,7 @@ class FDevAssetPaths {
 	 */
 	static FString to_ue_save_dir(const FString& path) {
 		if (path.StartsWith("/")) {
-			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_dir"), *path));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_dir"), *path));
 		}
 		return FDevDSN::joined(FDevPackageConst::Game, path.Mid(0, path.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd)), "/");
 	}
@@ -92,7 +92,7 @@ class FDevAssetPaths {
 	 */
 	static FString to_ue_save_package_path(const FString& path) {
 		if (path.StartsWith("/")) {
-			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_package_path"), *path));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_package_path"), *path));
 		}
 		return FDevDSN::joined(FDevPackageConst::Game, path, "/");
 	}
@@ -105,7 +105,7 @@ class FDevAssetPaths {
 	 */
 	static FString to_ue_save_filepath(const FString& ue_path) {
 		if (!ue_path.StartsWith(FDevPackageConst::Game)) {
-			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_filepath"), *ue_path));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_filepath"), *ue_path));
 		}
 		return FPackageName::LongPackageNameToFilename(ue_path, FPackageName::GetAssetPackageExtension());
 	}

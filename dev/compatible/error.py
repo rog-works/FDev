@@ -3,8 +3,10 @@ from typing import cast
 from tranp.app.compatible.cpp.cvar import CP
 from tranp.app.compatible.python.embed import Embed
 
+from FDev.Main.Const.ProjectConst import Aliases
 
-@Embed.alias('CoreError')
+
+@Embed.alias(Aliases.Error.value)
 class CompatibleError(Exception):
 	"""互換用の基底クラス"""
 

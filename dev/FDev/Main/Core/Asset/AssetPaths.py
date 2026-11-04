@@ -3,11 +3,11 @@ from UE5.Core.Misc.Paths import PackageName
 
 from compatible.error import Errors
 from const.const_asset import AssetFormats
-from FDev.Main.Const.ProjectConst import ClassPrefixs, PackageConst
+from FDev.Main.Const.ProjectConst import Aliases, PackageConst
 from FDev.Main.Core.Lang.DSN.DSN import DSN
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class AssetPaths:
 	"""ユーティリティー(アセットパス)"""
 

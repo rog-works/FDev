@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"82e2564c873b1676867efbb63db0eda1","path":"FDev.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"433aeb8e0b8ebb45156a79cc33ef2577","path":"FDev.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "FDev/Main/Const/ProjectConst.h"
 #include "FDev/Main/Core/Lang/String.h"

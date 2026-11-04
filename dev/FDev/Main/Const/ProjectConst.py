@@ -5,17 +5,18 @@ from tranp.app.compatible.python.embed import Embed
 
 
 @Embed.python
-class ClassPrefixs(Enum):
-	"""クラス名の接頭辞
+class Aliases(Enum):
+	"""エイリアスの定義
 
 	Attributes:
-		General: 全クラス共通の接頭辞
+		General: 衝突回避用の共通接頭辞
 		UObject: UObject系クラスの接頭辞
 		Struct: UE公開用の構造体の接頭辞
 		Enum: UE公開用のEnumの接頭辞
 		Actor: Actor系クラスの接頭辞
 		Slate: Slate系クラスの接頭辞
 		Template: ジェネリック系クラスの接頭辞
+		Error: 互換用例外クラスの名前
 	"""
 	General = 'FDev'
 	UObject = 'U' + General
@@ -24,9 +25,10 @@ class ClassPrefixs(Enum):
 	Actor = 'A' + General
 	Slate = 'S' + General
 	Template = 'T' + General
+	Error = General + 'CoreError'
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class ProjectConst:
 	"""アプリケーション定数
 
@@ -36,7 +38,7 @@ class ProjectConst:
 	Name: ClassVar = 'FDev'
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class PackageConst:
 	"""パッケージ定数
 

@@ -2,10 +2,10 @@ from typing import ClassVar
 
 from tranp.app.compatible.python.embed import Embed
 
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class DSN:
 	"""DSN(Dot Separator Name)"""
 

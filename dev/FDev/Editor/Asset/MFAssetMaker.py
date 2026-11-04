@@ -11,11 +11,11 @@ from const.const_asset import AssetDomains, AssetNames
 from FDev.Editor.Asset.AssetMaker import AssetMaker
 from FDev.Editor.Material.MFBuildCommand import MFBuildCommand, MFBuildCommandRunner
 from FDev.Editor.Material.MFBuilder import MFBuilder
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Asset.AssetPaths import AssetPaths
 
 
-@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
+@Embed.alias(Aliases.UObject.value, prefix=True)
 @UCLASS(BlueprintType)
 class MFAssetMaker(AssetMaker):
 	"""アセット生成モジュール(マテリアル関数)"""

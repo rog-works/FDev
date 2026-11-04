@@ -7,11 +7,11 @@ from UE5.Engine.Materials.MaterialExpressionTextureSample import MaterialSampler
 
 from compatible.error import Errors
 from FDev.Editor.Material.MFBuilder import MFBuilder, MFExp
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Lang.Json.Json import Json
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class MFBuildCommand:
 	"""ビルドコマンド"""
 
@@ -143,7 +143,7 @@ class MFBuildCommand:
 		return [MFBuildCommand(under) for under in self.data.at(0).entries]
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class MFBuildCommandRunner:
 	"""ビルドコマンドランナー"""
 

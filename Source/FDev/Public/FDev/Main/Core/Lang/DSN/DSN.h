@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"e3242c7ef1f9e987fbd21e8bde6ba00d","path":"FDev.Main.Core.Lang.DSN.DSN"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"c84eee3839b8842d34850a025e5ae808","path":"FDev.Main.Core.Lang.DSN.DSN"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "FDev/Main/Const/ProjectConst.h"
 #include "FDev/Main/Core/Core.h"

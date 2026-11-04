@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"47a26de0d6c7a35eee64305db6db2b32","path":"FDev.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"14c14ed78d54fc494482a626b1c740b2","path":"FDev.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/MathFwd.h"
 #include "Materials/MaterialExpressionTextureSample.h"
@@ -74,7 +74,7 @@ class FDevMFBuildCommand {
 		} else if (this->role == FDevMFBuildCommand::Roles::Exp) {
 			return this->data.key_at(0);
 		} else {
-			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::name()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::name()"), *(this->data).ToString(), this->role));
 		}
 	}
 	public:
@@ -84,7 +84,7 @@ class FDevMFBuildCommand {
 	 */
 	FString desc() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::desc()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::desc()"), *(this->data).ToString(), this->role));
 		}
 		return this->data["desc"].as_string();
 	}
@@ -95,7 +95,7 @@ class FDevMFBuildCommand {
 	 */
 	FString hash() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::hash()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::hash()"), *(this->data).ToString(), this->role));
 		}
 		return this->data["hash"].as_string();
 	}
@@ -106,7 +106,7 @@ class FDevMFBuildCommand {
 	 */
 	TArray<FDevMFBuildCommand> params() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::params()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::params()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
 			TArray<FDevMFBuildCommand> __ret;
@@ -123,7 +123,7 @@ class FDevMFBuildCommand {
 	 */
 	TArray<FDevMFBuildCommand> statements() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::statements()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::statements()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
 			TArray<FDevMFBuildCommand> __ret;
@@ -140,7 +140,7 @@ class FDevMFBuildCommand {
 	 */
 	bool as_bool() {
 		if (!this->is_scalar()) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_bool()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_bool()"), *(this->data).ToString(), this->role));
 		}
 		return this->data.as_bool();
 	}
@@ -151,7 +151,7 @@ class FDevMFBuildCommand {
 	 */
 	FString as_string() {
 		if (!this->is_scalar()) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_string()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_string()"), *(this->data).ToString(), this->role));
 		}
 		return this->data.as_string();
 	}
@@ -162,7 +162,7 @@ class FDevMFBuildCommand {
 	 */
 	float as_float() {
 		if (!this->is_scalar()) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_float()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_float()"), *(this->data).ToString(), this->role));
 		}
 		if (this->role == FDevMFBuildCommand::Roles::String && this->as_string() == "PI") {
 			return PI;
@@ -177,7 +177,7 @@ class FDevMFBuildCommand {
 	 */
 	int as_int() {
 		if (!this->is_scalar()) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_int()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_int()"), *(this->data).ToString(), this->role));
 		}
 		return this->data.as_int();
 	}
@@ -188,7 +188,7 @@ class FDevMFBuildCommand {
 	 */
 	TArray<FDevMFBuildCommand> args() {
 		if (this->role != FDevMFBuildCommand::Roles::Exp) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::args()"), *(this->data).ToString(), this->role));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::args()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
 			TArray<FDevMFBuildCommand> __ret;

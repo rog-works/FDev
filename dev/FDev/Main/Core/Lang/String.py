@@ -4,10 +4,10 @@ from tranp.app.compatible.cpp.classes import char, wchar_t
 from tranp.app.compatible.python.embed import Embed
 from UE5.Core.Misc.StringBuilder import StringBuilder
 
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class String:
 	"""文字列操作ユーティリティー"""
 

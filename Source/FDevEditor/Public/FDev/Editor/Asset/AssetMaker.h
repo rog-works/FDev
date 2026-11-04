@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"ff4c13847bf2eb24001562d7aa524305","path":"FDev.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"aac7ca54545cf902f842f643ebf2280f","path":"FDev.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Object.h"
@@ -136,7 +136,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @return アセット
 	 */
 	virtual UObject* resolve_asset(const FString& asset_path) {
-		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -185,7 +185,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @return アセット
 	 */
 	virtual UObject* new_asset_impl(UPackage* package, const FString& asset_path) {
-		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -204,7 +204,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @param asset アセット
 	 */
 	virtual void build_asset_impl(UObject* asset) {
-		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -218,7 +218,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 		FSavePackageArgs save_args{};
 		save_args.TopLevelFlags = EObjectFlags::RF_Public | EObjectFlags::RF_Standalone;
 		if (!package->SavePackage(package, asset, (*filepath), save_args)) {
-			throw CoreError(FString::Printf(TEXT("[Errors::Fatal]: %s, %s, %s"), TEXT("UFDevAssetMaker::save_asset"), *asset->GetPathName(), *filepath));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::Fatal]: %s, %s, %s"), TEXT("UFDevAssetMaker::save_asset"), *asset->GetPathName(), *filepath));
 		}
 	}
 	public:

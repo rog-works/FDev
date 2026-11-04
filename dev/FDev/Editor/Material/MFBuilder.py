@@ -64,13 +64,13 @@ from UE5.Engine.Materials.MaterialFunction import MaterialFunction
 from UE5.Engine.Materials.MaterialParameterCollection import MaterialParameterCollection
 
 from const.const_asset import AssetDomains, AssetNames
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Asset.AssetPaths import AssetPaths
 from FDev.Main.Core.Asset.Assets import Assets
 
 
 @Embed.struct
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class MFAlign:
 	"""整形データ"""
 
@@ -111,7 +111,7 @@ class MFAlign:
 
 
 @Embed.struct
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class MFExp:
 	"""式PIN"""
 
@@ -139,7 +139,7 @@ class MFExp:
 		return MFExp(self.exp, index)
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class MFBuilder:
 	"""アセットビルダー(マテリアル関数)"""
 	

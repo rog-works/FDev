@@ -8,7 +8,7 @@ from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UPROPERTY
 
 from compatible.error import Errors
 from const.const_asset import AssetFormats
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Asset.AssetPaths import AssetPaths
 from FDev.Main.Core.Asset.AssetStorage import IAssetStorage, IMasterStorage
 from FDev.Main.Core.Lang.IO.File import Files
@@ -16,7 +16,7 @@ from FDev.Main.Core.Lang.Json.Json import Json
 from FDev.Main.Core.Lang.Json.JsonEntry import JsonEntry
 
 
-@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
+@Embed.alias(Aliases.UObject.value, prefix=True)
 @UCLASS()
 class AssetStorageImpl(IAssetStorage):
 	"""アセットストレージ"""
@@ -75,7 +75,7 @@ class AssetStorageImpl(IAssetStorage):
 		return asset
 
 
-@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
+@Embed.alias(Aliases.UObject.value, prefix=True)
 @UCLASS()
 class MasterStorageImpl(IMasterStorage):
 	"""マスターストレージ"""

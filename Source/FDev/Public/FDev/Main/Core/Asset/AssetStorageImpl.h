@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"eb96e576f3850dff866bd9d32818927c","path":"FDev.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"0a2bb34a52758d1a5a69aabafcf07958","path":"FDev.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "UObject/Object.h"
@@ -63,7 +63,7 @@ class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 		TSoftObjectPtr<UObject> resolver{FSoftObjectPath(ue_asset_path)};
 		UObject* asset = resolver.LoadSynchronous();
 		if (!asset) {
-			throw CoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("UFDevAssetStorageImpl::load_asset"), *ue_asset_path));
+			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("UFDevAssetStorageImpl::load_asset"), *ue_asset_path));
 		}
 		return asset;
 	}

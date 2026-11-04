@@ -1,9 +1,9 @@
 {{- emit_depends('"' + env_get('app_name') + '/Main/Core/Core.h"') -}}
 {%- if throws -%}
-throw CoreError(TEXT("[{{ throws }}]:"));
+throw {{ env_get('app_name') }}CoreError(TEXT("[{{ throws }}]:"));
 {%- elif calls and arguments -%}
 {%- import 'func_call/_str_format.j2' as block -%}
-throw CoreError({{ i18n('cpp', 'string.format') }}({{ block.get_content('"[' + calls + ']: ' + format[1:-1] + '"', formatters, arguments, True) }}));
+throw {{ env_get('app_name') }}CoreError({{ i18n('cpp', 'string.format') }}({{ block.get_content('"[' + calls + ']: ' + format[1:-1] + '"', formatters, arguments, True) }}));
 {%- elif calls -%}
-throw CoreError(TEXT("[{{ calls }}]:"));
+throw {{ env_get('app_name') }}CoreError(TEXT("[{{ calls }}]:"));
 {%- endif -%}

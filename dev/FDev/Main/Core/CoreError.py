@@ -2,10 +2,10 @@ from typing import Annotated
 
 from tranp.app.compatible.python.embed import Embed
 
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class CoreError(Exception):
 	"""例外(アプリケーション)
 

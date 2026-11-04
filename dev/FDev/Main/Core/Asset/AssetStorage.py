@@ -4,11 +4,11 @@ from UE5.CoreUObject.UObject.Object import UObject
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, Abstract
 
 from compatible.error import Errors
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Lang.Json.Json import Json
 
 
-@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
+@Embed.alias(Aliases.UObject.value, prefix=True)
 @UCLASS(Abstract)
 class IAssetStorage(UObject):
 	"""アセットストレージ(インターフェイス)"""
@@ -39,7 +39,7 @@ class IAssetStorage(UObject):
 		raise Errors.MustBeImplemented
 
 
-@Embed.alias(ClassPrefixs.UObject.value, prefix=True)
+@Embed.alias(Aliases.UObject.value, prefix=True)
 @UCLASS(Abstract)
 class IMasterStorage(UObject):
 	"""マスターストレージ(インターフェイス)"""

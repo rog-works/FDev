@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"8deb5356e998110e3d0a7d44f4c1b3e6","path":"FDev.Main.Core.CoreError"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"4141eb3500fa678cc78fac5d31365c58","path":"FDev.Main.Core.CoreError"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "FDev/Main/Const/ProjectConst.h"
 // #include "typing.h"

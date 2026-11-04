@@ -9,10 +9,10 @@ from UE5.Core.Misc.FileHelper import FileHelper
 from UE5.Core.Misc.Paths import Paths
 
 from compatible.error import Errors
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class Files:
 	"""ファイル操作ヘルパー"""
 

@@ -4,12 +4,12 @@ from tranp.app.compatible.cpp.classes import int64
 from tranp.app.compatible.cpp.cvar import CP, CSP
 from tranp.app.compatible.python.embed import Embed
 
-from FDev.Main.Const.ProjectConst import ClassPrefixs
+from FDev.Main.Const.ProjectConst import Aliases
 from FDev.Main.Core.Lang.Json.JsonParser import JsonEntryTypes, JsonParseInfo
 from FDev.Main.Core.Lang.String import String
 
 
-@Embed.alias(ClassPrefixs.General.value, prefix=True)
+@Embed.alias(Aliases.General.value, prefix=True)
 class JsonEntry:
 	"""JSONエントリー"""
 
