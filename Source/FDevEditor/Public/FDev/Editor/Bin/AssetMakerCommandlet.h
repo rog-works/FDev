@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"2bf8d266e28c1aac4a929e5014e3e6d2","path":"FDev.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.19","module":{"hash":"64c5452540fc3269a753a0fd8a46c023","path":"FDev.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/ObjectMacros.h"
 #include "Commandlets/Commandlet.h"
@@ -39,7 +39,11 @@ class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 			if (!(arg_pair.Num() == 2 && arg_pair[0] == "Maker")) {
 				continue;
 			}
-			FString arg_value = arg_pair[1].Mid(1, arg_pair[1].Len() - 1 - (1));
+			FString arg_value = arg_pair[1];
+			// XXX 空白が含まれない場合、二重引用符が削除されてしまう仕様への対処
+			if (arg_pair[1].StartsWith("\"") && arg_pair[1].EndsWith("\"")) {
+				arg_value = arg_value.Mid(1, arg_pair[1].Len() - 1 - (1));
+			}
 			TArray<FString> pairs = FDevString::split(arg_value, ", ");
 			for (auto& pair : pairs) {
 				TArray<FString> elems = FDevString::split(pair, ": ");
