@@ -52,8 +52,8 @@ class AssetMakerCommandlet(Commandlet):
 
 			arg_value = arg_pair[1]
 			# XXX 空白が含まれない場合、二重引用符が削除されてしまう仕様への対処
-			if arg_pair[1].startswith('\"') and arg_pair[1].endswith('\"'):
-				arg_value = arg_value[1:len(arg_pair[1]) - 1]
+			if arg_value.startswith('\"') and arg_value.endswith('\"'):
+				arg_value = arg_value[1:len(arg_value) - 1]
 
 			pairs = arg_value.split(', ')
 			for pair in pairs:
