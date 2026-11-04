@@ -1,2 +1,2 @@
-{{- emit_depends('"App/Main/Core/Core.h"') -}}
-String::trim({{ receiver }}, '{{ arguments[0][1:-1] }}'){% if is_statement %};{% endif %}
+{{- emit_depends('"' + env_get('app_name') + '/Main/Core/Core.h"') -}}
+{{ env_get('app_name') }}String::trim({{ receiver }}, '{{ arguments[0][1:-1] }}'){% if is_statement %};{% endif %}

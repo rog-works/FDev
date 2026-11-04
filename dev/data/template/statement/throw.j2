@@ -1,4 +1,4 @@
-{{- emit_depends('"App/Main/Core/Core.h"') -}}
+{{- emit_depends('"' + env_get('app_name') + '/Main/Core/Core.h"') -}}
 {%- if throws -%}
 throw CoreError(TEXT("[{{ throws }}]:"));
 {%- elif calls and arguments -%}

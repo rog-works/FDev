@@ -7,9 +7,9 @@ from tranp.app.compatible.python.embed import Embed
 from tranp.app.lang.annotation import deprecated
 from UE5.CoreUObject.UObject.Object import UObject
 
-from App.Main.Core.Lang.Convertion import safe_weak
 from compatible.cvar import AtomicCSP
 from compatible.error import Errors
+from FDev.Main.Core.Lang.Convertion import safe_weak
 
 T_co = TypeVar('T_co', covariant=True)
 T_Obj_co = TypeVar('T_Obj_co', bound=UObject, covariant=True)

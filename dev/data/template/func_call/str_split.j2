@@ -1,2 +1,2 @@
-{{- emit_depends('"App/Main/Core/Core.h"') -}}
-String::split({{ receiver }}, {{ arguments[0] }}){% if is_statement %};{% endif %}
+{{- emit_depends('"' + env_get('app_name') + '/Main/Core/Core.h"') -}}
+{{ env_get('app_name') }}String::split({{ receiver }}, {{ arguments[0] }}){% if is_statement %};{% endif %}

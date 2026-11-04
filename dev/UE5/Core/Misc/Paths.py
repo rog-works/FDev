@@ -2,7 +2,7 @@ from os import path as os_path
 
 from tranp.app.compatible.python.embed import Embed
 
-from App.Main.Const.ProjectConst import PackagePrefixs
+from FDev.Main.Const.ProjectConst import PackageConst
 from helper.env.directories import project_dir
 
 
@@ -70,7 +70,7 @@ class PackageName:
 		Returns:
 			ファイルパス
 		"""
-		normalize_path = package_path.replace(f'{PackagePrefixs.Game}/', '').replace('/', os_path.sep)
+		normalize_path = package_path.replace(f'{PackageConst.Game}/', '').replace('/', os_path.sep)
 		filepath = '{path}{ext}'.format(path=normalize_path, ext=asset_ext)
 		return os_path.join(Paths.ProjectContentDir(), filepath)
 

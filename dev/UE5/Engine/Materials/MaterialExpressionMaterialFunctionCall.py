@@ -8,7 +8,7 @@ from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UFUNCTION, USTRUCT
 from UE5.Engine.Materials.MaterialExpression import ExpressionInput, MaterialExpression
 from UE5.Engine.Materials.MaterialFunction import MaterialFunctionInterface
 
-from App.Main.Core.Lang.Convertion import safe_addr
+from FDev.Main.Core.Lang.Convertion import safe_addr
 
 
 @Embed.struct

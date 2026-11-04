@@ -7,7 +7,7 @@ from UE5.Core.UObject.NameTypes import Name as FName
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS
 from UE5.Engine.Materials.MaterialExpression import ExpressionInput, MaterialExpression
 
-from App.Main.Core.Lang.Convertion import safe_addr
+from FDev.Main.Core.Lang.Convertion import safe_addr
 
 
 @Embed.alias('U', prefix=True)

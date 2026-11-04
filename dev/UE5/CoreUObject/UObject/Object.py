@@ -15,8 +15,8 @@ from tranp.app.lang.typehint import ClassTypehint
 from UE5.Core.UObject.NameTypes import Name
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, Abstract, EmbedKeys
 
-from App.Main.Const.ProjectConst import PackagePrefixs, ProjectConst
 from compatible.error import Errors
+from FDev.Main.Const.ProjectConst import PackageConst, ProjectConst
 
 T_Obj = TypeVar('T_Obj', bound='UObject')
 
@@ -512,7 +512,7 @@ class UStruct(UObject):
 	@override
 	def GetPathName(self) -> str:
 		"""Returns: DSN"""
-		return f'{PackagePrefixs.Script}/{ProjectConst.Name}.{self.GetName()}'
+		return f'{PackageConst.Script}/{ProjectConst.Name}.{self.GetName()}'
 
 	@override
 	def GetClass(self) -> 'CP[UClass]':
@@ -930,7 +930,7 @@ class Package(UObject):
 			```
 		"""
 		instance = CP(cls())
-		instance.on.NamePrivate = Name(f'{PackagePrefixs.Game}/{asset_path}')
+		instance.on.NamePrivate = Name(f'{PackageConst.Game}/{asset_path}')
 		return instance
 
 
@@ -976,18 +976,18 @@ class Objects:
 	@classmethod
 	def transient_package(cls) -> CP[Package]:
 		"""Returns: パッケージ(Transient)"""
-		return cls.package_by_name(f'{PackagePrefixs.Script}/Transient')
+		return cls.package_by_name(f'{PackageConst.Script}/Transient')
 
 	@classmethod
 	def package_by_utype(cls, utype: CP[UStruct]) -> CP[Package]:
 		"""Args: utype: 型情報 Returns: パッケージ"""
 		elems = utype.on.origin.__module__.split('.')
-		if elems[0] == 'App' and elems[1] != 'Main':
-			return cls.package_by_name(f'{PackagePrefixs.Script}/{ProjectConst.Name}{elems[1]}')
-		elif elems[0] == 'App' or elems[0] == 'tests':
-			return cls.package_by_name(f'{PackagePrefixs.Script}/{ProjectConst.Name}')
+		if elems[0] == PackageConst.AppSource and elems[1] != 'Main':
+			return cls.package_by_name(f'{PackageConst.Script}/{ProjectConst.Name}{elems[1]}')
+		elif elems[0] == PackageConst.AppSource or elems[0] == 'tests':
+			return cls.package_by_name(f'{PackageConst.Script}/{ProjectConst.Name}')
 		else:
-			return cls.package_by_name(f'{PackagePrefixs.Script}/{elems[1]}')
+			return cls.package_by_name(f'{PackageConst.Script}/{elems[1]}')
 
 	@classmethod
 	def package_by_name(cls, package_name: str) -> CP[Package]:

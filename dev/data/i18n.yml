@@ -90,6 +90,5 @@ aliases.UE5.Engine.Kismet.KismetSystemLibrary#DrawDebugTrace.Type.None_: None
 # lang
 imports.collections.abc: '#include <functional>'
 # App
-imports.App.Main.Core.Logs: '#include "App/Main/Core/Core.h"'
 # UE
 imports.UE5.UMG.Blueprint.UserWidget: '#include "Blueprint/WidgetTree.h"'

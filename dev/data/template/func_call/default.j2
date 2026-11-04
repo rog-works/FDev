@@ -7,14 +7,6 @@
 	{{ arguments[0] }}{% if is_statement %};{% endif %}
 {%- elif calls == 'UTF8_TO_TCHAR' -%}
 	{{ calls }}(reinterpret_cast<const char*>(({{ arguments[0] }}).GetData())){% if is_statement %};{% endif %}
-{%- elif calls == 'String::find_strict' -%}
-	{%- if (arguments | length) == 4 -%}
-		{{ arguments[0] }}.{{ i18n('classes', 'str.find') }}(*{{ arguments[1] }}, {{ arguments[3] }}, ESearchCase::CaseSensitive, ESearchDir::FromStart, {{ arguments[2] }}){% if is_statement %};{% endif -%}
-	{%- else -%}
-		{{ arguments[0] }}.{{ i18n('classes', 'str.find') }}(*{{ arguments[1] }}, {{ arguments[1] }}.{{ i18n('cpp', 'string.size') }}(), ESearchCase::CaseSensitive, ESearchDir::FromStart, {{ arguments[2] }}){% if is_statement %};{% endif -%}
-	{%- endif -%}
-{%- elif calls == 'String::replace_strict' -%}
-	{{ arguments[0] }}.Replace(*{{ arguments[1] }}, *{{ arguments[2] }}, ESearchCase::CaseSensitive){% if is_statement %};{% endif %}
 {%- else -%}
 	{{ calls }}({{ arguments | join(', ') }}){% if is_statement %};{% endif %}
 {%- endif -%}

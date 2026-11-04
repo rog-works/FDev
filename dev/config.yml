@@ -4,10 +4,10 @@ template_dirs:
   - data/template
   - ${tranp_dir}/data/cpp/template
 input_globs:
-  - App/**/*.py
+  - FDev/**/*.py
 exclude_patterns: []
 output_dirs:
-  - App/Editor/*:../Source/FDevEditor/Public
+  - FDev/Editor/*:../Source/FDevEditor/Public
   - ../Source/FDev/Public
 output_language: cpp:h
 di:
@@ -15,7 +15,7 @@ di:
 env:
   transpiler:
     include_dirs:
-      - App/:App/
+      - FDev/:FDev/
       - UE5/AssetRegistry/
       - UE5/Core/
       - UE5/CoreUObject/
