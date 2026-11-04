@@ -1,2 +1,11 @@
-.cache/
-vendor/
+/.cache/
+/.example/
+/Binaries/
+/Build/
+/DerivedDataCache/
+/Intermediate/
+/Platforms/
+/Plugins/
+/Saved/
+/dev/.cache/
+/dev/vendor/
