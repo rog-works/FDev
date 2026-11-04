@@ -4,10 +4,8 @@ from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper
 from typing import IO, Any
 
-from UE5.Core.Misc.Paths import Paths
-
 from const.const_asset import AssetDomains, AssetFormats
-from helper.env.directories import cache_dir, master_dir, script_dir
+from helper.env.directories import cache_dir, master_dir, project_dir, script_dir
 from helper.schema.json_serialize import save_json
 
 
@@ -123,7 +121,7 @@ class MasterLoader(metaclass=ABCMeta):
 		Returns:
 			IO
 		"""
-		filepath = os.path.join(Paths.ProjectDir(), AssetFormats.MasterFilepath.value.format(path=os.path.join(domain, src)))
+		filepath = os.path.join(project_dir(), AssetFormats.MasterFilepath.value.format(path=os.path.join(domain, src)))
 		return open(filepath, mode='w', encoding='utf-8', newline='')
 
 	@classmethod
