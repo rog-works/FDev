@@ -1,0 +1,2 @@
+{%- set _prop_annos = annotations | filter_find('UPROPERTY') -%}
+{{- accessor }}: {% if _prop_annos %}{{ _prop_annos[0] }} {% endif %}{{ decl_this_var -}}

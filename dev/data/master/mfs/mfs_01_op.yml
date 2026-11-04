@@ -1,0 +1,65 @@
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"eb6a224fa61dd5cc4e3e9de312feac31","path":"script.mfs.mfs_01_op"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+op_not:
+  name: op_not
+  desc: '0と1を反転'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値 (0 or 1)']]
+  statements:
+    - returns: [result, one_minus: [value], '0 or 1']
+op_ge:
+  name: op_ge
+  desc: 'value >= threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 0.0, '閾値 (default = 0.0)']]
+  statements:
+    - returns: [result, step: [threshold, value], '0 or 1']
+op_le:
+  name: op_le
+  desc: 'value <= threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 1.0, '閾値 (default = 1.0)']]
+  statements:
+    - returns: [result, step: [value, threshold], '0 or 1']
+op_gt:
+  name: op_gt
+  desc: 'value > threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 0.0, '閾値 (default = 0.0)']]
+  statements:
+    - returns: [result, one_minus: [step: [value, threshold]], '0 or 1']
+op_lt:
+  name: op_lt
+  desc: 'value < threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 1.0, '閾値 (deafult = 1.0)']]
+  statements:
+    - returns: [result, one_minus: [step: [threshold, value]], '0 or 1']
+op_in:
+  name: op_in
+  desc: 'min <= value <= max'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [minimum, param: [float, minimum, 0.0, '下限 (deafult = 0.0)']]
+    - var: [maximum, param: [float, maximum, 1.0, '上限 (deafult = 1.0)']]
+  statements:
+    - returns: [result, mul: [op_ge: [value, minimum], op_le: [value, maximum]], '0 or 1']
+op_bit4_on:
+  name: op_bit4_on
+  desc: '指定のビットを判定'
+  params:
+    - var: [flags, param: [float, flags, 1.0, '1.0 ~ 15.0']]
+    - var: [index, param: [float, index, 1.0, '1.0 ~ 4.0']]
+  statements:
+    - var: [mask_4, op_gt: [index, 3.0]]
+    - var: [mask_3, mul: [op_lt: [index, 4.0], op_gt: [index, 2.0]]]
+    - var: [mask_2, mul: [op_lt: [index, 3.0], op_gt: [index, 1.0]]]
+    - var: [mask_1, op_lt: [index, 2.0]]
+    - var: [bit4, mul: [mask_4, op_ge: [mod: [mul: [flags, 0.125], 2.0], 1.0]]]
+    - var: [bit3, mul: [mask_3, op_ge: [mod: [mul: [flags, 0.25], 2.0], 1.0]]]
+    - var: [bit2, mul: [mask_2, op_ge: [mod: [mul: [flags, 0.5], 2.0], 1.0]]]
+    - var: [bit1, mul: [mask_1, op_ge: [mod: [flags, 2.0], 1.0]]]
+    - returns: [result, add: [add: [add: [bit4, bit3], bit2], bit1], '0 or 1']

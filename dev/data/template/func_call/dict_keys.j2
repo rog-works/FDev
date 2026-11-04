@@ -1,0 +1,5 @@
+[&]() -> {{ i18n('classes', 'list') }}<{{ var_type }}> {
+	{{ i18n('classes', 'list') }}<{{ var_type }}> __ret;
+	{{ receiver }}{{ operator }}GenerateKeyArray(__ret);
+	return __ret;
+}(){% if is_statement %};{% endif %}

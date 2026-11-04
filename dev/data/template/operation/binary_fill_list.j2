@@ -1,0 +1,9 @@
+{%- if default_is_list -%}
+[&]() -> {{ i18n('classes', 'list') }}<{{ value_type }}> {
+	{{ i18n('classes', 'list') }}<{{ value_type }}> __ret;
+	__ret.Init({{ default[1:-1] }}, {{ size }});
+	return __ret;
+}()
+{%- else -%}
+{{ i18n('classes', 'list') }}<{{ value_type }}>({{ i18n('classes', 'list') }}<{{ value_type }}>(), {{ size }})
+{%- endif -%}

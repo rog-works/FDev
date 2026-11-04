@@ -1,0 +1,2 @@
+{{- emit_depends('"App/Main/Core/Core.h"') -}}
+String::ltrim({{ receiver }}, '{{ arguments[0][1:-1] }}'){% if is_statement %};{% endif %}

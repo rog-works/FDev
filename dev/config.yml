@@ -1,0 +1,33 @@
+grammar: ${tranp_dir}/data/grammar.lark
+trans_mapping: data/i18n.yml
+template_dirs:
+  - data/template
+  - ${tranp_dir}/data/cpp/template
+input_globs:
+  - App/**/*.py
+exclude_patterns: []
+output_dirs:
+  - App/Editor/*:../Source/FDevEditor/Public
+  - ../Source/FDev/Public
+output_language: cpp:h
+di:
+  tranp.app.view.render.RendererHelperProvider: helper.view.ue_view_helper.renderer_helper_provider
+env:
+  transpiler:
+    include_dirs:
+      - App/:App/
+      - UE5/AssetRegistry/
+      - UE5/Core/
+      - UE5/CoreUObject/
+      - UE5/Engine/
+    cvars:
+      AtomicCSP: CSP
+    string_formats:
+      AtomicCSP: '%p'
+  view:
+    immutable_param_types:
+      - FString
+      - TArray
+      - TMap
+      - std::function
+    app_name: FDev

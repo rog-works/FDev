@@ -1,0 +1,10 @@
+{%- set classify = 'struct' if deco_query.contains('Embed.struct') else ('union' if deco_query.contains('Embed.union') else ('namespace' if deco_query.contains('Embed.namespace') else 'class')) -%}
+{%- if '_' not in symbol and deco_query.contains('UCLASS', 'USTRUCT') -%}
+	{%- if 'Editor' in module_path -%}
+		{{- classify + ' ' + env_get('app_name').upper() + 'EDITOR_API' -}}
+	{%- else -%}
+		{{- classify + ' ' + env_get('app_name').upper() + '_API' -}}
+	{%- endif -%}
+{%- else -%}
+	{{- classify -}}
+{%- endif -%}

@@ -1,0 +1,7 @@
+{%- if var_type in ['int', 'float'] -%}
+{{ literal }}
+{%- elif prop == '__name__' and reg_match('^[AFESTU][A-Z_]', literal) -%}
+"{{ literal[1:] }}"
+{%- else -%}
+"{{ literal }}"
+{%- endif -%}

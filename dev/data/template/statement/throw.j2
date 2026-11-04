@@ -1,0 +1,9 @@
+{{- emit_depends('"App/Main/Core/Core.h"') -}}
+{%- if throws -%}
+throw CoreError(TEXT("[{{ throws }}]:"));
+{%- elif calls and arguments -%}
+{%- import 'func_call/_str_format.j2' as block -%}
+throw CoreError({{ i18n('cpp', 'string.format') }}({{ block.get_content('"[' + calls + ']: ' + format[1:-1] + '"', formatters, arguments, True) }}));
+{%- elif calls -%}
+throw CoreError(TEXT("[{{ calls }}]:"));
+{%- endif -%}

@@ -1,0 +1,12 @@
+{
+	"files.exclude": {
+		"**/.git": true,
+		// プロジェクトルート配下の非表示フォルダ
+		"Binaries/": true,
+		"Build/": true,
+		"DerivedDataCache/": true,
+		"Platforms/": true,
+		"Plugins": true,
+		"Saved/": true,
+	},
+}

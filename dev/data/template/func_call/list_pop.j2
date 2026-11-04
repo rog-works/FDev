@@ -1,0 +1,10 @@
+{%- if arguments -%}
+[&]() -> {{ var_type }} {
+	auto __index = {{ arguments[0] }};
+	auto __copy = {{ receiver }}[__index];
+	{{ receiver }}{{ operator }}RemoveAt(__index);
+	return __copy;
+}(){% if is_statement %};{% endif %}
+{%- else -%}
+{{ receiver }}{{ operator }}Pop(){% if is_statement %};{% endif %}
+{%- endif -%}

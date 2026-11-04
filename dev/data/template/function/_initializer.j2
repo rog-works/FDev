@@ -1,0 +1,20 @@
+{%- if initializer_indexs or initializer_index_of_super != -1 %}{{ ' : ' -}}
+	{%- if initializer_index_of_super != -1 -%}
+		{%- set super_class, super_args = super_initializer_parse(statements[initializer_index_of_super]) -%}
+		{{- super_class }}({{ super_args -}})
+	{%- endif -%}
+	{%- for initializer_index in initializer_indexs -%}
+		{%- set this_var_symbol, this_var_value = initializer_parse(statements[initializer_index]) -%}
+		{%- if loop.index0 > 0 or initializer_index_of_super != -1 %}, {% endif -%}
+		{#- XXX UEのUCLASSマクロは、コンストラクター末尾のInitializerをパース出来ないため、引数無しは'()'にする -#}
+		{%- if this_var_value == '{}' -%}
+			{{- this_var_symbol }}()
+		{%- elif this_var_value.startswith('{') -%}
+			{{- this_var_symbol }}{{ this_var_value }}
+		{%- elif this_var_value -%}
+			{{- this_var_symbol }}({{ this_var_value -}})
+		{%- else -%}
+			{{- this_var_symbol }}()
+		{%- endif -%}
+	{%- endfor -%}
+{%- endif -%}

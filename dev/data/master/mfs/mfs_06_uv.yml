@@ -1,0 +1,60 @@
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"3a64f0059c5d9280f95af209757cb7a0","path":"script.mfs.mfs_06_uv"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+uv_invert_x:
+  name: uv_invert_x
+  desc: 'UV座標の進行逆転 (X軸)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [border, param: [float, border, 1.0, '逆転境界 (0 < n <= 1)']]
+  statements:
+    - var: [x, mul: [math_010: [mask: [uv, x], mul: [border, 2.0]], border]]
+    - returns: [result, make_float2: [x, mask: [uv, y]], 'UV座標']
+uv_to_vector:
+  name: uv_to_vector
+  desc: 'UV座標からベクトルに変換'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+  statements:
+    - returns: [result, sub: [mul: [uv, 2.0], 1.0], 'ベクトル (-1 ~ 1)']
+uv_to_resolution:
+  name: uv_to_resolution
+  desc: 'UV座標から解像度を算出'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [dpi_scale, param: [float, dpi_scale, 0.666, 'DPIスケール (default = 0.666)']]
+  statements:
+    - var: [dx, ddx: [uv]]
+    - var: [dy, ddy: [uv]]
+    - var: [aspect, div: [length: [abs: [dx]], length: [abs: [dy]]]]
+    - var: [ax, min: [1.0, aspect]]
+    - var: [ay, max: [1.0, aspect]]
+    - var: [pixel_size, add: [div: [length: [dx], ax], mul: [length: [dy], ay]]]
+    # 最終結果を2倍すると期待する結果と一致する(DDX/DDYでは半径を元に計算している？)
+    - var: [resolution, mul: [mul: [div: [1.0, math_aspect2d: [aspect]], div: [1.0, pixel_size]], 2.0]]
+    - returns: [result, mul: [resolution, div: [1.0, dpi_scale]], '解像度']
+uv_deformation:
+  name: uv_deformation
+  desc: 'UV座標の変形'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [offset, param: [float2, offset, float2: [0.0, 0.0], 'オフセット座標 (default = 0:0)']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+    - var: [scale, param: [float2, scale, float2: [1.0, 1.0], '拡大率 (0以上, default = 1.0)']]
+  statements:
+    - var: [deform, div: [float2: [1.0, 1.0], mul: [math_aspect2d: [aspect], scale]]]
+    - var: [half, mul: [sub: [float2: [1.0, 1.0], deform], 0.5]]
+    - returns: [result, add: [mul: [add: [uv, offset], deform], half], '変形後のUV座標']
+uv_radial:
+  name: uv_radial
+  desc: 'UV座標リマッピング(放射状)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [offset, param: [float2, offset, float2: [0.0, 0.0], 'オフセット座標 (default = 0:0)']]
+    - var: [scale, param: [float, scale, 1.0, '倍率 (default = 1.0)']]
+  statements:
+    - var: [scale_multi, div: [1.0, scale]]
+    - var: [scale_offset, mul: [sub: [scale_multi, 1.0], 0.5]]
+    - var: [deform, sub: [mul: [add: [uv, offset], scale_multi], scale_offset]]
+    - var: [vector, uv_to_vector: [deform]]
+    - var: [ux, math_atan2_clock: [mask: [vector, y], mask: [vector, x]]]
+    - var: [uy, length: [vector]]
+    - returns: [result, make_float2: [ux, uy], 'UV座標']

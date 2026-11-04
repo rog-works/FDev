@@ -1,0 +1,3 @@
+{%- set subject = 'TEXT(' + arguments[0] + ')' if is_quoted_literal(arguments[0]) else '*(' + arguments[0] + ')' -%}
+{%- set replace = 'TEXT(' + arguments[1] + ')' if is_quoted_literal(arguments[1]) else '*(' + arguments[1] + ')' -%}
+{{ receiver }}{{ operator }}Replace({{ subject }}, {{ replace }}){% if is_statement %};{% endif %}

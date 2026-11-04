@@ -1,0 +1,29 @@
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"54d43b484bbabf23dcf51da9ef60a64b","path":"script.mfs.mfs_04_matrix"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+matrix_rotation2d:
+  name: matrix_rotation2d
+  desc: 'ベクトルを回転'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [u_theta, param: [float, u_theta, 0.0, '回転角度 (0 ~ 1)']]
+  statements:
+    - var: [xv, mul: [vector, cos: [u_theta]]]
+    - var: [yv, mul: [vector, sin: [u_theta]]]
+    - returns: [result, make_float2: [sub: [mask: [xv, x], mask: [yv, y]], add: [mask: [yv, x], mask: [xv, y]]], 'ベクトル']
+matrix_rotation_around_axis:
+  name: matrix_rotation_around_axis
+  desc: 'ベクトルを軸周りに回転'
+  params:
+    - var: [vector, param: [float3, vector, float3: [1.0, 0.0, 0.0], 'ベクトル']]
+    - var: [axis, param: [float3, axis, float3: [0.0, 1.0, 0.0], '回転軸']]
+    - var: [u_theta, param: [float, u_theta, 0.0, '回転角度 (0 ~ 1)']]
+  statements:
+    - var: [c, cos: [u_theta]]
+    - var: [s, sin: [u_theta]]
+    - var: [a2, mul: [axis, axis]]
+    - var: [a3, mul: [axis, make_float3: [mask: [axis, y], mask: [axis, z], mask: [axis, x]]]]
+    - var: [a4, mul: [axis, s]]
+    - var: [ic, one_minus: [c]]
+    - var: [xv, mul: [make_float3: [add: [mul: [ic, mask: [a2, x]], c], add: [mul: [ic, mask: [a3, x]], mask: [a4, z]], sub: [mul: [ic, mask: [a3, z]], mask: [a4, y]]], mask: [vector, x]]]
+    - var: [yv, mul: [make_float3: [sub: [mul: [ic, mask: [a3, x]], mask: [a4, z]], add: [mul: [ic, mask: [a2, y]], c], add: [mul: [ic, mask: [a3, y]], mask: [a4, x]]], mask: [vector, y]]]
+    - var: [zv, mul: [make_float3: [add: [mul: [ic, mask: [a3, z]], mask: [a4, y]], sub: [mul: [ic, mask: [a3, y]], mask: [a4, x]], add: [mul: [ic, mask: [a2, z]], c]], mask: [vector, z]]]
+    - returns: [result, add: [add: [xv, yv], zv], 'ベクトル']

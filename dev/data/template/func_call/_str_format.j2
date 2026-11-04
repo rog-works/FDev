@@ -1,0 +1,28 @@
+{%- macro get_content(format, formatters, arguments, unwrap_addr) -%}
+{%- set alt_format = namespace(at=format) -%}
+{%- set alt_arguments = namespace(at=[]) -%}
+{%- for i in range(formatters | length) -%}
+	{%- set formatter = formatters[i] -%}
+	{%- set tag = '{' + formatter.label + '}' -%}
+	{%- if formatter.tag == '%p' and unwrap_addr -%}
+		{%- set alt_format.at = alt_format.at | replace(tag, '%s') -%}
+	{%- else -%}
+		{%- set alt_format.at = alt_format.at | replace(tag, formatter.tag) -%}
+	{%- endif -%}
+	{%- if formatter.is_function -%}
+		{%- set alt_arguments.at = alt_arguments.at + ['TEXT("' + arguments[i] + '")'] -%}
+	{%- elif formatter.tag == '%s' and formatter.var_type != 'str' -%}
+		{%- set to_raw = '*' if arguments[i] == 'this' else '' -%}
+		{%- set alt_arguments.at = alt_arguments.at + ['*(' + to_raw + arguments[i] + ').ToString()'] -%}
+	{%- elif formatter.tag == '%s' and not formatter.is_literal -%}
+		{%- set alt_arguments.at = alt_arguments.at + ['*' + arguments[i]] -%}
+	{%- elif formatter.tag == '%s' -%}
+		{%- set alt_arguments.at = alt_arguments.at + ['TEXT(' + arguments[i] + ')'] -%}
+	{%- elif formatter.tag == '%p' and unwrap_addr -%}
+		{%- set alt_arguments.at = alt_arguments.at + ['*(*' + arguments[i] + ').ToString()'] -%}
+	{%- else -%}
+		{%- set alt_arguments.at = alt_arguments.at + [arguments[i]] -%}
+	{%- endif -%}
+{%- endfor -%}
+TEXT({{ alt_format.at }}), {{ alt_arguments.at | join(', ') }}
+{%- endmacro -%}

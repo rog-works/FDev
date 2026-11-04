@@ -1,0 +1,7 @@
+{%- if label == 'meta' -%}
+{{ label }}={{ ue_meta_parse(value).format() }}
+{%- elif value == 'this' -%}
+*{{ value }}
+{%- else -%}
+{{ value }}
+{%- endif -%}

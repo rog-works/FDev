@@ -1,0 +1,5 @@
+{%- if deco_query.contains('UENUM') -%}
+{% if accessor %}{{ accessor }}: {% endif %}enum class {{ symbol }} : uint8
+{%- else -%}
+{% if accessor %}{{ accessor }}: {% endif %}enum class {{ symbol }}
+{%- endif -%}

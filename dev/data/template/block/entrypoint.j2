@@ -1,0 +1,28 @@
+// {{ meta_header }}
+#pragma once
+{%- set gen_include = namespace(ok=False) -%}
+{#- インクルードの出力 -#}
+{%- for statement in statements -%}
+	{#- アノテーション用のインクルードの判定 -#}
+	{%- if not gen_include.ok and statement == '#include "UObject/ObjectMacros.h"' -%}
+		{%- set gen_include.ok = True -%}
+	{%- endif -%}
+	{%- if statement.startswith('#include') %}
+{{ statement }}
+	{%- endif %}
+{%- endfor -%}
+{#- 追加依存のインクルードを出力 -#}
+{%- for include_path in depends %}
+#include {{ include_path }}
+{%- endfor %}
+{#- コードジェネレート用のインクルードを出力 -#}
+{%- if gen_include.ok %}
+#include "{{ module_path.split('.')[-1] }}.generated.h"
+{%- endif %}
+
+{#- インクルード以外の出力 -#}
+{%- for statement in statements %}
+{%- if not statement.startswith('#include') %}
+{{ statement }}
+{%- endif %}
+{%- endfor %}{{ '\n' }}

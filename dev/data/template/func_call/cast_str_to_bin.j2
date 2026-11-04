@@ -1,0 +1,13 @@
+{%- if calls == 'float' -%}
+FCString::Atof(*{{ arguments[0] }}){% if is_statement %};{% endif %}
+{%- elif calls == 'double' -%}
+FCString::Atod(*{{ arguments[0] }}){% if is_statement %};{% endif %}
+{%- elif calls == 'uint64' -%}
+FCString::Strtoui64(*{{ arguments[0] }}, nullptr, 0){% if is_statement %};{% endif %}
+{%- elif calls in ['uint32', 'int64'] and arguments | length == 1 -%}
+FCString::Atoi64(*{{ arguments[0] }}){% if is_statement %};{% endif %}
+{%- elif arguments | length == 1 -%}
+FCString::Atoi(*{{ arguments[0] }}){% if is_statement %};{% endif %}
+{%- else -%}
+FCString::Strtoi(*{{ arguments[0] }}, nullptr, {{ arguments[1] }}){% if is_statement %};{% endif %}
+{%- endif -%}

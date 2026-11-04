@@ -1,0 +1,12 @@
+{% if allow_override %}virtual {% endif %}void PostInitProperties() override {
+	Super::PostInitProperties();
+	if (!this->HasAnyFlags(EObjectFlags::RF_ClassDefaultObject)) {
+{%- filter indent('\t\t') %}
+{%- for statement in statements %}
+{%- if not statement.endswith('::post_init_properties();') %}
+{{ statement }}
+{%- endif %}
+{%- endfor %}
+{%- endfilter %}
+	}
+}

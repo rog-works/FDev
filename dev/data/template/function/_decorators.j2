@@ -1,0 +1,3 @@
+{%- for deco in deco_query.any('UFUNCTION') %}
+{{ deco.decorator }}
+{%- endfor %}

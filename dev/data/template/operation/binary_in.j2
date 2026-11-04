@@ -1,0 +1,9 @@
+{%- if operator == 'in' and right_is_dict -%}
+{{ right }}.Contains({{ left }})
+{%- elif operator == 'not.in' and right_is_dict -%}
+(!{{ right }}.Contains({{ left }}))
+{%- elif operator == 'in' and not right_is_dict -%}
+{{ right }}.Contains({{ left }})
+{%- elif operator == 'not.in' and not right_is_dict -%}
+(!{{ right }}.Contains({{ left }}))
+{%- endif -%}

@@ -1,0 +1,6 @@
+{%- set subject = 'TEXT(' + arguments[0] + ')' if is_quoted_literal(arguments[0]) else arguments[0] -%}
+{%- if arguments | length == 1 -%}
+{{ calls }}({{ subject }}){% if is_statement %};{% endif %}
+{%- else -%}
+{{ calls }}({{ subject }}, ESearchCase::IgnoreCase, ESearchDir::FromStart, {{ arguments[1] }}){% if is_statement %};{% endif %}
+{%- endif -%}

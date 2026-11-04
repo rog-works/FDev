@@ -1,0 +1,7 @@
+{%- if target.type == 'list' -%}
+{{ target.receiver }}.RemoveAt({{ target.key }})
+{%- elif target.type == 'dict' -%}
+{{ target.receiver }}.{{ i18n('cpp', 'map.erase') }}({{ target.key }})
+{%- else -%}
+delete {{ target.receiver }}
+{%- endif %}

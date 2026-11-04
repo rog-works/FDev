@@ -1,0 +1,6 @@
+{{- emit_depends('"CoreMinimal.h"') -}}
+{%- if assert_body -%}
+checkf({{ condition }}, TEXT("{{ assert_body }}"));
+{%- else -%}
+check({{ condition }});
+{%- endif -%}

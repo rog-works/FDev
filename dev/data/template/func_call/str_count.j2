@@ -1,0 +1,2 @@
+{{- emit_depends('"App/Main/Core/Core.h"') -}}
+String::count({{ receiver }}, {{ arguments[0] }}){% if is_statement %};{% endif %}

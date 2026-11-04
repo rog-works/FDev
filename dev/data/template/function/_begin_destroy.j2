@@ -1,0 +1,12 @@
+{% if allow_override %}virtual {% endif %}void BeginDestroy() override {
+	if (!this->HasAnyFlags(EObjectFlags::RF_ClassDefaultObject)) {
+{%- filter indent('\t\t') %}
+{%- for statement in statements %}
+{%- if not statement.endswith('::begin_destroy();') %}
+{{ statement }}
+{%- endif %}
+{%- endfor %}
+{%- endfilter %}
+	}
+	Super::BeginDestroy();
+}

@@ -1,0 +1,17 @@
+{%- if calls == 'getattr' -%}
+	{{ arguments[0] }}::{{ arguments[1][1:-1] }}{% if is_statement %};{% endif -%}
+{%- elif calls == 'immutable_const_cast' -%}
+	{%- if arguments[0].endswith('*') -%}
+		const_cast<{{ arguments[0] }}>({{ arguments[1] }}){% if is_statement %};{% endif -%}
+	{%- else -%}
+		const_cast<{{ arguments[0] }}&>({{ arguments[1] }}){% if is_statement %};{% endif -%}
+	{%- endif -%}
+{%- elif calls == 'unpack_shared' -%}
+	{{ arguments[0] }}
+{%- elif calls == 'UPROPERTY' -%}
+	{{ calls }}({{ arguments | join(', ') }})
+{%- elif calls == 'sizeof' -%}
+	{{- calls }}({{ arguments[0] }}){% if is_statement %};{% endif -%}
+{%- else -%}
+	{{ calls }}<{{ arguments[:begin_index] | join(', ') }}>({{ arguments[begin_index:] | join(', ') }}){% if is_statement %};{% endif %}
+{%- endif %}

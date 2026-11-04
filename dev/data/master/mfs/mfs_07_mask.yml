@@ -1,0 +1,240 @@
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"b0dbb5e3b88e9e4f3e86aeabaefeadc7","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+mask_polygon:
+  name: mask_polygon
+  desc: '多角形マスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [sides, param: [float, sides, 3.0, '角の数 (3 ~ 10, default = 3.0)']]
+  statements:
+    - var: [in_sides, floor: [max: [3.0, sides]]]
+    # ベクトルの角度を算出
+    - var: [u_vector, div: [proxy_atan2_fast: [mask: [vector, x], mask: [vector, y]], mul: [2.0, pi: []]]]
+    # 1単位(=面)ごとの目標の角度を算出。360度/角数=1単位なので、0.5単位加算することで区分を半単位ずらす
+    - var: [u_max, div: [1.0, in_sides]]
+    - var: [u_face, mul: [floor: [add: [div: [u_vector, u_max], 0.5]], u_max]]
+    # ベクトルの単位長を算出。誤差が0.5単位の時、1の長さになる
+    - var: [u_half, mul: [u_max, 0.5]]
+    - var: [unit_vector, div: [vector, cos: [u_half]]]
+    - var: [v_length, length: [unit_vector]]
+    # 目標の角度との誤差を算出。中央反転するため誤差は-0.5~0.5単位になる
+    - var: [u_diff, sub: [u_face, u_vector]]
+    # ベクトルの距離を算出。角の角度に近いほど(=誤差が小さい)長くなる
+    - returns: [result, mul: [cos: [u_diff], v_length], '強度']
+mask_polygon_round:
+  name: mask_polygon_round
+  desc: '多角形マスクを生成(角丸)'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [sides, param: [float, sides, 3.0, '角の数 (3 ~ 10, default = 3.0)']]
+    - var: [round_r, param: [float, round_r, 0.1, '角丸の半径 (0 < n < 1, default = 0.1)']]
+  statements:
+    - var: [t_360, mul: [2.0, pi: []]]
+    - var: [u_max, div: [1.0, sides]]
+    - var: [u_half, mul: [u_max, 0.5]]
+    # 初期位置の向きを合わせるため半単位引き、鏡像反転するため絶対値を取る
+    - var: [u_theta, abs: [sub: [div: [proxy_atan2_fast: [mask: [vector, x], mask: [vector, y]], t_360], u_half]]]
+    # 多角形の1面を半分にした2等辺三角形の各辺の距離を算出
+    - var: [t0, sub: [0.5, add: [0.25, u_half]]]
+    - var: [b0, 1.0]
+    - var: [h0, dot: [b0, sin: [t0]]]
+    # 角丸の半径の交点から多角形先端部の各辺の距離を算出
+    - var: [h1, mul: [round_r, div: [1.0, length: [float2: [1.0, 1.0]]]]]
+    - var: [a1, div: [h1, tan: [t0]]]
+    # 角丸の有効角度(t2)を算出
+    - var: [b2, sub: [b0, a1]]
+    - var: [t2, div: [proxy_atan2_fast: [h1, b2], t_360]]
+    # ベクトルの角度における多角形の境界線までの長さ(b3)を算出
+    - var: [t3, abs: [sub: [mod: [u_theta, u_max], u_half]]]
+    - var: [h3, dot: [h0, tan: [t3]]]
+    - var: [b3, length: [make_float2: [h3, h0]]]
+    # 角丸の有効角度から(0 ~ 1)を算出
+    - var: [alpha, math_linear_edge: [u_theta, u_max, t2]]
+    # 角丸の座標を算出
+    - var: [round_t, mul: [add: [0.5, mul: [0.5, alpha]], 0.25]]
+    - var: [round, mul: [make_float2: [cos: [round_t], sin: [round_t]], round_r]]
+    - var: [round_base, make_float2: [0.0, sub: [b0, add: [a1, h1]]]]
+    - var: [round_pos, add: [round, round_base]]
+    - var: [round_l, length: [round_pos]]
+    # ベクトルの距離を基に境界線までの割合を算出
+    - returns: [result, div: [length: [vector], min: [b3, round_l]], '強度']
+mask_square:
+  name: mask_square
+  desc: '四角マスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [size, param: [float, size, 1.0, '径 (0 ~ 1, default = 1.0)']]
+  statements:
+    - var: [abs_vector, abs: [vector]]
+    - returns: [result, div: [max: [mask: [abs_vector, x], mask: [abs_vector, y]], size], '強度']
+mask_square_round:
+  name: mask_square_round
+  desc: '四角マスク(角丸)を生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [size, param: [float, size, 1.0, '径 (0 ~ 1, default = 1.0)']]
+    - var: [radius, param: [float, radius, 0.5, '角丸の半径 (0 < n < size, default = 0.5)']]
+    - var: [radius_min, param: [float, radius_min, 0.0, '角丸の半径/下限 (n < radius < size, default = 0.0)']]
+    - var: [allows, param: [float, allows, 15.0, '角丸生成ビットフラグ (0 ~ 15, default = 15)']]
+  statements:
+    - var: [allow, op_bit4_on: [allows, math_vector_to_edge: [vector]]]
+    # 正規ベクトルから1の斜辺の最大長を算出。中心点(0, 0)はゼロ除算が発生するため対策
+    - var: [nv, normalize: [abs: [vector]]]
+    - var: [max_y, div: [min: [mask: [nv, x], mask: [nv, y]], max: [0.001, max: [mask: [nv, x], mask: [nv, y]]]]]
+    - var: [max_length, length: [make_float2: [1.0, saturate: [max_y]]]]
+    # 半径内のY座標から0 ~ 1を算出。半径の円の長さから減算量を算出
+    - var: [clamp_radius, max: [mul: [radius, allow], radius_min]]
+    - var: [radius_y, div: [max: [sub: [max_y, one_minus: [clamp_radius]], 0.0], max: [0.001, clamp_radius]]]
+    - var: [radius_length, length: [make_float2: [clamp_radius, mul: [radius_y, clamp_radius]]]]
+    - var: [diff_length, sub: [radius_length, clamp_radius]]
+    # 角丸時の最大長と最大長の比率を基にサイズを補正
+    - var: [round_length, sub: [max_length, diff_length]]
+    - var: [clamp_size, mul: [mul: [size, max_length], div: [round_length, max_length]]]
+    - returns: [result, div: [length: [vector], clamp_size], '強度']
+mask_square_round_fix:
+  name: mask_square_round_fix
+  desc: '四角マスク(角丸/アスペクト比固定)を生成'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比']]
+    - var: [radius, param: [float, radius, 0.5, '角丸の半径 (0 < n < size, default = 0.5)']]
+    - var: [radius_min, param: [float, radius_min, 0.0, '角丸の半径/下限 (n < radius < size, default = 0.0)']]
+    - var: [allows, param: [float, allows, 15.0, '角丸生成ビットフラグ (0 ~ 15, default = 15)']]
+  statements:
+    - var: [aspect2d, math_aspect2d: [aspect]]
+    - var: [half, mul: [min: [mask: [aspect2d, x], mask: [aspect2d, y]], 0.5]]
+    - var: [long_x, op_lt: [aspect, 1.0]]
+    - var: [long_y, op_not: [long_x]]
+    - var: [v, add: [mul: [mask: [uv, x], long_x], mul: [mask: [uv, y], long_y]]]
+    - var: [boundary, one_minus: [half]]
+    - var: [on_end, op_gt: [v, boundary]]
+    - var: [on_begin, op_not: [on_end]]
+    - var: [v_begin, min: [div: [mul: [0.5, v], half], 0.5]]
+    - var: [v_end, add: [0.5, div: [mul: [0.5, sub: [v, boundary]], half]]]
+    - var: [v0, add: [mul: [v_begin, on_begin], mul: [v_end, on_end]]]
+    - var: [x, add: [mul: [v0, long_x], mul: [mask: [uv, x], long_y]]]
+    - var: [y, add: [mul: [mask: [uv, y], long_x], mul: [v0, long_y]]]
+    - returns: [result, mask_square_round: [uv_to_vector: [make_float2: [x, y]], 1.0, radius, radius_min, allows], '強度']
+mask_rect:
+  name: mask_rect
+  desc: '矩形マスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [end, param: [float2, end, float2: [0.5, 0.5], 'マスク終了座標 (0以上)']]
+    - var: [center, param: [float2, center, float2: [0.0, 0.0], '中心座標 (0 ~ 1, default = 0:0)']]
+  statements:
+    - var: [in_vector, abs: [sub: [vector, center]]]
+    - returns: [result, mul: [op_le: [mask: [in_vector, x], mask: [end, x]], op_le: [mask: [in_vector, y], mask: [end, y]]], 'マスク']
+mask_rect_edge:
+  name: mask_rect_edge
+  desc: '四隅の矩形マスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [start, param: [float2, start, float2: [0.5, 0.5], 'マスク開始座標 (0以上)']]
+    - var: [center, param: [float2, center, float2: [0.0, 0.0], '中心座標 (0 ~ 1, default = 0:0)']]
+  statements:
+    - var: [in_vector, abs: [sub: [vector, center]]]
+    - returns: [result, mul: [op_ge: [mask: [in_vector, x], mask: [start, x]], op_ge: [mask: [in_vector, y], mask: [start, y]]], 'マスク']
+mask_linear:
+  name: mask_linear
+  desc: '線形(円)マスクを生成'
+  params:
+    - var: [distance, param: [float, distance, preview_distance: [], '距離 (0 ~ 1)']]
+    - var: [size, param: [float, size, 1.0, '径 (0 ~ 1, default = 1.0)']]
+  statements:
+    - returns: [result, div: [distance, size], '強度']
+mask_linear_range:
+  name: mask_linear_range
+  desc: '線形(円/中抜き)マスクを生成'
+  params:
+    - var: [distance, param: [float, distance, preview_distance: [], '距離 (0 ~ 1)']]
+    - var: [outer, param: [float, outer, 1.0, '外径 (内径 <= 1)']]
+    - var: [size, param: [float, size, 0.5, '線の径 (0 < n < 外径)']]
+    - var: [center, param: [float, center, 0.5, '中心点 (0 ~ 1, default = 0.5)']]
+  statements:
+    - var: [inner, saturate: [sub: [outer, size]]]
+    - var: [diff, sub: [distance, inner]]
+    - var: [unit, sub: [outer, inner]]
+    - returns: [result, math_101_flex: [diff, unit, mul: [center, unit]], '強度']
+mask_cupsule:
+  name: mask_cupsule
+  desc: 'カプセルマスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [radius, param: [float, radius, 0.5, '半径 (0 < n <= 1)']]
+    - var: [begin, param: [float, begin, -1.0, '始点 (-1 <= n < end)']]
+    - var: [end, param: [float, end, 1.0, '終点 (begin < n <= 1)']]
+  statements:
+    - var: [center, make_float2: [clamp: [mask: [vector, x], begin, end], 0.0]]
+    - returns: [result, div: [length: [sub: [vector, center]], radius], '強度']
+mask_dissolve:
+  name: mask_dissolve
+  desc: '消失マスクを生成'
+  params:
+    - var: [alpha, param: [float, alpha, preview_alpha: [0.5], '進捗 (0 ~ 1)']]
+    - var: [smooth, param: [float, smooth, 0.25, '浸食の均し範囲 (0 ~ 1, default = 0.25)']]
+    - var: [scroll, param: [float2, scroll, float2: [0.1, 0.1], 'マスク画像のスクロール速度 (default = 0.1:0.1)']]
+  statements:
+    - var: [intensity, mask: [sample: [texture: ["T_Noise01"], panner: [tex_coord: [0], scroll]], x]]
+    - var: [expand, add: [alpha, min: [alpha, smooth]]]
+    - var: [zero, op_le: [alpha, 0.0]]
+    - var: [mask, max: [one_minus: [op_le: [intensity, alpha]], zero]]
+    - var: [min_mask, max: [one_minus: [op_le: [intensity, expand]], zero]]
+    - var: [min_alpha, max: [smoothstep: [alpha, expand, intensity], zero]]
+    - returns: [mask, mask, 'マスク']
+    - returns: [min_mask, min_mask, '浸食マスク']
+    - returns: [min_alpha, min_alpha, '浸食α値']
+mask_clock:
+  name: mask_clock
+  desc: '時計マスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [alpha, param: [float, alpha, 0.0, '進捗 (0 ~ 1)']]
+    - var: [center, param: [float, center, 0.0, '中心 (-0.5 ~ 0 ~ 0.5, default = 0.0)']]
+  statements:
+    - var: [u_theta_org, math_atan2_clock: [mask: [vector, y], mask: [vector, x]]]
+    - var: [u_theta, mod: [add: [sub: [u_theta_org, center], 1.0], 1.0]]
+    - var: [available, op_gt: [alpha, 0.0]]
+    # XXX マスクの境界値より大きくするため1.1倍にする
+    - var: [zero, mul: [op_not: [available], 1.1]]
+    - var: [intensity, div: [u_theta, max: [0.001, alpha]]]
+    - returns: [result, add: [mul: [intensity, available], zero], '強度']
+mask_clock_cupsule:
+  name: mask_clock_cupsule
+  desc: '時計マスク(カプセル)を生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [radius, param: [float, radius, 1.0, '半径 (0 < n < 1)']]
+    - var: [alpha, param: [float, alpha, 0.0, '進捗 (0 ~ 1)']]
+    - var: [center, param: [float, center, 0.0, '中心 (-0.5 ~ 0 ~ 0.5, default = 0.0)']]
+  statements:
+    - var: [half_radius, mul: [radius, 0.5]]
+    - var: [length, add: [one_minus: [radius], half_radius]]
+    - var: [begin_diff, sub: [math_calc_location: [center, length], vector]]
+    - var: [end_diff, sub: [math_calc_location: [add: [center, alpha], length], vector]]
+    - var: [begin_intensity, div: [length: [begin_diff], half_radius]]
+    - var: [end_intensity, div: [length: [end_diff], half_radius]]
+    - var: [line_intensity, mask_linear_range: [length: [vector], 1.0, radius]]
+    - var: [clock_mask, op_le: [mask_clock: [vector, alpha, center], 1.0]]
+    - returns: [result, add: [mul: [line_intensity, clock_mask], mul: [min: [begin_intensity, end_intensity], op_not: [clock_mask]]], '強度']
+mask_stripe:
+  name: mask_stripe
+  desc: '縞マスクを生成'
+  params:
+    - var: [intensity, param: [float, intensity, preview_distance: [], '強度 (0 ~ 1)']]
+    - var: [size, param: [float, size, 1.0, '縞のサイズ (1=Sin波1周)']]
+  statements:
+    - returns: [result, add: [1.0, sin: [div: [intensity, size]]], '強度']
+mask_square_side:
+  name: mask_square_side
+  desc: '四角辺マスクを生成'
+  params:
+    - var: [vector, param: [float2, vector, preview_vector: [], 'ベクトル']]
+    - var: [size, param: [float, size, 0.5, '辺のサイズ (1未満, default = 0.5)']]
+    - var: [allows, param: [float, allows, 15.0, '辺生成ビットフラグ (0 ~ 15, default = 15)']]
+  statements:
+    - var: [boundary, one_minus: [size]]
+    - var: [l, mul: [op_le: [mask: [vector, x], mul: [boundary, -1.0]], op_bit4_on: [allows, 1.0]]]
+    - var: [t, mul: [op_le: [mask: [vector, y], mul: [boundary, -1.0]], op_bit4_on: [allows, 2.0]]]
+    - var: [r, mul: [op_ge: [mask: [vector, x], boundary], op_bit4_on: [allows, 3.0]]]
+    - var: [b, mul: [op_ge: [mask: [vector, y], boundary], op_bit4_on: [allows, 4.0]]]
+    - returns: [result, op_ge: [add: [add: [add: [l, t], r], b], 1.0], 'マスク']

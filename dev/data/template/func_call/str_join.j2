@@ -1,0 +1,2 @@
+{{- emit_depends('"App/Main/Core/Core.h"') -}}
+String::join({{ arguments[0] }}, {{ receiver }}){% if is_statement %};{% endif %}

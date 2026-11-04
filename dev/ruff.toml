@@ -1,0 +1,12 @@
+line-length = 320
+
+[lint]
+select = ["I"]
+ignore = ["ALL"]
+
+[format]
+exclude = ["**/*.py"]
+
+[lint.isort]
+known-first-party = ["App"]
+known-third-party = ["tranp", "UE5"]

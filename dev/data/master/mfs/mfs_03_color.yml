@@ -1,0 +1,114 @@
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"08fa356b7fae04fc1ddd55555078604d","path":"script.mfs.mfs_03_color"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+color_to_srgb:
+  name: color_to_srgb
+  desc: 'sRGBに変換'
+  params:
+    - var: [color, param: [float3, color, float3: [1.0, 0.5, 0.0], '色']]
+  statements:
+    - returns: [result, make_float3: [proxy_rgb_to_srgb: [mask: [color, x]], proxy_rgb_to_srgb: [mask: [color, y]], proxy_rgb_to_srgb: [mask: [color, z]]], 'sRGB']
+color_to_rgb:
+  name: color_to_rgb
+  desc: 'RGBに変換'
+  params:
+    - var: [color, param: [float3, color, float3: [1.0, 0.5, 0.0], '色']]
+  statements:
+    - returns: [result, make_float3: [proxy_srgb_to_rgb: [mask: [color, x]], proxy_srgb_to_rgb: [mask: [color, y]], proxy_srgb_to_rgb: [mask: [color, z]]], 'RGB']
+color_blend_a:
+  name: color_blend_a
+  desc: 'アルファ合成'
+  params:
+    - var: [bg, param: [float, bg, 0.5, '背景']]
+    - var: [fore, param: [float, fore, 0.5, '前景']]
+  statements:
+    - returns: [result, add: [fore, mul: [bg, one_minus: [fore]]], '合成結果']
+color_gradation_to_srgb:
+  name: color_gradation_to_srgb
+  desc: '2色合成'
+  params:
+    - var: [a, param: [float3, a, float3: [1.0, 0.0, 0.0], '色A']]
+    - var: [b, param: [float3, b, float3: [0.0, 1.0, 0.0], '色B']]
+    - var: [alpha, param: [float, alpha, 0.5, 'α値']]
+  statements:
+    - returns: [result, lerp: [color_to_srgb: [a], color_to_srgb: [b], alpha], '合成結果(sRGB)']
+color_gradation:
+  name: color_gradation
+  desc: '2色合成'
+  params:
+    - var: [a, param: [float3, a, float3: [1.0, 0.0, 0.0], '色A']]
+    - var: [b, param: [float3, b, float3: [0.0, 1.0, 0.0], '色B']]
+    - var: [alpha, param: [float, alpha, 0.5, 'α値']]
+  statements:
+    - returns: [result, color_to_rgb: [color_gradation_to_srgb: [a, b, alpha]], '合成結果']
+color_gradation3:
+  name: color_gradation3
+  desc: '3色合成(A -> B -> C)'
+  params:
+    - var: [a, param: [float3, a, float3: [0.0, 0.0, 0.0], '色A']]
+    - var: [b, param: [float3, b, float3: [1.0, 0.0, 0.0], '色B']]
+    - var: [c, param: [float3, c, float3: [1.0, 1.0, 1.0], '色C']]
+    - var: [alpha, param: [float, alpha, 0.0, 'α値']]
+  statements:
+    - var: [alpha0, mul: [min: [0.5, alpha], 2.0]]
+    - var: [alpha1, mul: [sub: [max: [0.5, alpha], 0.5], 2.0]]
+    - var: [ab_srgb, color_gradation_to_srgb: [a, b, alpha0]]
+    - var: [c_srgb, color_to_srgb: [c]]
+    - returns: [result, color_to_rgb: [lerp: [ab_srgb, c_srgb, alpha1]], '合成結果']
+color_gradation_ab_to_c:
+  name: color_gradation_ab_to_c
+  desc: '2色合成(AB -> C)'
+  params:
+    - var: [a, param: [float3, a, float3: [0.0, 0.0, 0.0], '色A']]
+    - var: [b, param: [float3, b, float3: [1.0, 0.0, 0.0], '色B']]
+    - var: [c, param: [float3, c, float3: [1.0, 1.0, 1.0], '色C']]
+    - var: [alpha_a_to_b, param: [float, alpha_a_to_b, 0.0, 'α値(A -> B)']]
+    - var: [alpha_ab_to_c, param: [float, alpha_ab_to_c, 0.0, 'α値(AB -> C)']]
+  statements:
+    - var: [ab_srgb, color_gradation_to_srgb: [a, b, alpha_a_to_b]]
+    - var: [c_srgb, color_to_srgb: [c]]
+    - returns: [result, color_to_rgb: [lerp: [ab_srgb, c_srgb, alpha_ab_to_c]], '合成結果']
+color_gradation_c_to_ab:
+  name: color_gradation_c_to_ab
+  desc: '2色合成(C -> AB)'
+  params:
+    - var: [a, param: [float3, a, float3: [0.0, 0.0, 0.0], '色A']]
+    - var: [b, param: [float3, b, float3: [1.0, 0.0, 0.0], '色B']]
+    - var: [c, param: [float3, c, float3: [1.0, 1.0, 1.0], '色C']]
+    - var: [alpha_a_to_b, param: [float, alpha_a_to_b, 0.0, 'α値(A -> B)']]
+    - var: [alpha_ab_to_c, param: [float, alpha_ab_to_c, 0.0, 'α値(AB -> C)']]
+  statements:
+    - var: [ab_srgb, color_gradation_to_srgb: [a, b, alpha_a_to_b]]
+    - var: [c_srgb, color_to_srgb: [c]]
+    - returns: [result, color_to_rgb: [lerp: [c_srgb, ab_srgb, alpha_ab_to_c]], '合成結果']
+color_gradation_line_ab_to_c:
+  name: color_gradation_line_ab_to_c
+  desc: '2色合成(ベースカラー -> ラインカラー(AB -> C))'
+  params:
+    - var: [line_a, param: [float3, line_a, float3: [0.0, 0.0, 0.0], '色A']]
+    - var: [line_b, param: [float3, line_b, float3: [1.0, 0.0, 0.0], '色B']]
+    - var: [line_c, param: [float3, line_c, float3: [1.0, 1.0, 1.0], '色C']]
+    - var: [base, param: [float3, base, float3: [1.0, 1.0, 1.0], 'ベースカラー']]
+    - var: [alpha_a_to_b, param: [float, alpha_a_to_b, 0.0, 'α値(A -> B)']]
+    - var: [alpha_ab_to_c, param: [float, alpha_ab_to_c, 0.0, 'α値(AB -> C)']]
+    - var: [alpha_base_to_line, param: [float, alpha_base_to_line, 0.0, 'α値(ベースカラー -> ラインカラー)']]
+  statements:
+    - var: [line_ab_srgb, color_gradation_to_srgb: [line_a, line_b, alpha_a_to_b]]
+    - var: [line_c_srgb, color_to_srgb: [line_c]]
+    - var: [line_srgb, lerp: [line_ab_srgb, line_c_srgb, alpha_ab_to_c]]
+    - var: [base_srgb, color_to_srgb: [base]]
+    - returns: [result, color_to_rgb: [lerp: [base_srgb, line_srgb, alpha_base_to_line]], '合成結果']
+color_rotation:
+  name: color_rotation
+  desc: '色相を回転'
+  params:
+    - var: [rgb, param: [float3, rgb, float3: [1.0, 0.0, 0.0], 'カラー']]
+    - var: [u_theta, param: [float, u_theta, preview_alpha: [0.2], '回転角度 (0 ~ 1)']]
+  statements:
+    - var: [hsv, rgb_to_hsv: [rgb]]
+    - returns: [result, hsv_to_rgb: [make_float3: [mod: [add: [add: [1.0, mask: [hsv, x]], u_theta], 1.0], mask: [hsv, y], mask: [hsv, z]]], 'カラー']
+color_spectrum:
+  name: color_spectrum
+  desc: '強度を色に変換'
+  params:
+    - var: [intensity, param: [float, intensity, preview_distance: [], '強度 (0 ~ 1)']]
+  statements:
+    - returns: [result, color_rotation: [float3: [1.0, 0.0, 0.0], intensity], 'カラー']

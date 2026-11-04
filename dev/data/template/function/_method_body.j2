@@ -1,0 +1,17 @@
+{%- if symbol == 'post_init_properties' %}
+{% include('function/_post_init_properties.j2') %}
+{%- elif symbol == 'begin_destroy' %}
+{% include('function/_begin_destroy.j2') %}
+{%- elif deco_query.match_args('(Server|Client)') %}
+{% include('function/_signature_common.j2') %};
+{%- set symbol = symbol + '_Implementation' %}
+{% include('function/_signature_common.j2') %} {% include('function/_block.j2') %}
+{%- elif return_type.startswith('Iterator') and iterates_type %}
+{% include('function/_iterator_list_complex.j2') %}
+{%- elif return_type.startswith('Iterator') %}
+{% include('function/_iterator_list.j2') %}
+{%- elif return_type.startswith('ItemsView') %}
+{% include('function/_iterator_dict.j2') %}
+{%- else %}
+{% include('function/_signature_prefix.j2') %}{% include('function/_signature_common.j2') %}{% include('function/_signature_suffix.j2') %} {% include('function/_block.j2') %}
+{%- endif %}
