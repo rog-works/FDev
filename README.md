@@ -3,9 +3,10 @@ FDev
 
 # 概要
 
-Unreal Engine用プラグイン
+* Unreal Engine用プラグイン
+* [tranp](https://github.com/rog-works/tranp)を用いたPython開発環境
 
-# 機能
+# 機能(プラグイン)
 
 * Core機能
   * アセットマネージャー
@@ -15,9 +16,14 @@ Unreal Engine用プラグイン
 
 # 必須要件
 
+## プラグイン
+
 * Unreal Engine >= 5.8
+
+## Python開発環境
+
 * Python >= 3.13
-* [tranp](https://pypi.org/project/tranp/) >= 0.9.19
+* [tranp](https://github.com/rog-works/tranp) >= 0.9.19
 * [PyYAML](https://pypi.org/project/PyYAML/) >= 6.0.2
 
 # 互換性
