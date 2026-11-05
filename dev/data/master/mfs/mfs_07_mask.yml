@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.19","module":{"hash":"b0dbb5e3b88e9e4f3e86aeabaefeadc7","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"b2682e5166e7a57eaa491a02ff040eb4","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 mask_polygon:
   name: mask_polygon
   desc: '多角形マスクを生成'
@@ -174,7 +174,7 @@ mask_dissolve:
     - var: [smooth, param: [float, smooth, 0.25, '浸食の均し範囲 (0 ~ 1, default = 0.25)']]
     - var: [scroll, param: [float2, scroll, float2: [0.1, 0.1], 'マスク画像のスクロール速度 (default = 0.1:0.1)']]
   statements:
-    - var: [intensity, mask: [sample: [texture: ["T_Noise01"], panner: [tex_coord: [0], scroll]], x]]
+    - var: [intensity, mask: [sample: [texture: ["solid_noise"], panner: [tex_coord: [0], scroll]], x]]
     - var: [expand, add: [alpha, min: [alpha, smooth]]]
     - var: [zero, op_le: [alpha, 0.0]]
     - var: [mask, max: [one_minus: [op_le: [intensity, alpha]], zero]]

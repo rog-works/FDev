@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.19","module":{"hash":"eb6a224fa61dd5cc4e3e9de312feac31","path":"script.mfs.mfs_01_op"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.19","module":{"hash":"f6ee1e5e148c1b209a3768537e9bc321","path":"script.mfs.mfs_01_op"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 op_not:
   name: op_not
   desc: '0と1を反転'
