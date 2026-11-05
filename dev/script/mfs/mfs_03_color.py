@@ -1,8 +1,8 @@
 from typing import Annotated
 
-from example.material.me import ME
-from example.material.me_types import float3
-from example.material.mfs_00_preview import preview_alpha, preview_distance
+from script.mfs.me import ME
+from script.mfs.me_types import float3
+from script.mfs.mfs_00_preview import preview_alpha, preview_distance
 
 
 def color_to_srgb(color: Annotated[float3, float3(1.0, 0.5, 0.0)]) -> float3:

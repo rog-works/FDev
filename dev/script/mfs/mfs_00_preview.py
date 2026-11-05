@@ -1,7 +1,7 @@
 from typing import Annotated
 
-from example.material.me import ME
-from example.material.me_types import float2
+from script.mfs.me import ME
+from script.mfs.me_types import float2
 
 
 def preview_vector() -> float2:

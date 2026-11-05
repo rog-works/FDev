@@ -1,7 +1,7 @@
 from typing import Annotated
 
-from example.material.me import ME
-from example.material.mfs_00_preview import preview_distance
+from script.mfs.me import ME
+from script.mfs.mfs_00_preview import preview_distance
 
 
 def op_not(value: Annotated[float, preview_distance()]) -> float:

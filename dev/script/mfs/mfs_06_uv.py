@@ -1,8 +1,8 @@
 from typing import Annotated
 
-from example.material.me import ME
-from example.material.me_types import float2
-from example.material.mfs_02_math import math_010, math_aspect2d, math_atan2_clock
+from script.mfs.me import ME
+from script.mfs.me_types import float2
+from script.mfs.mfs_02_math import math_010, math_aspect2d, math_atan2_clock
 
 
 def uv_invert_x(uv: Annotated[float2, ME.tex_coord(0)], border: Annotated[float, 1.0]) -> float2:

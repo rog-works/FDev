@@ -1,12 +1,12 @@
 from typing import Annotated
 
-from example.material.me import ME
-from example.material.me_types import float2, texture
-from example.material.mf_const import MFImages
-from example.material.mfs_00_preview import preview_alpha, preview_distance, preview_vector
-from example.material.mfs_01_op import op_bit4_on
-from example.material.mfs_02_math import math_101_flex, math_aspect2d, math_atan2_clock, math_calc_location, math_linear_edge, math_vector_to_edge
-from example.material.mfs_06_uv import uv_to_vector
+from const.const_material import MFImages
+from script.mfs.me import ME
+from script.mfs.me_types import float2, texture
+from script.mfs.mfs_00_preview import preview_alpha, preview_distance, preview_vector
+from script.mfs.mfs_01_op import op_bit4_on
+from script.mfs.mfs_02_math import math_101_flex, math_aspect2d, math_atan2_clock, math_calc_location, math_linear_edge, math_vector_to_edge
+from script.mfs.mfs_06_uv import uv_to_vector
 
 
 def mask_polygon(vector: Annotated[float2, preview_vector()], sides: Annotated[float, 3.0]) -> float:

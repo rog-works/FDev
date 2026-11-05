@@ -10,9 +10,9 @@ from numpy import power as np_power
 from numpy import random as np_random
 from numpy import sin as np_sin
 from numpy import tan as np_tan
-
-from example.material.me_types import SamplerTypes, float2, float3, float4, texture
 from tranp.app.lang.annotation import deprecated
+
+from script.mfs.me_types import SamplerTypes, float2, float3, float4, texture
 
 T_Value = TypeVar('T_Value', float, float2, float3, float4)
 T_Vector = TypeVar('T_Vector', float2, float3, float4)
