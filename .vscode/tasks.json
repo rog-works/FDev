@@ -2,24 +2,6 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Compile Editor Dev",
-			"group": "build",
-			"dependsOn": [
-				"Compile: Editor Dev",
-				"Notify: success",
-			],
-			"dependsOrder": "sequence",
-		},
-		{
-			"label": "Compile Game Dev",
-			"group": "build",
-			"dependsOn": [
-				"Compile: Editor Dev",
-				"Notify: success",
-			],
-			"dependsOrder": "sequence",
-		},
-		{
 			"label": "Make Asset",
 			"group": "build",
 			"dependsOn": [
@@ -27,45 +9,6 @@
 				"Notify: success",
 			],
 			"dependsOrder": "sequence",
-		},
-		{
-			"label": "Compile: Editor Dev",
-			// "group": "build",
-			"command": "C:/Windows/System32/cmd.exe",
-			"args": [
-				"//c",
-				"'${workspaceFolder}\\..\\..\\UE_5.8\\Engine\\Build\\BatchFiles\\Build.bat'",
-				"${workspaceFolderBasename}Editor",
-				"Win64",
-				"Development",
-				"'${workspaceFolder}\\${workspaceFolderBasename}.uproject'",
-				// "-Module=\"Voxel\"",
-				"-waitmutex",
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "${workspaceFolder}\\..\\..\\UE_5.8"
-			},
-		},
-		{
-			"label": "Compile: Game Dev",
-			// "group": "build",
-			"command": "C:/Windows/System32/cmd.exe",
-			"args": [
-				"//c",
-				"'${workspaceFolder}\\..\\..\\UE_5.8\\Engine\\Build\\BatchFiles\\Build.bat'",
-				"${workspaceFolderBasename}",
-				"Win64",
-				"Development",
-				"'${workspaceFolder}\\${workspaceFolderBasename}.uproject'",
-				"-waitmutex",
-			],
-			"problemMatcher": "$msCompile",
-			"type": "shell",
-			"options": {
-				"cwd": "${workspaceFolder}\\..\\..\\UE_5.8"
-			},
 		},
 		{
 			"label": "Make: Assets",
@@ -90,7 +33,7 @@
 			"command": "powershell.exe",
 			"args": [
 				"-ExecutionPolicy", "Bypass",
-				"-File", "'${workspaceFolder}\\bin\\notify.ps1'",
+				"-File", "'${workspaceFolder}\\Plugins\\FDev\\bin\\notify.ps1'",
 				"-message", "Build success!"
 			],
 			"type": "shell",
