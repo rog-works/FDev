@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"0a2bb34a52758d1a5a69aabafcf07958","path":"FDev.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"0a2bb34a52758d1a5a69aabafcf07958","path":"FDev.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "UObject/Object.h"
@@ -22,12 +22,12 @@
 UCLASS()
 class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 	GENERATED_BODY()
-	private: UPROPERTY() TMap<FString, UObject*> __caches;
+	private: UPROPERTY() TMap<FString, UObject*> p__caches;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UFDevAssetStorageImpl() : UFDevIAssetStorage(), __caches() {}
+	UFDevAssetStorageImpl() : UFDevIAssetStorage(), p__caches() {}
 	public:
 	/**
 	 * アセットが存在するか判定
@@ -46,10 +46,10 @@ class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 	 * @throw NotFound 存在しないアセットを指定
 	 */
 	UObject* load(const FString& path, bool cache = true) override {
-		if ((!this->__caches.Contains(path)) || !cache) {
-			this->__caches.Add(path, this->load_asset(path));
+		if ((!this->p__caches.Contains(path)) || !cache) {
+			this->p__caches.Add(path, this->load_asset(path));
 		}
-		return this->__caches[path];
+		return this->p__caches[path];
 	}
 	public:
 	/**
@@ -74,12 +74,12 @@ class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 UCLASS()
 class FDEV_API UFDevMasterStorageImpl : public UFDevIMasterStorage {
 	GENERATED_BODY()
-	private: TMap<FString, TSharedPtr<FDevJsonEntry, ESPMode::NotThreadSafe>> __caches;
+	private: TMap<FString, TSharedPtr<FDevJsonEntry, ESPMode::NotThreadSafe>> p__caches;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UFDevMasterStorageImpl() : UFDevIMasterStorage(), __caches() {}
+	UFDevMasterStorageImpl() : UFDevIMasterStorage(), p__caches() {}
 	public:
 	/**
 	 * アセットが存在するか判定
@@ -87,7 +87,7 @@ class FDEV_API UFDevMasterStorageImpl : public UFDevIMasterStorage {
 	 * @return True = 存在
 	 */
 	bool exists(const FString& path) override {
-		if (this->__caches.Contains(path)) {
+		if (this->p__caches.Contains(path)) {
 			return true;
 		}
 		if (this->for_origin(path)) {
@@ -106,14 +106,14 @@ class FDEV_API UFDevMasterStorageImpl : public UFDevIMasterStorage {
 	 * @throw NotFound 存在しないアセットを指定
 	 */
 	FFDevJson load(const FString& path, bool cache = true) override {
-		if ((!this->__caches.Contains(path)) || !cache) {
+		if ((!this->p__caches.Contains(path)) || !cache) {
 			if (this->for_origin(path)) {
-				this->__caches.Add(path, this->load_origin(path));
+				this->p__caches.Add(path, this->load_origin(path));
 			} else {
-				this->__caches.Add(path, this->load_internal(path));
+				this->p__caches.Add(path, this->load_internal(path));
 			}
 		}
-		return FFDevJson((this->__caches[path]).Get());
+		return FFDevJson((this->p__caches[path]).Get());
 	}
 	public:
 	/**

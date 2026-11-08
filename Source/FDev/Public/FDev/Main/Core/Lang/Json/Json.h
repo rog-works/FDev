@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"3c81082c6cf3dff305ee2c48539f040c","path":"FDev.Main.Core.Lang.Json.Json"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"3c81082c6cf3dff305ee2c48539f040c","path":"FDev.Main.Core.Lang.Json.Json"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "UObject/Object.h"
@@ -293,11 +293,11 @@ struct FDEV_API FFDevJson {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::entries()"), *(*this).ToString()));
 		}
 		return [&]() -> TArray<FFDevJson> {
-			TArray<FFDevJson> __ret;
+			TArray<FFDevJson> l_ret;
 			for (auto& entry : this->cursor->entries) {
-				__ret.Add(FFDevJson((entry).Get()));
+				l_ret.Add(FFDevJson((entry).Get()));
 			}
-			return __ret;
+			return l_ret;
 		}();
 	}
 	public:
@@ -677,7 +677,7 @@ struct FDEV_API FFDevJson {
 	 */
 	FString serialize() const {
 		TStringBuilder<256> builder{};
-		this->__build_string(this->cursor, (&(builder)));
+		this->p__build_string(this->cursor, (&(builder)));
 		return builder.ToString();
 	}
 	private:
@@ -685,7 +685,7 @@ struct FDEV_API FFDevJson {
 	 *
 	 * @param entry JSON, builder: ストリングビルダー
 	 */
-	static void __build_string(FDevJsonEntry* entry, TStringBuilder<256>* builder) {
+	static void p__build_string(FDevJsonEntry* entry, TStringBuilder<256>* builder) {
 		if (entry->entry_type == FDevJsonEntryTypes::Boolean) {
 			builder->Append(entry->as_bool ? "true" : "false");
 		} else if (entry->entry_type == FDevJsonEntryTypes::Integer) {
@@ -703,7 +703,7 @@ struct FDEV_API FFDevJson {
 				if (index > 0) {
 					builder->Append(",");
 				}
-				FFDevJson::__build_string((in_entry).Get(), builder);
+				FFDevJson::p__build_string((in_entry).Get(), builder);
 				index++;
 			}
 			builder->Append("]");
@@ -717,7 +717,7 @@ struct FDEV_API FFDevJson {
 				builder->Append("\"");
 				builder->Append(entry->keys[index]);
 				builder->Append("\":");
-				FFDevJson::__build_string((in_entry).Get(), builder);
+				FFDevJson::p__build_string((in_entry).Get(), builder);
 				index++;
 			}
 			builder->Append("}");

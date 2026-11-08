@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"687853cf00834f99c5b5146daab9ce4d","path":"FDev.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"687853cf00834f99c5b5146daab9ce4d","path":"FDev.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/NameTypes.h"
 #include "UObject/Object.h"
@@ -20,26 +20,26 @@
 UCLASS(BlueprintType)
 class FDEVEDITOR_API UFDevMFAssetMaker : public UFDevAssetMaker {
 	GENERATED_BODY()
-	private: TMap<FString, TTuple<FString, FDevMFBuildCommand>> __commands;
+	private: TMap<FString, TTuple<FString, FDevMFBuildCommand>> p__commands;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UFDevMFAssetMaker() : UFDevAssetMaker(), __commands() {}
+	UFDevMFAssetMaker() : UFDevAssetMaker(), p__commands() {}
 	public:
 	/**
 	 *
 	 * @return コマンド一覧
 	 */
 	const TMap<FString, TTuple<FString, FDevMFBuildCommand>>& commands() {
-		if (this->__commands.Num() == 0) {
+		if (this->p__commands.Num() == 0) {
 			FFDevJson data = this->assets()->master_of(FDevAssetPaths::to_path("master/app", "mfs"));
 			// FIXME 名前とパスが混在して微妙。GetFNameの結果に依存するべきではない
 			for (auto& [src, command] : FDevMFBuildCommandRunner::parse(data)) {
-				this->__commands.Add(FDevAssetPaths::pick_name(src), {src, command});
+				this->p__commands.Add(FDevAssetPaths::pick_name(src), {src, command});
 			}
 		}
-		return this->__commands;
+		return this->p__commands;
 	}
 	public:
 	/**
@@ -66,11 +66,11 @@ class FDEVEDITOR_API UFDevMFAssetMaker : public UFDevAssetMaker {
 	 */
 	TArray<FString> all_srcs() override {
 		return [&]() -> TArray<FString> {
-			TArray<FString> __ret;
-			for (auto& [_, entry] : this->commands()) {
-				__ret.Add(entry.Get<0>());
+			TArray<FString> l_ret;
+			for (auto& [l_, entry] : this->commands()) {
+				l_ret.Add(entry.Get<0>());
 			}
-			return __ret;
+			return l_ret;
 		}();
 	}
 	public:

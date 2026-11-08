@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"14c14ed78d54fc494482a626b1c740b2","path":"FDev.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"9003115acc51f5cd63e33a2bff55ba80","path":"FDev.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/MathFwd.h"
 #include "Materials/MaterialExpressionTextureSample.h"
@@ -109,11 +109,11 @@ class FDevMFBuildCommand {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::params()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
-			TArray<FDevMFBuildCommand> __ret;
+			TArray<FDevMFBuildCommand> l_ret;
 			for (auto& under : this->data["params"].entries()) {
-				__ret.Add(FDevMFBuildCommand(under));
+				l_ret.Add(FDevMFBuildCommand(under));
 			}
-			return __ret;
+			return l_ret;
 		}();
 	}
 	public:
@@ -126,11 +126,11 @@ class FDevMFBuildCommand {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::statements()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
-			TArray<FDevMFBuildCommand> __ret;
+			TArray<FDevMFBuildCommand> l_ret;
 			for (auto& under : this->data["statements"].entries()) {
-				__ret.Add(FDevMFBuildCommand(under));
+				l_ret.Add(FDevMFBuildCommand(under));
 			}
-			return __ret;
+			return l_ret;
 		}();
 	}
 	public:
@@ -191,11 +191,11 @@ class FDevMFBuildCommand {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::args()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
-			TArray<FDevMFBuildCommand> __ret;
+			TArray<FDevMFBuildCommand> l_ret;
 			for (auto& under : this->data.at(0).entries()) {
-				__ret.Add(FDevMFBuildCommand(under));
+				l_ret.Add(FDevMFBuildCommand(under));
 			}
-			return __ret;
+			return l_ret;
 		}();
 	}
 };
@@ -210,11 +210,11 @@ class FDevMFBuildCommandRunner {
 	 */
 	static TMap<FString, FDevMFBuildCommand> parse(FFDevJson data) {
 		return [&]() -> TMap<FString, FDevMFBuildCommand> {
-			TMap<FString, FDevMFBuildCommand> __ret;
+			TMap<FString, FDevMFBuildCommand> l_ret;
 			for (auto& src : data.keys()) {
-				__ret.Add(src, FDevMFBuildCommand(data[src], true));
+				l_ret.Add(src, FDevMFBuildCommand(data[src], true));
 			}
-			return __ret;
+			return l_ret;
 		}();
 	}
 	public:
@@ -264,11 +264,11 @@ class FDevMFBuildCommandRunner {
 			return builder->var(args[0].as_string(), FDevMFBuildCommandRunner::run_command(builder, args[1]));
 		} else if (name == "vars") {
 			return builder->vars([&]() -> TArray<FString> {
-				TArray<FString> __ret;
+				TArray<FString> l_ret;
 				for (auto index = 0; index < args.Num() - 1; index++) {
-					__ret.Add(args[index].as_string());
+					l_ret.Add(args[index].as_string());
 				}
-				return __ret;
+				return l_ret;
 			}(), FDevMFBuildCommandRunner::run_command(builder, args[args.Num() - 1]));
 		} else if (name == "get") {
 			return FDevMFBuildCommandRunner::run_command(builder, args[0]).new_index(args[1].as_int());
@@ -382,18 +382,16 @@ class FDevMFBuildCommandRunner {
 			return builder->ddx(FDevMFBuildCommandRunner::run_command(builder, args[0]));
 		} else if (name == "ddy") {
 			return builder->ddy(FDevMFBuildCommandRunner::run_command(builder, args[0]));
-		} else if (name == "const_by") {
-			return builder->const_by(args[0].as_string());
 		} else if (name == "ternary") {
 			TTuple<FDevMFExp, FDevMFExp, FDevMFExp> values = {FDevMFBuildCommandRunner::run_command(builder, args[0]), FDevMFBuildCommandRunner::run_command(builder, args[1]), FDevMFBuildCommandRunner::run_command(builder, args[2])};
 			return builder->ternary(values.Get<0>(), values.Get<1>(), values.Get<2>());
 		} else {
 			return builder->call(name, [&]() -> TArray<FDevMFExp> {
-				TArray<FDevMFExp> __ret;
+				TArray<FDevMFExp> l_ret;
 				for (auto index = 0; index < args.Num(); index++) {
-					__ret.Add(FDevMFBuildCommandRunner::run_command(builder, args[index]));
+					l_ret.Add(FDevMFBuildCommandRunner::run_command(builder, args[index]));
 				}
-				return __ret;
+				return l_ret;
 			}());
 		}
 	}

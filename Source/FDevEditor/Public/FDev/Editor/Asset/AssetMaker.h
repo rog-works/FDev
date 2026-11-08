@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"aac7ca54545cf902f842f643ebf2280f","path":"FDev.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"aac7ca54545cf902f842f643ebf2280f","path":"FDev.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Object.h"
@@ -19,18 +19,18 @@
 UCLASS(Abstract, BlueprintType)
 class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	GENERATED_BODY()
-	private: UFDevAssets* __assets;
+	private: UFDevAssets* p__assets;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UFDevAssetMaker() : UObject(), __assets(nullptr) {}
+	UFDevAssetMaker() : UObject(), p__assets(nullptr) {}
 	public:
 	/**
 	 * 依存を注入
 	 */
 	void injection(UFDevAssets* assets) {
-		this->__assets = assets;
+		this->p__assets = assets;
 	}
 	public:
 	/**
@@ -38,7 +38,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @return アセットマネージャー
 	 */
 	UFDevAssets* assets() {
-		return FDevsafe_addr(this->__assets);
+		return FDevsafe_addr(this->p__assets);
 	}
 	public:
 	/**

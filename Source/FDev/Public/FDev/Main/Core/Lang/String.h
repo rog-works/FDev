@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"00bdf972df6a6881457a87bd4c79e7cb","path":"FDev.Main.Core.Lang.String"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"00bdf972df6a6881457a87bd4c79e7cb","path":"FDev.Main.Core.Lang.String"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "FDev/Main/Const/ProjectConst.h"
@@ -10,16 +10,16 @@
  * 文字列操作ユーティリティー
  */
 class FDevString {
-	protected: inline static char _Zero = '0';
-	protected: inline static char _Nine = '9';
-	protected: inline static char _a = 'a';
-	protected: inline static char _z = 'z';
-	protected: inline static char _A = 'A';
-	protected: inline static char _Z = 'Z';
-	protected: inline static char _Underscore = '_';
-	protected: inline static char _Minus = '-';
-	protected: inline static char _Dot = '.';
-	protected: inline static char _Backslash = '\\';
+	protected: inline static char p_Zero = '0';
+	protected: inline static char p_Nine = '9';
+	protected: inline static char p_a = 'a';
+	protected: inline static char p_z = 'z';
+	protected: inline static char p_A = 'A';
+	protected: inline static char p_Z = 'Z';
+	protected: inline static char p_Underscore = '_';
+	protected: inline static char p_Minus = '-';
+	protected: inline static char p_Dot = '.';
+	protected: inline static char p_Backslash = '\\';
 	public:
 	/**
 	 * 指定の文字列が含まれる数を計測
@@ -107,11 +107,11 @@ class FDevString {
 		int _begin = FMath::Min(length, FMath::Max(0, begin));
 		int _end = FMath::Min(length, FMath::Max(_begin, end != -1 ? end : length));
 		for (auto index = _begin; index < _end; index += 1) {
-			if (index == _begin && string[index] == FDevString::_Minus) {
+			if (index == _begin && string[index] == FDevString::p_Minus) {
 				continue;
-			} else if (string[index] >= FDevString::_Zero && string[index] <= FDevString::_Nine) {
+			} else if (string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine) {
 				continue;
-			} else if (string[index] == FDevString::_Dot) {
+			} else if (string[index] == FDevString::p_Dot) {
 				continue;
 			} else {
 				return false;
@@ -132,13 +132,13 @@ class FDevString {
 		int _begin = FMath::Min(length, FMath::Max(0, begin));
 		int _end = FMath::Min(length, FMath::Max(_begin, end != -1 ? end : length));
 		for (auto index = _begin; index < _end; index += 1) {
-			if ((index > _begin && string[index] >= FDevString::_Zero && string[index] <= FDevString::_Nine)) {
+			if ((index > _begin && string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine)) {
 				continue;
-			} else if ((string[index] >= FDevString::_a && string[index] <= FDevString::_z)) {
+			} else if ((string[index] >= FDevString::p_a && string[index] <= FDevString::p_z)) {
 				continue;
-			} else if ((string[index] >= FDevString::_A && string[index] <= FDevString::_Z)) {
+			} else if ((string[index] >= FDevString::p_A && string[index] <= FDevString::p_Z)) {
 				continue;
-			} else if ((string[index] == FDevString::_Underscore)) {
+			} else if ((string[index] == FDevString::p_Underscore)) {
 				continue;
 			} else {
 				return false;
@@ -210,9 +210,9 @@ class FDevString {
 		int begin = 0;
 		int end = begin;
 		while (end < string.Len()) {
-			if (string[end] == chara || string[end] == FDevString::_Backslash) {
+			if (string[end] == chara || string[end] == FDevString::p_Backslash) {
 				builder.Append(string.Mid(begin, end - (begin)));
-				builder.AppendChar(FDevString::_Backslash);
+				builder.AppendChar(FDevString::p_Backslash);
 				builder.AppendChar(string[end]);
 				begin = end + 1;
 			}

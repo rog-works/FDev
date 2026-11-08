@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"210c0811b44709f88a1724b9dc4af95e","path":"FDev.Main.Core.Lang.Json.JsonEntry"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"210c0811b44709f88a1724b9dc4af95e","path":"FDev.Main.Core.Lang.Json.JsonEntry"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "FDev/Main/Const/ProjectConst.h"
 #include "FDev/Main/Core/Lang/Json/JsonParser.h"
@@ -243,13 +243,13 @@ class FDevJsonEntry {
 			this->set_string(from_entry->as_string);
 		} else if (from_entry->entry_type == FDevJsonEntryTypes::Array) {
 			this->entry_type = FDevJsonEntryTypes::Array;
-			this->__resize_array(from_entry);
+			this->p__resize_array(from_entry);
 			for (auto index = 0; index < from_entry->length(); index += 1) {
 				this->entries[index]->copy_value((from_entry->entries[index]).Get());
 			}
 		} else {
 			this->entry_type = FDevJsonEntryTypes::Object;
-			this->__resize_object(from_entry);
+			this->p__resize_object(from_entry);
 			for (auto index = 0; index < from_entry->length(); index += 1) {
 				this->entries[index]->copy_value((from_entry->entries[index]).Get());
 			}
@@ -260,7 +260,7 @@ class FDevJsonEntry {
 	 * 複製元に合わせてリサイズ(Array)
 	 * @param from_entry 複製元
 	 */
-	void __resize_array(FDevJsonEntry* from_entry) {
+	void p__resize_array(FDevJsonEntry* from_entry) {
 		int curr_size = this->length();
 		int next_size = from_entry->length();
 		if (curr_size < next_size) {
@@ -280,7 +280,7 @@ class FDevJsonEntry {
 	 * 複製元に合わせてリサイズ(Object)
 	 * @param from_entry 複製元
 	 */
-	void __resize_object(FDevJsonEntry* from_entry) {
+	void p__resize_object(FDevJsonEntry* from_entry) {
 		int curr_size = this->length();
 		int next_size = from_entry->length();
 		if (curr_size < next_size) {

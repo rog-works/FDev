@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"433aeb8e0b8ebb45156a79cc33ef2577","path":"FDev.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"433aeb8e0b8ebb45156a79cc33ef2577","path":"FDev.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "FDev/Main/Const/ProjectConst.h"
 #include "FDev/Main/Core/Lang/String.h"
@@ -61,7 +61,7 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 */
 	static void parse(const FString& json_str, FDevJsonParseInfo* info) {
-		FDevJsonParser::_parse_entry(json_str, 0, "", 0, info);
+		FDevJsonParser::p_parse_entry(json_str, 0, "", 0, info);
 	}
 	protected:
 	/**
@@ -73,20 +73,20 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 * @return 読み取り終了位置
 	 */
-	static int _parse_entry(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
+	static int p_parse_entry(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		int end = begin;
-		auto [at_type, begin_value] = FDevJsonParser::_analyze_type(json_str, begin);
+		auto [at_type, begin_value] = FDevJsonParser::p_analyze_type(json_str, begin);
 		end = begin_value;
 		if (at_type == FDevJsonEntryTypes::Boolean) {
-			end = FDevJsonParser::_parse_boolean(json_str, begin_value, key, depth, info);
+			end = FDevJsonParser::p_parse_boolean(json_str, begin_value, key, depth, info);
 		} else if (at_type == FDevJsonEntryTypes::Float) {
-			end = FDevJsonParser::_parse_float(json_str, begin_value, key, depth, info);
+			end = FDevJsonParser::p_parse_float(json_str, begin_value, key, depth, info);
 		} else if (at_type == FDevJsonEntryTypes::String) {
-			end = FDevJsonParser::_parse_string(json_str, begin_value, key, depth, info);
+			end = FDevJsonParser::p_parse_string(json_str, begin_value, key, depth, info);
 		} else if (at_type == FDevJsonEntryTypes::Array) {
-			end = FDevJsonParser::_parse_array(json_str, begin_value, key, depth, info);
+			end = FDevJsonParser::p_parse_array(json_str, begin_value, key, depth, info);
 		} else if (at_type == FDevJsonEntryTypes::Object) {
-			end = FDevJsonParser::_parse_object(json_str, begin_value, key, depth, info);
+			end = FDevJsonParser::p_parse_object(json_str, begin_value, key, depth, info);
 		}
 		return end;
 	}
@@ -100,7 +100,7 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 * @return 読み取り終了位置
 	 */
-	static int _parse_boolean(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
+	static int p_parse_boolean(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		if (json_str[begin] == 'f') {
 			info->entries.Add(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Boolean, key, depth, begin, begin + 5));
 			return begin + 5;
@@ -119,7 +119,7 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 * @return 読み取り終了位置
 	 */
-	static int _parse_float(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
+	static int p_parse_float(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		FDevJsonEntryTypes entry_type = FDevJsonEntryTypes::Integer;
 		int end = begin;
 		while (end < json_str.Len()) {
@@ -144,7 +144,7 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 * @return 読み取り終了位置
 	 */
-	static int _parse_string(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
+	static int p_parse_string(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		FString quote = "\"";
 		int end = json_str.Find(quote, ESearchCase::IgnoreCase, ESearchDir::FromStart, begin);
 		while (end < json_str.Len()) {
@@ -171,18 +171,18 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 * @return 読み取り終了位置
 	 */
-	static int _parse_array(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
+	static int p_parse_array(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		int info_begin = info->entries.Num();
 		int end = json_str.Find(TEXT("["), ESearchCase::IgnoreCase, ESearchDir::FromStart, begin);
 		end += 1;
 		int element_at = 0;
 		while (end < json_str.Len()) {
-			auto [entry_type, block_end] = FDevJsonParser::_analyze_type(json_str, end, "]");
+			auto [entry_type, block_end] = FDevJsonParser::p_analyze_type(json_str, end, "]");
 			if (entry_type == FDevJsonEntryTypes::Unknown || json_str[end] == ']') {
 				end = FMath::Max(end, block_end);
 				break;
 			}
-			end = FDevJsonParser::_parse_entry(json_str, end, LexToString(element_at), depth + 1, info);
+			end = FDevJsonParser::p_parse_entry(json_str, end, LexToString(element_at), depth + 1, info);
 			element_at += 1;
 		}
 		info->entries.Insert(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Array, key, depth, begin, end + 1), info_begin);
@@ -198,18 +198,18 @@ class FDevJsonParser {
 	 * @param info JSON解析情報
 	 * @return 読み取り終了位置
 	 */
-	static int _parse_object(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
+	static int p_parse_object(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		int info_begin = info->entries.Num();
 		int end = json_str.Find(TEXT("{"), ESearchCase::IgnoreCase, ESearchDir::FromStart, begin);
 		end += 1;
 		while (end < json_str.Len()) {
-			auto [entry_type, block_end] = FDevJsonParser::_analyze_type(json_str, end, "}");
+			auto [entry_type, block_end] = FDevJsonParser::p_analyze_type(json_str, end, "}");
 			if (entry_type != FDevJsonEntryTypes::String || json_str[end] == '}') {
 				end = FMath::Max(end, block_end);
 				break;
 			}
-			auto [in_key, begin_value] = FDevJsonParser::_parse_key(json_str, end);
-			end = FDevJsonParser::_parse_entry(json_str, begin_value, in_key, depth + 1, info);
+			auto [in_key, begin_value] = FDevJsonParser::p_parse_key(json_str, end);
+			end = FDevJsonParser::p_parse_entry(json_str, begin_value, in_key, depth + 1, info);
 		}
 		info->entries.Insert(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Object, key, depth, begin, end + 1), info_begin);
 		return end + 1;
@@ -221,7 +221,7 @@ class FDevJsonParser {
 	 * @param begin 読み取り開始位置
 	 * @return キー, 読み取り終了位置
 	 */
-	static TTuple<FString, int> _parse_key(const FString& json_str, int begin) {
+	static TTuple<FString, int> p_parse_key(const FString& json_str, int begin) {
 		int key_begin = json_str.Find(TEXT("\""), ESearchCase::IgnoreCase, ESearchDir::FromStart, begin);
 		int end = json_str.Find(TEXT("\""), ESearchCase::IgnoreCase, ESearchDir::FromStart, key_begin + 1);
 		FString key = json_str.Mid(key_begin + 1, end - (key_begin + 1));
@@ -235,7 +235,7 @@ class FDevJsonParser {
 	 * @param end_token 終端記号 (default = '')
 	 * @return JSONエントリーの種別, 読み取り終了位置
 	 */
-	static TTuple<FDevJsonEntryTypes, int> _analyze_type(const FString& json_str, int begin, const FString& end_token = "") {
+	static TTuple<FDevJsonEntryTypes, int> p_analyze_type(const FString& json_str, int begin, const FString& end_token = "") {
 		int end = begin;
 		while (end < json_str.Len()) {
 			if (json_str[end] == 'f' || json_str[end] == 't') {

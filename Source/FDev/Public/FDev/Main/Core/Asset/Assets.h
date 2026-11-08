@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.19","module":{"hash":"9a4937c47a46629e31cfc17e72ca3afb","path":"FDev.Main.Core.Asset.Assets"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"9a4937c47a46629e31cfc17e72ca3afb","path":"FDev.Main.Core.Asset.Assets"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
@@ -16,20 +16,20 @@
 UCLASS()
 class FDEV_API UFDevAssets : public UObject {
 	GENERATED_BODY()
-	private: UFDevIAssetStorage* __asset_storage;
-	private: UFDevIMasterStorage* __master_storage;
+	private: UFDevIAssetStorage* p__asset_storage;
+	private: UFDevIMasterStorage* p__master_storage;
 	public:
 	/**
 	 * インスタンスを生成
 	 */
-	UFDevAssets() : UObject(), __asset_storage(nullptr), __master_storage(nullptr) {}
+	UFDevAssets() : UObject(), p__asset_storage(nullptr), p__master_storage(nullptr) {}
 	public:
 	/**
 	 * 依存を注入
 	 */
 	void injection(UFDevIAssetStorage* asset_storage, UFDevIMasterStorage* master_storage) {
-		this->__asset_storage = asset_storage;
-		this->__master_storage = master_storage;
+		this->p__asset_storage = asset_storage;
+		this->p__master_storage = master_storage;
 	}
 	public:
 	/**
@@ -37,7 +37,7 @@ class FDEV_API UFDevAssets : public UObject {
 	 * @return アセットストレージ
 	 */
 	UFDevIAssetStorage* asset_storage() {
-		return FDevsafe_addr(this->__asset_storage);
+		return FDevsafe_addr(this->p__asset_storage);
 	}
 	public:
 	/**
@@ -45,7 +45,7 @@ class FDEV_API UFDevAssets : public UObject {
 	 * @return マスターストレージ
 	 */
 	UFDevIMasterStorage* master_storage() {
-		return FDevsafe_addr(this->__master_storage);
+		return FDevsafe_addr(this->p__master_storage);
 	}
 	public:
 	/**
