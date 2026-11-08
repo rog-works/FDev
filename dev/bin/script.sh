@@ -36,6 +36,6 @@ $ bin/script.sh -h
 EOS
 else
 	for domain in ${domains[@]}; do
-		cd ${appdir} && vendor/tranp/bin/transpile.sh -c script/${domain}/${domain}_config.yml ${force} ${verbose}
+		cd ${appdir} && vendor/bin/tranp.exe -c script/${domain}/${domain}_config.yml ${force} ${verbose}
 	done
 fi

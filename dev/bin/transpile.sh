@@ -5,4 +5,4 @@ appdir=${cwd}/../
 
 source ${cwd}/.env.sh
 
-cd ${appdir} && vendor/tranp/bin/transpile.sh -c config.yml $*
+cd ${appdir} && vendor/bin/tranp.exe -c config.yml $*
