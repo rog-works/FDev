@@ -23,8 +23,44 @@ FDev
 ## Python開発環境
 
 * Python >= 3.13
-* [tranp](https://github.com/rog-works/tranp) >= 0.9.19
-* [PyYAML](https://pypi.org/project/PyYAML/) >= 6.0.2
+* [Lark](https://lark-parser.readthedocs.io/en/latest/index.html) >= 1.3.1
+* [Jinja2](https://github.com/pallets/jinja) >= 3.1.6
+* [PyYAML](https://pypi.org/project/PyYAML/) >= 6.0.3
+* [NumPy](https://numpy.org/ja/) >= 2.2.5
+* [tranp](https://github.com/rog-works/tranp) >= 0.9.20
+
+# Python開発環境
+
+## インストール
+
+```bash
+# ワークスペースに移動
+$ cd path/to/FDev
+
+# devディレクトリーに移動
+$ cd dev
+
+# 依存モジュールインストール
+$ pip install -r requirements.txt -t vendor
+```
+
+## コマンド実行
+
+```bash
+$ cd dev
+
+# トランスパイル(Python -> C++)
+$ bin/transplie.sh
+
+# マテリアル関数のマスター生成
+$ bin/script.sh && bin/master.sh
+```
+
+# マテリアル関数生成
+
+* VSCode上で「Shift + Ctrl + B」
+* 表示されたメニューから「Make Asset」を選択
+* 完了すると「Build success!」という通知が表示
 
 # 互換性
 
