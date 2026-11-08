@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.19","module":{"hash":"b2682e5166e7a57eaa491a02ff040eb4","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.20","module":{"hash":"b2682e5166e7a57eaa491a02ff040eb4","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 mask_polygon:
   name: mask_polygon
   desc: '多角形マスクを生成'

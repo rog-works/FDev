@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.19","module":{"hash":"fc9200e880f12025bf920f00fbe29bd7","path":"script.mfs.mfs_03_color"},"transpiler":{"version":"0.9.6","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.20","module":{"hash":"fc9200e880f12025bf920f00fbe29bd7","path":"script.mfs.mfs_03_color"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 color_to_srgb:
   name: color_to_srgb
   desc: 'sRGBに変換'
