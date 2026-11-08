@@ -318,8 +318,6 @@ class MFBuildCommandRunner:
 			return builder.on.ddx(cls.run_command(builder, args[0]))
 		elif name == MFBuilder.ddy.__name__:
 			return builder.on.ddy(cls.run_command(builder, args[0]))
-		elif name == MFBuilder.const_by.__name__:
-			return builder.on.const_by(args[0].as_string)
 		elif name == MFBuilder.ternary.__name__:
 			values = cls.run_command(builder, args[0]), cls.run_command(builder, args[1]), cls.run_command(builder, args[2])
 			return builder.on.ternary(values[0], values[1], values[2])

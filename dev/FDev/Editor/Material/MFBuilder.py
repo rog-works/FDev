@@ -990,27 +990,6 @@ class MFBuilder:
 		self.__append_exp(exp)
 		return MFExp(exp)
 
-	# ----- パラメーターコレクション -----
-
-	@deprecated
-	def const_by(self, name: str) -> MFExp:
-		"""パラメーターコレクション参照を生成
-
-		Args:
-			name: 値
-		Returns:
-			定数値(float)
-		Note:
-			@deprecated 未使用
-		"""
-		exp = NewObject(MaterialExpressionCollectionParameter, self.__mf)
-		collection = self.__assets.on.asset_of(MaterialParameterCollection, AssetPaths.to_path(AssetDomains.MaterialConst.value, AssetNames.Parameters.value))
-		exp.on.Collection = ObjectPtr[MaterialParameterCollection](collection)
-		exp.on.ParameterName = Name(name)
-		exp.on.ParameterId = collection.on.GetParameterId(exp.on.ParameterName)
-		self.__append_exp(exp)
-		return MFExp(exp)
-
 	# ----- 時間 -----
 
 	def time(self) -> MFExp:
