@@ -54,6 +54,9 @@ $ bin/transplie.sh
 
 # マテリアル関数のマスター生成
 $ bin/script.sh && bin/master.sh
+
+# キャッシュの削除
+$ bin/cache.sh -d
 ```
 
 # マテリアル関数生成
