@@ -117,10 +117,10 @@ class String:
 			True = 数字
 		"""
 		length = len(string)
-		_begin = min(length, max(0, begin))
-		_end = min(length, max(_begin, end if end != -1 else length))
-		for index in range(_begin, _end):
-			if index == _begin and string[index] == cls._Minus:
+		begin_ = min(length, max(0, begin))
+		end_ = min(length, max(begin_, end if end != -1 else length))
+		for index in range(begin_, end_):
+			if index == begin_ and string[index] == cls._Minus:
 				continue
 			elif string[index] >= cls._Zero and string[index] <= cls._Nine:
 				continue
@@ -143,10 +143,10 @@ class String:
 			True = 名前
 		"""
 		length = len(string)
-		_begin = min(length, max(0, begin))
-		_end = min(length, max(_begin, end if end != -1 else length))
-		for index in range(_begin, _end):
-			if (index > _begin and string[index] >= cls._Zero and string[index] <= cls._Nine):
+		begin_ = min(length, max(0, begin))
+		end_ = min(length, max(begin_, end if end != -1 else length))
+		for index in range(begin_, end_):
+			if (index > begin_ and string[index] >= cls._Zero and string[index] <= cls._Nine):
 				continue
 			elif (string[index] >= cls._a and string[index] <= cls._z):
 				continue

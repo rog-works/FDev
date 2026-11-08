@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"00bdf972df6a6881457a87bd4c79e7cb","path":"FDev.Main.Core.Lang.String"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.20","module":{"hash":"e2b2da8b48dc1957d46ebc1662e2963a","path":"FDev.Main.Core.Lang.String"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "FDev/Main/Const/ProjectConst.h"
@@ -104,10 +104,10 @@ class FDevString {
 	 */
 	static bool is_number(const FString& string, int begin = -1, int end = -1) {
 		int length = string.Len();
-		int _begin = FMath::Min(length, FMath::Max(0, begin));
-		int _end = FMath::Min(length, FMath::Max(_begin, end != -1 ? end : length));
-		for (auto index = _begin; index < _end; index += 1) {
-			if (index == _begin && string[index] == FDevString::p_Minus) {
+		int begin_ = FMath::Min(length, FMath::Max(0, begin));
+		int end_ = FMath::Min(length, FMath::Max(begin_, end != -1 ? end : length));
+		for (auto index = begin_; index < end_; index += 1) {
+			if (index == begin_ && string[index] == FDevString::p_Minus) {
 				continue;
 			} else if (string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine) {
 				continue;
@@ -129,10 +129,10 @@ class FDevString {
 	 */
 	static bool is_name(const FString& string, int begin = -1, int end = -1) {
 		int length = string.Len();
-		int _begin = FMath::Min(length, FMath::Max(0, begin));
-		int _end = FMath::Min(length, FMath::Max(_begin, end != -1 ? end : length));
-		for (auto index = _begin; index < _end; index += 1) {
-			if ((index > _begin && string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine)) {
+		int begin_ = FMath::Min(length, FMath::Max(0, begin));
+		int end_ = FMath::Min(length, FMath::Max(begin_, end != -1 ? end : length));
+		for (auto index = begin_; index < end_; index += 1) {
+			if ((index > begin_ && string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine)) {
 				continue;
 			} else if ((string[index] >= FDevString::p_a && string[index] <= FDevString::p_z)) {
 				continue;

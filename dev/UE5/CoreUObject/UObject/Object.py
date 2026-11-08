@@ -693,14 +693,14 @@ class UClass(UStruct):
 		Raises:
 			IllegalSchema: UFUNCTIONの設定不備
 		"""
-		_name: str = name.ToString() if isinstance(name, Name) else name
-		if not hasattr(self.origin, _name):
+		name_: str = name.ToString() if isinstance(name, Name) else name
+		if not hasattr(self.origin, name_):
 			return None
 
-		func = getattr(self.origin, _name)
-		embeded = is_embed_function_recursive(self.origin, _name)
+		func = getattr(self.origin, name_)
+		embeded = is_embed_function_recursive(self.origin, name_)
 		if not embeded and raised_no_embed:
-			raise Errors.IllegalSchema(self.origin, _name)
+			raise Errors.IllegalSchema(self.origin, name_)
 		elif not embeded:
 			return None
 

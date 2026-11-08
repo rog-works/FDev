@@ -1,9 +1,9 @@
 {%- if arguments -%}
 [&]() -> {{ var_type }} {
-	auto __index = {{ arguments[0] }};
-	auto __copy = {{ receiver }}[__index];
-	{{ receiver }}{{ operator }}RemoveAt(__index);
-	return __copy;
+	auto l_index = {{ arguments[0] }};
+	auto l_copy = {{ receiver }}[l_index];
+	{{ receiver }}{{ operator }}RemoveAt(l_index);
+	return l_copy;
 }(){% if is_statement %};{% endif %}
 {%- else -%}
 {{ receiver }}{{ operator }}Pop(){% if is_statement %};{% endif %}
