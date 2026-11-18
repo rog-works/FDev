@@ -8,7 +8,7 @@
 	{%- endif -%}
 {%- else -%}
 	{%- if prefix -%}
-		{{ alias }}FDev{{ original }}
+		{{ alias }}{{ original }}
 	{%- elif alias -%}
 		{% if alias.startswith('_') and not alias.endswith('__') %}p{% endif %}{{ alias }}
 	{%- else -%}
