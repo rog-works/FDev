@@ -1,0 +1,7 @@
+{%- if prefix -%}
+{{ alias }}FDev{{ original }}
+{%- elif alias -%}
+FDev{{ alias }}
+{%- else -%}
+FDev{{ original }}
+{%- endif -%}
