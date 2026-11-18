@@ -5,10 +5,13 @@ from re import search as re_search
 from typing import ClassVar
 
 from tranp.app.implements.cpp.view.cpp_view_helper import factories_for_cpp
+from tranp.app.lang.string import is_quoted_literal
 from tranp.app.view.helper.block import BlockParser
 from tranp.app.view.helper.helper import factories
 from tranp.app.view.render import RendererHelperProvider, RendererSetting
 from UE5.CoreUObject.UObject.ObjectMacros import UPROPERTY
+
+from App.Main.Core.Logs import Logs
 
 flatten = chain.from_iterable
 
@@ -135,6 +138,34 @@ class UEViewHelper:
 		var_name = remain[:-1]
 		return accessor, annotation, var_type, var_name
 
+	@classmethod
+	def build_log_call(cls, calls: str, args: list[str]) -> str:
+		"""ログ関数コールを構築
+
+		Args:
+			calls: ログ関数のレシーバー
+			args: 引数リスト(0: 呼び出し元, 1: 出力テキスト)
+		Returns:
+			ログ関数コール
+		"""
+		problems = [Logs.error.__name__, Logs.warning.__name__]
+
+		tag = calls[calls.find('::') + 2:]
+		level = tag if tag in problems else 'info'
+		format_text = f'[#{tag}] [{args[0]}]'
+
+		args_ = []
+		if tag not in problems:
+			args_.append('::'.join([Logs.__name__, Logs.Flags.__name__, tag]))
+
+		if len(args) == 1:
+			args_.append(f'"{format_text}:"')
+		elif len(args) > 1:
+			args_.append(f'"{format_text}: %s"')
+			args_.append(f'*FString({args[1]})' if is_quoted_literal(args[1], '"') else f'*{args[1]}')
+
+		return f'log_{level}({", ".join(args_)})'
+
 
 def ue_meta_parse(setting: RendererSetting) -> Callable[[str], UEMetaHelper]:
 	"""@see UEMetaHelper"""
@@ -144,6 +175,11 @@ def ue_meta_parse(setting: RendererSetting) -> Callable[[str], UEMetaHelper]:
 def parse_decl_var(setting: RendererSetting) -> Callable[[str], tuple[str, str, str, str]]:
 	"""@see UEViewHelper.parse_decl_var"""
 	return lambda decl_var: UEViewHelper.parse_decl_var(decl_var)
+
+
+def build_log_call(setting: RendererSetting) -> Callable[[str, list[str]], str]:
+	"""@see UEViewHelper.build_log_call"""
+	return lambda calls, args: UEViewHelper.build_log_call(calls, args)
 
 
 def filter_decl_var(setting: RendererSetting) -> Callable[[list[str], str], list[str]]:
@@ -159,6 +195,6 @@ def renderer_helper_provider() -> RendererHelperProvider:
 	"""
 	funcs, filters = factories()
 	funcs_cpp, filters_cpp = factories_for_cpp()
-	app_funcs = [ue_meta_parse, parse_decl_var]
+	app_funcs = [ue_meta_parse, parse_decl_var, build_log_call]
 	app_filters = [filter_decl_var]
 	return lambda: ([*funcs, *funcs_cpp, *app_funcs], [*filters, *filters_cpp, *app_filters])

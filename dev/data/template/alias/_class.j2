@@ -1,10 +1,10 @@
 {%- if module_path.startswith('App.') -%}
 	{%- if prefix -%}
-		{{ alias }}FDev{{ original }}
+		{{ alias }}{{ env_get('app_name') }}{{ original }}
 	{%- elif alias -%}
-		FDev{{ alias }}
+		{{ env_get('app_name') }}{{ alias }}
 	{%- else -%}
-		FDev{{ original }}
+		{{ env_get('app_name') }}{{ original }}
 	{%- endif -%}
 {%- else -%}
 	{%- if prefix -%}

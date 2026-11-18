@@ -1,4 +1,6 @@
-{%- if calls == 'checkf' -%}
+{%- if calls.startswith(env_get('app_name') + 'Logs') and not reg_match('::(ok|dest_in_ok|dest_in_on|dest_in_off|dest_out|flag_ok|on|off)$', calls) -%}
+	{{ build_log_call(calls, arguments) }}{% if is_statement %};{% endif %}
+{%- elif calls == 'checkf' -%}
 	{%- set string = '*FString(' + arguments[1] + ')' if is_quoted_literal(arguments[1]) else '*' + arguments[1] -%}
 	{{ calls }}({{ arguments[0] }}, TEXT("%s"), {{ string }}){% if is_statement %};{% endif %}
 {%- elif calls == 'is_a' -%}
