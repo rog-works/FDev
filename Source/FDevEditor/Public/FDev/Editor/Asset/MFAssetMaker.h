@@ -1,14 +1,13 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"687853cf00834f99c5b5146daab9ce4d","path":"FDev.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"04c92998a163bf1df6c3d5e75add4198","path":"App.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/NameTypes.h"
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
 #include "Materials/MaterialFunction.h"
-#include "FDev/Editor/Asset/AssetMaker.h"
-#include "FDev/Editor/Material/MFBuildCommand.h"
-#include "FDev/Editor/Material/MFBuilder.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Asset/AssetPaths.h"
+#include "App/Editor/Asset/AssetMaker.h"
+#include "App/Editor/Material/MFBuildCommand.h"
+#include "App/Editor/Material/MFBuilder.h"
+#include "App/Main/Core/Asset/AssetPaths.h"
 #include "MFAssetMaker.generated.h"
 // #include "typing.h"
 // #include "tranp/app/compatible/cpp/cvar.h"

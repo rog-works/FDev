@@ -1,21 +1,23 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"3c81082c6cf3dff305ee2c48539f040c","path":"FDev.Main.Core.Lang.Json.Json"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"a62495a477832329b6b032dda21bfcb3","path":"App.Main.Core.Lang.Json.Json"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Lang/DSN/DSN.h"
-#include "FDev/Main/Core/Lang/Json/JsonEntry.h"
-#include "FDev/Main/Core/Lang/Json/JsonParser.h"
-#include "FDev/Main/Core/Lang/String.h"
-#include "FDev/Main/Core/Core.h"
+#include "App/Main/Const/TypeConst.h"
+#include "App/Main/Core/Lang/DSN/DSN.h"
+#include "App/Main/Core/Lang/Json/JsonEntry.h"
+#include "App/Main/Core/Lang/Json/JsonParser.h"
+#include "App/Main/Core/Lang/String.h"
+#include "App/Main/Core/Core.h"
 #include "Json.generated.h"
 // #include "typing.h"
 // #include "tranp/app/compatible/cpp/classes.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
 // #include "tranp/app/compatible/python/embed.h"
+// #include "tranp/app/lang/annotation.h"
 // #include "compatible/cvar.h"
 // #include "compatible/error.h"
+// #include "compatible/ood.h"
 /**
  * JSON
  * @note
@@ -49,9 +51,9 @@ struct FDEV_API FFDevJson {
 	 */
 	FString ToString() const {
 		if (this->is_scalar()) {
-			return FString::Printf(TEXT("<Json[%s]: %s%s @ %p>"), *this->type_name(), *this->serialize(), *FString(this->cursor->read_only ? " readonly" : ""), this->cursor);
+			return FString::Printf(TEXT("<Json[%s]: %s%s @ %p>"), *FFDevJson::to_type_name(this->entry_type()), *this->serialize(), *FString(this->cursor->read_only ? " readonly" : ""), this->cursor);
 		} else {
-			return FString::Printf(TEXT("<Json[%s]: [%d]%s @ %p>"), *this->type_name(), this->length(), *FString(this->cursor->read_only ? " readonly" : ""), this->cursor);
+			return FString::Printf(TEXT("<Json[%s]: [%d]%s @ %p>"), *FFDevJson::to_type_name(this->entry_type()), this->length(), *FString(this->cursor->read_only ? " readonly" : ""), this->cursor);
 		}
 	}
 	// region ファクトリー
@@ -228,22 +230,6 @@ struct FDEV_API FFDevJson {
 	 */
 	bool is_object() const {
 		return this->cursor->entry_type == FDevJsonEntryTypes::Object;
-	}
-	public:
-	/**
-	 *
-	 * @return 型の名前 @immutable @test
-	 */
-	const FString& type_name() const {
-		static TMap<FDevJsonEntryTypes, FString> to_type_names = {
-			{FDevJsonEntryTypes::Boolean, "bool"},
-			{FDevJsonEntryTypes::Integer, "int"},
-			{FDevJsonEntryTypes::Float, "float"},
-			{FDevJsonEntryTypes::String, "String"},
-			{FDevJsonEntryTypes::Array, "Array"},
-			{FDevJsonEntryTypes::Object, "FDevJson"},
-		};
-		return to_type_names[this->cursor->entry_type];
 	}
 	// endregion
 	// region 要素参照
@@ -722,6 +708,65 @@ struct FDEV_API FFDevJson {
 			}
 			builder->Append("}");
 		}
+	}
+	// endregion
+	// region ヘルパー
+	public:
+	/**
+	 *
+	 * @param entry_type JSONエントリー種別
+	 * @return 型の名前 @immutable @test
+	 */
+	static const FString& to_type_name(FDevJsonEntryTypes entry_type) {
+		static TMap<FDevJsonEntryTypes, FString> to_type_names = {
+			{FDevJsonEntryTypes::Boolean, "bool"},
+			{FDevJsonEntryTypes::Integer, "int"},
+			{FDevJsonEntryTypes::Float, "float"},
+			{FDevJsonEntryTypes::String, "String"},
+			{FDevJsonEntryTypes::Array, "Array"},
+			{FDevJsonEntryTypes::Object, "FDevJson"},
+		};
+		return to_type_names[entry_type];
+	}
+	public:
+	/**
+	 *
+	 * @param entry_type JSONエントリー種別
+	 * @return 型の種別
+	 * @note
+	 * ```
+	 * ### ArrayをStructにマッピングする理由
+	 * * 利点: 引数や戻り値にJsonの配列をそのまま渡すことが出来る
+	 * * 欠点: リフレクション上はArrayとStructを区別できない。加えて要素の増減も不可
+	 * ```
+	 */
+	static EFDevClassifications to_classification(FDevJsonEntryTypes entry_type) {
+		static TMap<FDevJsonEntryTypes, EFDevClassifications> to_classifications = {
+			{FDevJsonEntryTypes::Boolean, EFDevClassifications::Scalar},
+			{FDevJsonEntryTypes::Integer, EFDevClassifications::Scalar},
+			{FDevJsonEntryTypes::Float, EFDevClassifications::Scalar},
+			{FDevJsonEntryTypes::String, EFDevClassifications::Scalar},
+			{FDevJsonEntryTypes::Array, EFDevClassifications::Struct},
+			{FDevJsonEntryTypes::Object, EFDevClassifications::Struct},
+		};
+		return to_classifications[entry_type];
+	}
+	public:
+	/**
+	 *
+	 * @param entry_type JSONエントリー種別
+	 * @return 値型の種別
+	 */
+	static EFDevScalars to_scalar(FDevJsonEntryTypes entry_type) {
+		static TMap<FDevJsonEntryTypes, EFDevScalars> to_scalars = {
+			{FDevJsonEntryTypes::Boolean, EFDevScalars::Boolean},
+			{FDevJsonEntryTypes::Integer, EFDevScalars::Integer},
+			{FDevJsonEntryTypes::Float, EFDevScalars::Float},
+			{FDevJsonEntryTypes::String, EFDevScalars::String},
+			{FDevJsonEntryTypes::Array, EFDevScalars::NoScalar},
+			{FDevJsonEntryTypes::Object, EFDevScalars::NoScalar},
+		};
+		return to_scalars[entry_type];
 	}
 	// endregion
 };

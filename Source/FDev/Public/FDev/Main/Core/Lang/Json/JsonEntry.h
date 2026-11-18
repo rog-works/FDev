@@ -1,12 +1,13 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"210c0811b44709f88a1724b9dc4af95e","path":"FDev.Main.Core.Lang.Json.JsonEntry"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"fecd6c08d45df28c241d3e5870a37ebf","path":"App.Main.Core.Lang.Json.JsonEntry"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Lang/Json/JsonParser.h"
-#include "FDev/Main/Core/Lang/String.h"
+#include "App/Main/Core/Lang/Json/JsonParser.h"
+#include "App/Main/Core/Lang/String.h"
 // #include "typing.h"
 // #include "tranp/app/compatible/cpp/classes.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
 // #include "tranp/app/compatible/python/embed.h"
+// #include "tranp/app/lang/annotation.h"
+// #include "compatible/ood.h"
 /**
  * JSONエントリー
  */

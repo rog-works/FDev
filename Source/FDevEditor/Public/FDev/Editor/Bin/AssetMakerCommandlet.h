@@ -1,16 +1,17 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"51574ff560a4d9a9de4e3523977c36de","path":"FDev.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"0eb0dbb36d9adab27d4b7bd707f3ba03","path":"App.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/ObjectMacros.h"
 #include "Commandlets/Commandlet.h"
-#include "FDev/Editor/Asset/AssetMakerFactory.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Core.h"
+#include "App/Editor/Asset/AssetMakerFactory.h"
+#include "App/Main/Core/Logs.h"
+#include "App/Main/Core/Core.h"
 #include "AssetMakerCommandlet.generated.h"
 // #include "enum.h"
 // #include "typing.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
 // #include "tranp/app/compatible/python/embed.h"
-// enum ArgKeys
+// #include "compatible/error.h"
+// enum FDevArgKeys
 /**
  * コマンドランナー(アセット生成)
  */
@@ -26,7 +27,7 @@ class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 	 * ```
 	 * ### 書式
 	 * * 全文: '{実行ファイルパス}\\UnrealEditor-Cmd.exe {プロジェクトパス}.uproject -run=AssetMakerCommandlet -Maker="{メーカータグ}: {ソースパス or all}, ..."'
-	 * * サンプル(Maker): -Maker="mfs, force"
+	 * * サンプル(Maker): -Maker="mfs: all, mis: all, force"
 	 * ```
 	 */
 	TTuple<bool, TArray<TTuple<FString, FString>>> parse_args(const FString& argv) {
@@ -64,9 +65,13 @@ class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 	 * @param argv コマンドライン引数
 	 */
 	int Main(const FString& argv) override {
-		auto [force, args] = this->parse_args(argv);
-		for (auto& [tag, target] : args) {
-			this->make_asset(tag, target, force);
+		try {
+			auto [force, args] = this->parse_args(argv);
+			for (auto& [tag, target] : args) {
+				this->make_asset(tag, target, force);
+			}
+		} catch (const CompatibleError& e) {
+			log_error("[#error] [UFDevAssetMakerCommandlet::Main]: %s", *e.message());
 		}
 		return 0;
 	}

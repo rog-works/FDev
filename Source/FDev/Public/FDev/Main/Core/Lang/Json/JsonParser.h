@@ -1,11 +1,9 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"433aeb8e0b8ebb45156a79cc33ef2577","path":"FDev.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"a02fbc4d3f40b7a98b413e90578a6909","path":"App.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Lang/String.h"
+#include "App/Main/Core/Lang/String.h"
 // #include "enum.h"
 // #include "tranp/app/compatible/cpp/classes.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
-// #include "tranp/app/compatible/python/embed.h"
 /**
  * JSONエントリー種別
  */
@@ -26,7 +24,7 @@ class FDevJsonParseInfo {
 	/**
 	 * エントリー
 	 */
-	class Entry {
+	class FDevEntry {
 		public: FDevJsonEntryTypes entry_type;
 		public: FString key;
 		public: int depth;
@@ -41,9 +39,9 @@ class FDevJsonParseInfo {
 		 * @param begin 読み取り開始位置
 		 * @param end 読み取り終了位置
 		 */
-		Entry(FDevJsonEntryTypes entry_type, const FString& key, int depth, int begin, int end) : entry_type(entry_type), key(key), depth(depth), begin(begin), end(end) {}
+		FDevEntry(FDevJsonEntryTypes entry_type, const FString& key, int depth, int begin, int end) : entry_type(entry_type), key(key), depth(depth), begin(begin), end(end) {}
 	};
-	public: TArray<Entry> entries;
+	public: TArray<FDevEntry> entries;
 	public:
 	/**
 	 * インスタンスを生成
@@ -102,10 +100,10 @@ class FDevJsonParser {
 	 */
 	static int p_parse_boolean(const FString& json_str, int begin, const FString& key, int depth, FDevJsonParseInfo* info) {
 		if (json_str[begin] == 'f') {
-			info->entries.Add(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Boolean, key, depth, begin, begin + 5));
+			info->entries.Add(FDevJsonParseInfo::FDevEntry(FDevJsonEntryTypes::Boolean, key, depth, begin, begin + 5));
 			return begin + 5;
 		} else {
-			info->entries.Add(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Boolean, key, depth, begin, begin + 4));
+			info->entries.Add(FDevJsonParseInfo::FDevEntry(FDevJsonEntryTypes::Boolean, key, depth, begin, begin + 4));
 			return begin + 4;
 		}
 	}
@@ -131,7 +129,7 @@ class FDevJsonParser {
 				break;
 			}
 		}
-		info->entries.Add(FDevJsonParseInfo::Entry(entry_type, key, depth, begin, end));
+		info->entries.Add(FDevJsonParseInfo::FDevEntry(entry_type, key, depth, begin, end));
 		return end;
 	}
 	protected:
@@ -158,7 +156,7 @@ class FDevJsonParser {
 				break;
 			}
 		}
-		info->entries.Add(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::String, key, depth, begin, end + 1));
+		info->entries.Add(FDevJsonParseInfo::FDevEntry(FDevJsonEntryTypes::String, key, depth, begin, end + 1));
 		return end + 1;
 	}
 	protected:
@@ -185,7 +183,7 @@ class FDevJsonParser {
 			end = FDevJsonParser::p_parse_entry(json_str, end, LexToString(element_at), depth + 1, info);
 			element_at += 1;
 		}
-		info->entries.Insert(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Array, key, depth, begin, end + 1), info_begin);
+		info->entries.Insert(FDevJsonParseInfo::FDevEntry(FDevJsonEntryTypes::Array, key, depth, begin, end + 1), info_begin);
 		return end + 1;
 	}
 	protected:
@@ -211,7 +209,7 @@ class FDevJsonParser {
 			auto [in_key, begin_value] = FDevJsonParser::p_parse_key(json_str, end);
 			end = FDevJsonParser::p_parse_entry(json_str, begin_value, in_key, depth + 1, info);
 		}
-		info->entries.Insert(FDevJsonParseInfo::Entry(FDevJsonEntryTypes::Object, key, depth, begin, end + 1), info_begin);
+		info->entries.Insert(FDevJsonParseInfo::FDevEntry(FDevJsonEntryTypes::Object, key, depth, begin, end + 1), info_begin);
 		return end + 1;
 	}
 	protected:

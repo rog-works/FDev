@@ -1,15 +1,15 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"0a2bb34a52758d1a5a69aabafcf07958","path":"FDev.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"3403f8e4f93aafb6466d195ce54ccab8","path":"App.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Asset/AssetPaths.h"
-#include "FDev/Main/Core/Asset/AssetStorage.h"
-#include "FDev/Main/Core/Lang/IO/File.h"
-#include "FDev/Main/Core/Lang/Json/Json.h"
-#include "FDev/Main/Core/Lang/Json/JsonEntry.h"
-#include "FDev/Main/Core/Core.h"
+#include "App/Main/Core/Asset/AssetPaths.h"
+#include "App/Main/Core/Asset/AssetStorage.h"
+#include "App/Main/Core/Lang/IO/Files.h"
+#include "App/Main/Core/Lang/Json/Json.h"
+#include "App/Main/Core/Lang/Json/JsonEntry.h"
+#include "App/Main/Core/Logs.h"
+#include "App/Main/Core/Core.h"
 #include "AssetStorageImpl.generated.h"
 // #include "typing.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
@@ -65,6 +65,7 @@ class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 		if (!asset) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("UFDevAssetStorageImpl::load_asset"), *ue_asset_path));
 		}
+		log_info(Logs::Flags::asset, "[#asset] [UFDevAssetStorageImpl::load_asset]: %s", *FString::Printf(TEXT("path: %s, dsn: %s"), *path, *asset->GetPathName()));
 		return asset;
 	}
 };
@@ -91,7 +92,7 @@ class FDEV_API UFDevMasterStorageImpl : public UFDevIMasterStorage {
 			return true;
 		}
 		if (this->for_origin(path)) {
-			return FDevFiles::exiets(FDevAssetPaths::to_master_filepath(path));
+			return FDevFiles::exists(FDevAssetPaths::to_master_filepath(path));
 		}
 		auto [origin_path, internal_path] = this->break_internal_path(path);
 		FFDevJson origin = this->load(origin_path);

@@ -1,9 +1,7 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"c84eee3839b8842d34850a025e5ae808","path":"FDev.Main.Core.Lang.DSN.DSN"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"ec1336f417736d24b41b01ec416de21c","path":"App.Main.Core.Lang.DSN.DSN"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Core.h"
+#include "App/Main/Core/Core.h"
 // #include "typing.h"
-// #include "tranp/app/compatible/python/embed.h"
 /**
  * DSN(Dot Separator Name)
  */

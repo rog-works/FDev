@@ -1,10 +1,8 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"fabab9919f7f355bb0f6293f9b6912f4","path":"FDev.Main.Core.Lang.Convertion"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"96c40442bd8547e616ca330dc39c48af","path":"App.Main.Core.Lang.Convertion"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/Object.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Core.h"
+#include "App/Main/Core/Core.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
-// #include "tranp/app/compatible/python/embed.h"
 // #include "compatible/error.h"
 /**
  *

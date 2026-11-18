@@ -1,10 +1,9 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"bfe8c2f6297a21cdeab5346ac3e4c2b5","path":"FDev.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"b8670adeeb7e16c75b26e31e72fd0837","path":"App.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Lang/DSN/DSN.h"
-#include "FDev/Main/Core/Core.h"
-// #include "tranp/app/compatible/python/embed.h"
+#include "App/Main/Const/ProjectConst.h"
+#include "App/Main/Core/Lang/DSN/DSN.h"
+#include "App/Main/Core/Core.h"
 // #include "compatible/error.h"
 // #include "const/const_asset.h"
 /**

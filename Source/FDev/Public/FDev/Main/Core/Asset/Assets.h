@@ -1,11 +1,10 @@
-// @tranp.meta: {"version":"0.9.20","module":{"hash":"9a4937c47a46629e31cfc17e72ca3afb","path":"FDev.Main.Core.Asset.Assets"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.23","module":{"hash":"1efee816c8d91d51dbfbd28340e75f57","path":"App.Main.Core.Asset.Assets"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
-#include "FDev/Main/Const/ProjectConst.h"
-#include "FDev/Main/Core/Asset/AssetStorage.h"
-#include "FDev/Main/Core/Lang/Convertion.h"
-#include "FDev/Main/Core/Lang/Json/Json.h"
+#include "App/Main/Core/Asset/AssetStorage.h"
+#include "App/Main/Core/Lang/Convertion.h"
+#include "App/Main/Core/Lang/Json/Json.h"
 #include "Assets.generated.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
 // #include "tranp/app/compatible/python/embed.h"
