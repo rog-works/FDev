@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import override
 
-from app.compatible.cpp.cvar import CP
+from tranp.app.compatible.cpp.cvar import CP
 from tranp.app.compatible.python.embed import Embed
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS
 from UE5.Engine.Commandlets.Commandlet import Commandlet
