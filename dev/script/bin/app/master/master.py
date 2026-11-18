@@ -4,6 +4,7 @@ from typing import TypedDict
 
 from script.bin.loader.master_loader import MasterLoader
 from script.bin.loader.mfs_loader import MFSLoader
+from script.bin.loader.mis_loader import MISLoader
 
 ArgsDict = TypedDict('ArgsDict', {'input': str, 'domains': list[str], 'force': bool, 'pretty': bool, 'help': bool})
 
@@ -80,6 +81,7 @@ class App:
 		"""Returns: マスターローダーリスト"""
 		return [
 			MFSLoader,
+			MISLoader,
 		]
 
 	def run(self) -> None:

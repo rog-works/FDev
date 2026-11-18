@@ -22,13 +22,13 @@ for arg in "$@"; do
 done
 
 if [ ${#domains[@]} -eq 0 ]; then
-	domains=("mfs")
+	domains=("mfs" "mis")
 fi
 
 if [ "${help}" == "-h" ]; then
 	cat << EOS
 # Usage
-$ bin/script.sh [mfs]
+$ bin/script.sh [mfs] [mis]
 # Example
 $ bin/script.sh mfs
 $ bin/script.sh -f -v
@@ -36,6 +36,10 @@ $ bin/script.sh -h
 EOS
 else
 	for domain in ${domains[@]}; do
-		cd ${appdir} && vendor/bin/tranp.exe -c script/${domain}/${domain}_config.yml ${force} ${verbose}
+		if [ "${domain}" == "mis" ]; then
+			cd ${appdir} && python script/bin/app/master/build_mis.py ${force} ${verbose}
+		else
+			cd ${appdir} && vendor/bin/tranp.exe -c script/${domain}/${domain}_config.yml ${force} ${verbose}
+		fi
 	done
 fi
