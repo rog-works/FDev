@@ -1,7 +1,17 @@
-{%- if prefix -%}
-{{ alias }}FDev{{ original }}
-{%- elif alias -%}
-FDev{{ alias }}
+{%- if module_path.startswith('App.') -%}
+	{%- if prefix -%}
+		{{ alias }}FDev{{ original }}
+	{%- elif alias -%}
+		FDev{{ alias }}
+	{%- else -%}
+		FDev{{ original }}
+	{%- endif -%}
 {%- else -%}
-FDev{{ original }}
+	{%- if prefix -%}
+		{{ alias }}FDev{{ original }}
+	{%- elif alias -%}
+		{% if alias.startswith('_') and not alias.endswith('__') %}p{% endif %}{{ alias }}
+	{%- else -%}
+		{% if original.startswith('_') and not original.endswith('__') %}p{% endif %}{{ original }}
+	{%- endif -%}
 {%- endif -%}
