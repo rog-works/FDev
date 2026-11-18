@@ -20,6 +20,7 @@ class AssetNames(Enum):
 	"""アセットの名前"""
 	# マスター
 	MFs = 'mfs'
+	MIs = 'mis'
 
 
 class AssetFormats(Enum):

@@ -15,8 +15,8 @@ from tranp.app.lang.typehint import ClassTypehint
 from UE5.Core.UObject.NameTypes import Name
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, Abstract, EmbedKeys
 
+from App.Main.Const.ProjectConst import PackageConst, ProjectConst
 from compatible.error import Errors
-from FDev.Main.Const.ProjectConst import PackageConst, ProjectConst
 
 T_Obj = TypeVar('T_Obj', bound='UObject')
 

@@ -8,5 +8,4 @@ ignore = ["ALL"]
 exclude = ["**/*.py"]
 
 [lint.isort]
-known-first-party = ["FDev"]
 known-third-party = ["tranp", "UE5"]

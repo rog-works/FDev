@@ -1,8 +1,10 @@
+# @see Engine/Source/Runtime/Core/Public/Misc/Paths.h
+
 from os import path as os_path
 
 from tranp.app.compatible.python.embed import Embed
 
-from FDev.Main.Const.ProjectConst import PackageConst
+from App.Main.Const.ProjectConst import PackageConst
 from helper.env.directories import project_dir
 
 

@@ -1,3 +1,5 @@
+# @see Engine/Source/Runtime/Core/Public/Misc/StringBuilder.h
+
 from tranp.app.compatible.python.embed import Embed
 
 
