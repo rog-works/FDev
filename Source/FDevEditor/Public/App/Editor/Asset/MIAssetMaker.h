@@ -4,7 +4,7 @@
 #include "Templates/SharedPointer.h"
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
-#include "UnrealEd/Factories/MaterialInstanceConstantFactoryNew.h"
+#include "Factories/MaterialInstanceConstantFactoryNew.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "App/Editor/Asset/AssetMaker.h"

@@ -20,7 +20,7 @@ env:
       - UE5/AssetTools/
       - UE5/Core/
       - UE5/CoreUObject/
-      - UE5/Editor/
+      - UE5/Editor/UnrealEd/
       - UE5/Engine/
     cvars:
       AtomicCSP: CSP
