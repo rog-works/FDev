@@ -1,8 +1,15 @@
 from enum import Enum
 
 
+class Bounds(Enum):
+	"""範囲"""
+	PanelCornar = 32.0
+
+
 class Paddings(Enum):
 	"""パディング"""
+	Shadow = 6.0
+	Icon = 3.0
 	SafeZone = 0.5
 
 
