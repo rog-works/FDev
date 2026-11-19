@@ -4,6 +4,10 @@
 			"name": "src: FDev/dev",
 			"path": ".",
 		},
+		{
+			"name": "dest: master",
+			"path": "../Content/master",
+		},
 	],
 	"settings": {
 		"files.associations": {

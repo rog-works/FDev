@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.23","module":{"hash":"dcbad942b9a74771aea09f0d9d7dee6d","path":"script.mfs.mfs_06_uv"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.24","module":{"hash":"dcbad942b9a74771aea09f0d9d7dee6d","path":"script.mfs.mfs_06_uv"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 uv_invert_x:
   name: uv_invert_x
   desc: 'UV座標の進行逆転 (X軸)'

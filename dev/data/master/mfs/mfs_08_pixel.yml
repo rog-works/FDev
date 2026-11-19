@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.23","module":{"hash":"bcd4c2204b83bcbda1343a4ac9e24cdc","path":"script.mfs.mfs_08_pixel"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.24","module":{"hash":"bcd4c2204b83bcbda1343a4ac9e24cdc","path":"script.mfs.mfs_08_pixel"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 pixel_antialias:
   name: pixel_antialias
   desc: '強度からα値を算出'

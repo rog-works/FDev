@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.23","module":{"hash":"fcae3f682ba4dc9971065c2452098004","path":"script.mfs.mfs_02_math"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.24","module":{"hash":"fcae3f682ba4dc9971065c2452098004","path":"script.mfs.mfs_02_math"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 math_resolution_to_aspect:
   name: math_resolution_to_aspect
   desc: '解像度からアスペクト比を算出'
