@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"507a8544bc076ffa2b685affb7ef1010","path":"App.Editor.Material.MIBuilder"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"507a8544bc076ffa2b685affb7ef1010","path":"App.Editor.Material.MIBuilder"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/Color.h"
 #include "Misc/Guid.h"

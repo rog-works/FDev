@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"96c40442bd8547e616ca330dc39c48af","path":"App.Main.Core.Lang.Convertion"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"96c40442bd8547e616ca330dc39c48af","path":"App.Main.Core.Lang.Convertion"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/Object.h"
 #include "App/Main/Core/Core.h"

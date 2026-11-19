@@ -6,13 +6,14 @@ FDev
 * Unreal Engine用プラグイン
 * [tranp](https://github.com/rog-works/tranp)を用いたPython開発環境
 
-# 機能(プラグイン)
+# 機能
 
 * Core機能
   * アセットマネージャー
   * Json
 * アセット生成
   * マテリアル関数
+  * マテリアルインスタンス
 
 # 必須要件
 
@@ -27,24 +28,24 @@ FDev
 * [Jinja2](https://github.com/pallets/jinja) >= 3.1.6
 * [PyYAML](https://pypi.org/project/PyYAML/) >= 6.0.3
 * [NumPy](https://numpy.org/ja/) >= 2.2.5
-* [tranp](https://github.com/rog-works/tranp) >= 0.9.20
+* [tranp](https://github.com/rog-works/tranp) >= 0.9.24
 
 # Python開発環境
 
 ## インストール
 
 ```bash
-# ワークスペースに移動
+# プロジェクトのルートディレクトリーに移動
 $ cd path/to/FDev
 
 # devディレクトリーに移動
 $ cd dev
 
-# 依存モジュールインストール
+# 依存モジュールのインストール
 $ pip install -r requirements.txt -t vendor
 ```
 
-## コマンド実行
+## コマンド
 
 ```bash
 $ cd dev
@@ -52,14 +53,14 @@ $ cd dev
 # トランスパイル(Python -> C++)
 $ bin/transplie.sh
 
-# マテリアル関数のマスター生成
+# マスター生成
 $ bin/script.sh && bin/master.sh
 
-# キャッシュの削除
+# キャッシュの削除 ※通常は実行不要。トラブル等の対処に利用
 $ bin/cache.sh -d
 ```
 
-# マテリアル関数生成
+# アセット生成
 
 * VSCode上で「Shift + Ctrl + B」
 * 表示されたメニューから「Make Asset」を選択
@@ -74,5 +75,5 @@ $ bin/cache.sh -d
 # ライセンス
 
 * [MIT](LICENCE)
-* 本リポジトリー内の既存の成果物に関してはライセンスに従います
-* 本リポジトリーを利用し、独自に生成した成果物に関してはライセンスに含みません
+* 本リポジトリー内の既存の成果物に関しては、MITライセンスに従います
+* 本リポジトリーを利用し、独自に実装したデータから生成した成果物に関しては、本ライセンスの対象外です

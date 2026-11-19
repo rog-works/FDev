@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"9af4da79e0344dd800743a52d3cc15a5","path":"App.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"9af4da79e0344dd800743a52d3cc15a5","path":"App.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Object.h"
@@ -108,14 +108,14 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 		FString asset_path = this->to_asset_path(src);
 		UObject* asset = this->find_asset(asset_path);
 		if (!force && asset && this->skip_update(asset)) {
-			log_info(Logs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("skip: %s"), *asset_path));
+			log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("skip: %s"), *asset_path));
 			return false;
 		} else if (asset == nullptr) {
-			log_info(Logs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("new: %s"), *asset_path));
+			log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("new: %s"), *asset_path));
 			this->run_new(asset_path);
 			return true;
 		} else {
-			log_info(Logs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("update: %s"), *asset_path));
+			log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("update: %s"), *asset_path));
 			this->run_update(asset);
 			return true;
 		}

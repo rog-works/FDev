@@ -6,11 +6,13 @@ from numpy import dot as np_dot
 from numpy import linalg as np_linalg
 from numpy import sqrt as np_sqrt
 
+from compatible.error import Errors
+
 EqualThreshold = 0.001
 
 
 class SamplerTypes(Enum):
-	"""テクスチャーサンプル種別"""
+	"""テクスチャーサンプル種別 Note: @see UE5.Engine.Materials.MaterialExpressionTextureSample"""
 	Color = 'Color'
 	Grayscale = 'LinearGrayscale'
 	Linear = 'LinearColor'
@@ -27,10 +29,10 @@ class _Vector:
 		Args:
 			elems: 要素リスト
 		Raises:
-			ValueError: 要素数が0
+			InvalidArguments: 要素数が0
 		"""
 		if not elems:
-			raise ValueError(self)
+			raise Errors.InvalidArguments(self)
 
 		self.elems = list(elems)
 
@@ -79,7 +81,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return len([True for index in range(len(self.elems)) if abs(self.elems[index] - other.elems[index]) <= EqualThreshold]) == len(self.elems)
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 	def __ne__(self: Self, other: Self | float) -> bool:
 		"""比較(不一致) Args: other: 値 Returns: 結果"""
@@ -92,7 +94,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return self.__class__(*[self.elems[index] + other.elems[index] for index in range(len(self.elems))])
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 	def __sub__(self: Self, other: Self | float) -> Self:
 		"""算術演算(減算) Args: other: 値 Returns: 結果"""
@@ -101,7 +103,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return self.__class__(*[self.elems[index] - other.elems[index] for index in range(len(self.elems))])
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 	def __mul__(self: Self, other: Self | float) -> Self:
 		"""算術演算(乗算) Args: other: 値 Returns: 結果"""
@@ -110,7 +112,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return self.__class__(*[self.elems[index] * other.elems[index] for index in range(len(self.elems))])
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 	def __truediv__(self: Self, other: Self | float) -> Self:
 		"""算術演算(除算) Args: other: 値 Returns: 結果"""
@@ -119,7 +121,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return self.__class__(*[self.elems[index] / other.elems[index] for index in range(len(self.elems))])
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 	def __rtruediv__(self: Self, other: Self | float) -> Self:
 		"""算術演算(除算) Args: other: 値 Returns: 結果"""
@@ -128,7 +130,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return self.__class__(*[other.elems[index] / self.elems[index] for index in range(len(self.elems))])
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 	def __mod__(self: Self, other: Self | float) -> Self:
 		"""算術演算(余算) Args: other: 値 Returns: 結果"""
@@ -137,7 +139,7 @@ class _Vector:
 		elif isinstance(other, _Vector) and type(self) == type(other):
 			return self.__class__(*[self.elems[index] % other.elems[index] for index in range(len(self.elems))])
 		else:
-			raise ValueError(self, other)
+			raise Errors.NotAllowed(self, other)
 
 
 class float2(_Vector):

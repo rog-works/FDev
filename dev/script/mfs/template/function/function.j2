@@ -1,6 +1,12 @@
 {%- set deco_query = parse_decorators(decorators) -%}
 {%- if deco_query.contains('Embed.python') %}
 # function {{ symbol }}
+{%- elif symbol.endswith(env_get('i18n.layers.tag')) -%}
+{%- for layer_id in env_get('i18n.layers.ids').split('|') %}
+{{ symbol.replace(env_get('i18n.layers.tag'), layer_id) }}:
+{%- import 'function/_block.j2' as block -%}
+{{ block.get_content(symbol, comment, parameters, statements).replace(env_get('i18n.layers.tag'), layer_id) }}
+{%- endfor -%}
 {%- else %}
 {{ symbol }}:
 {%- import 'function/_block.j2' as block -%}

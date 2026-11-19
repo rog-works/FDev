@@ -1,5 +1,8 @@
 from typing import Annotated
 
+from tranp.app.compatible.python.embed import Embed
+from tranp.app.lang.annotation import deprecated
+
 from script.mfs.me import ME
 from script.mfs.mfs_00_preview import preview_distance
 
@@ -30,3 +33,48 @@ def pixel_antialias(intensity: Annotated[float, preview_distance()]) -> float:
 	# 上限値: 数値に必然性はなく、0.5 ~ 1.0程度が適量。大きいほどアンチエイリアスが利く半面、極端に小さい・細い図形が潰れる。DPIスケールと相関性がある？
 	width = ME.clamp(dx + dy, 0.001, 0.7)
 	return ME.saturate((1.0 - intensity) / width)
+
+
+@deprecated
+@Embed.python
+def pixel_antialias_thin_line(intensity: Annotated[float, preview_distance()]) -> float:
+	"""強度からα値を算出(細線用)
+
+	Args:
+		intensity: 強度 (0 ~ 1)
+	Returns:
+		α値
+	Note:
+		```
+		FIXME 実際は単に均しているだけでアンチエイリアスではないため、汎用的に利用する事は出来ない
+		@deprecated 未使用
+		```
+	"""
+	dx = ME.abs(ME.ddx(intensity))
+	dy = ME.abs(ME.ddy(intensity))
+	# 勾配の補正
+	grad_plain = dx + dy
+	grad_invert = 1.0 / (grad_plain + 0.0001)
+	grad = ME.lerp(grad_plain, grad_invert, 0.5)
+	# @see pixel_antialias
+	width = ME.clamp(grad, 0.001, 0.8)
+	return ME.saturate((1.0 - intensity) / width)
+
+
+@deprecated
+@Embed.python
+def pixel_clamp_line_size(line_size: Annotated[float, 1.0]) -> float:
+	"""ピクセル指定時の線のサイズを調整
+
+	Args:
+		size: 線のサイズ (ピクセル)
+	Returns:
+		線のサイズ (ピクセル)
+	Note:
+		```
+		2ピクセル未満が対象
+		@deprecated 未使用
+		```
+	"""
+	thin_inflate = ME.abs(ME.min(0.0, -2.0 + line_size)) / 2.0
+	return line_size + thin_inflate

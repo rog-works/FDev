@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"a62495a477832329b6b032dda21bfcb3","path":"App.Main.Core.Lang.Json.Json"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"a62495a477832329b6b032dda21bfcb3","path":"App.Main.Core.Lang.Json.Json"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "UObject/Object.h"

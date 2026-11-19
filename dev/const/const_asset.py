@@ -9,6 +9,7 @@ class AssetDomains(Enum):
 	Texture = Image + '/texture'
 	# マテリアル
 	Material = 'material'
+	MaterialConst = Material + '/const'
 	MaterialFunc = Material + '/func'
 	# マスター
 	Master = 'master'
@@ -21,6 +22,10 @@ class AssetNames(Enum):
 	# マスター
 	MFs = 'mfs'
 	MIs = 'mis'
+	# マテリアル
+	Parameters = 'parameters'
+	UIMaster = 'ui_master'
+	UIMasterAdd = 'ui_master_add'
 
 
 class AssetFormats(Enum):

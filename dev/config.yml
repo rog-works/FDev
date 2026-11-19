@@ -17,8 +17,10 @@ env:
     include_dirs:
       - App/:App/
       - UE5/AssetRegistry/
+      - UE5/AssetTools/
       - UE5/Core/
       - UE5/CoreUObject/
+      - UE5/Editor/
       - UE5/Engine/
     cvars:
       AtomicCSP: CSP

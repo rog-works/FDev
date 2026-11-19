@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"ea1674035d992b3a682f4c655a19bec4","path":"App.Editor.Material.MFBuilder"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"5709832d647b32a03c83168720e9e810","path":"App.Editor.Material.MFBuilder"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/Color.h"
 #include "Math/MathFwd.h"
@@ -915,6 +915,23 @@ class FDevMFBuilder {
 	FDevMFExp ddy(FDevMFExp value) {
 		UMaterialExpressionDDY* exp = NewObject<UMaterialExpressionDDY>(this->p__mf);
 		exp->Value.Connect(value.index, value.exp);
+		this->p__append_exp(exp);
+		return FDevMFExp(exp);
+	}
+	// ----- パラメーターコレクション -----
+	public:
+	/**
+	 * パラメーターコレクション参照を生成
+	 * @param name 値
+	 * @return 定数値(float)
+	 * @note @deprecated 未使用
+	 */
+	FDevMFExp const_by(const FString& name) {
+		UMaterialExpressionCollectionParameter* exp = NewObject<UMaterialExpressionCollectionParameter>(this->p__mf);
+		UMaterialParameterCollection* collection = this->p__assets->asset_of<UMaterialParameterCollection>(FDevAssetPaths::to_path("material/const", "parameters"));
+		exp->Collection = TObjectPtr<UMaterialParameterCollection>(collection);
+		exp->ParameterName = FName(name);
+		exp->ParameterId = collection->GetParameterId(exp->ParameterName);
 		this->p__append_exp(exp);
 		return FDevMFExp(exp);
 	}

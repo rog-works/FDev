@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"04c92998a163bf1df6c3d5e75add4198","path":"App.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"04c92998a163bf1df6c3d5e75add4198","path":"App.Editor.Asset.MFAssetMaker"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/NameTypes.h"
 #include "UObject/Object.h"

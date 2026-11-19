@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"3403f8e4f93aafb6466d195ce54ccab8","path":"App.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"3403f8e4f93aafb6466d195ce54ccab8","path":"App.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "UObject/Object.h"
@@ -65,7 +65,7 @@ class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 		if (!asset) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("UFDevAssetStorageImpl::load_asset"), *ue_asset_path));
 		}
-		log_info(Logs::Flags::asset, "[#asset] [UFDevAssetStorageImpl::load_asset]: %s", *FString::Printf(TEXT("path: %s, dsn: %s"), *path, *asset->GetPathName()));
+		log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetStorageImpl::load_asset]: %s", *FString::Printf(TEXT("path: %s, dsn: %s"), *path, *asset->GetPathName()));
 		return asset;
 	}
 };

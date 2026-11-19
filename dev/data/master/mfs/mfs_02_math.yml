@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.20","module":{"hash":"d62990cb98a1c5172f8a5bcfb040e13f","path":"script.mfs.mfs_02_math"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.23","module":{"hash":"fcae3f682ba4dc9971065c2452098004","path":"script.mfs.mfs_02_math"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 math_resolution_to_aspect:
   name: math_resolution_to_aspect
   desc: '解像度からアスペクト比を算出'
@@ -13,6 +13,7 @@ math_resolution_to_pixel_size:
     - var: [resolution, param: [float2, resolution, float2: [250.0, 250.0], '解像度 (default = 250:250)']]
   statements:
     - returns: [result, div: [1.0, min: [mask: [resolution, x], mask: [resolution, y]]], 'ピクセルサイズ']
+# function math_resolution_to_uv_offset
 math_aspect2d:
   name: math_aspect2d
   desc: 'アスペクト比(2次元)を生成'

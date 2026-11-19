@@ -1,0 +1,15 @@
+{%- macro get_content(comment, statements) -%}
+{%- set doc = namespace(on={}) -%}
+{%- for line in comment.split('\n') -%}
+{%- set line_elems = line.split('|') -%}
+{%- set _ = doc.on.update({line_elems[0]: line_elems[1]}) -%}
+{%- endfor -%}
+{%- filter indent('  ') %}
+{{ env_get('i18n.keys.desc') }}: {{ doc.on['@desc'] }}
+{{ env_get('i18n.keys.params') }}: []
+{{ env_get('i18n.keys.statements') }}:
+{%- for statement in statements %}
+ - {{ statement }}
+{%- endfor %}
+{%- endfilter %}
+{%- endmacro -%}

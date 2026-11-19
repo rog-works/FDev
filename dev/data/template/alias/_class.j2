@@ -1,4 +1,4 @@
-{%- if module_path.startswith('App.') -%}
+{%- if fullyname.startswith('App.') and fullyname.split('#')[1].count('.') == 0 -%}
 	{%- if prefix -%}
 		{{ alias }}{{ env_get('app_name') }}{{ original }}
 	{%- elif alias -%}

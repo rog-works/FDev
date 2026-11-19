@@ -12,6 +12,8 @@ from numpy import sin as np_sin
 from numpy import tan as np_tan
 from tranp.app.lang.annotation import deprecated
 
+from compatible.error import Errors
+from const.const_material import ParametersValues
 from script.mfs.me_types import SamplerTypes, float2, float3, float4, texture
 
 T_Value = TypeVar('T_Value', float, float2, float3, float4)
@@ -268,7 +270,7 @@ class ME:
 		Note:
 			@deprecated APIが非公開であり、移植性が低いため使用禁止とする
 		"""
-		raise ValueError
+		raise Errors.Unsupported
 
 	# endregion
 	# region 線形補完・ステップ関数
@@ -512,7 +514,7 @@ class ME:
 		elif isinstance(value, float2):
 			return float2(1.0, 1.0)
 		else:
-			raise ValueError(value)
+			raise Errors.Never(value)
 
 	@classmethod
 	def ddy(cls, value: T_Value) -> T_Value:
@@ -537,7 +539,7 @@ class ME:
 		Returns:
 			値
 		"""
-		to_values = {'dpi_scale': 0.666}
+		to_values = {ParametersValues.DPIScale.name: ParametersValues.DPIScale.value}
 		return to_values[name]
 
 	# endregion

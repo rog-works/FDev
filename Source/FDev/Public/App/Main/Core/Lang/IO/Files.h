@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"33bd7847761df45f6c35b3573bebcf3a","path":"App.Main.Core.Lang.IO.Files"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"33bd7847761df45f6c35b3573bebcf3a","path":"App.Main.Core.Lang.IO.Files"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Containers/StringConv.h"
 #include "Misc/FileHelper.h"
@@ -36,7 +36,7 @@ class FDevFiles {
 		int size_8 = FTCHARToUTF8_Convert::ConvertedLength((*content), content.Len());
 		FBufferArchive buff_8{};
 		buff_8.SetNumZeroed(size_8);
-		FTCHARToUTF8_Convert::Convert(buff_8.GetData(), size_8, (*content), content.Len());
+		FTCHARToUTF8_Convert::Convert(reinterpret_cast<UTF8CHAR*>((buff_8.GetData())), size_8, (*content), content.Len());
 		return FFileHelper::SaveArrayToFile(buff_8, (*abs_filepath));
 	}
 	public:
@@ -63,6 +63,6 @@ class FDevFiles {
 	 */
 	static FString p__to_str(FBufferArchive& buff) {
 		buff.Add(uint8(0));
-		return UTF8_TO_TCHAR(reinterpret_cast<const char*>((buff.GetData()).GetData()));
+		return UTF8_TO_TCHAR(reinterpret_cast<UTF8CHAR*>((buff.GetData())));
 	}
 };

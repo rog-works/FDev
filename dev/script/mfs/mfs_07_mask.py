@@ -2,10 +2,10 @@ from typing import Annotated
 
 from const.const_material import MFImages
 from script.mfs.me import ME
-from script.mfs.me_types import float2, texture
+from script.mfs.me_types import SamplerTypes, float2, texture
 from script.mfs.mfs_00_preview import preview_alpha, preview_distance, preview_vector
 from script.mfs.mfs_01_op import op_bit4_on
-from script.mfs.mfs_02_math import math_101_flex, math_aspect2d, math_atan2_clock, math_calc_location, math_linear_edge, math_vector_to_edge
+from script.mfs.mfs_02_math import math_101, math_101_flex, math_aspect2d, math_atan2_clock, math_calc_location, math_linear_edge, math_vector_to_edge
 from script.mfs.mfs_06_uv import uv_to_vector
 
 
@@ -286,6 +286,63 @@ def mask_clock_cupsule(vector: Annotated[float2, preview_vector()], radius: Anno
 	line_intensity = mask_linear_range(vector.length(), 1.0, radius)
 	clock_mask = float(mask_clock(vector, alpha, center) <= 1.0)
 	return line_intensity * clock_mask + ME.min(begin_intensity, end_intensity) * float(not clock_mask)
+
+
+def mask_aurora(uv: Annotated[float2, ME.tex_coord(0)], alpha: Annotated[float, preview_alpha(0.1)], height: Annotated[float, 2.0], under: Annotated[float, 8.0], invert: Annotated[bool, False]) -> float:
+	"""オーロラマスクを生成
+
+	Args:
+		uv: UV座標
+		alpha: 進捗 (0 ~ 1)
+		height: 指数 (線の高さ, default = 2.0)
+		under: 指数 (下駄, default = 8.0)
+		invert: 強度の進行方向 (False=Y-1, True=Y, default = False)
+	Returns:
+		強度
+	"""
+	y = uv.y if invert else 1.0 - uv.y
+	intensity = ME.sample(texture(MFImages.NoiseLinear.value, SamplerTypes.Grayscale.value), float2(uv.x + alpha, alpha), SamplerTypes.Grayscale.value).x
+	return ME.saturate(intensity * ME.power(y, height) + ME.power(y, under))
+
+
+def mask_edge_noise(intensity: Annotated[float, ME.tex_coord(0).y], x: Annotated[float, ME.tex_coord(0).x], seed: Annotated[float, 0.0], threshold: Annotated[float, 0.5], frequency: Annotated[float, 0.5], smooth: Annotated[float, 0.1]) -> float:
+	"""先端にかけるノイズを生成
+
+	Args:
+		intensity: 強度
+		x: 揺らぎX (異相。X軸や角度を指定)
+		seed: 揺らぎY (基本は0。アニメーション用途)
+		threshold: ノイズの中心強度
+		frequency: ノイズの振れ幅の半径 (n <= 0.5)
+		smooth: 均しの幅 (n <= frequency)
+	Returns:
+		強度
+	Note:
+		円に対してノイズを掛けると起伏が小さく、殆ど効果が無いように見える。その場合はxに適当な倍率(例えばPI)を掛けると適度に山が出来る
+	"""
+	noise = ME.sample(texture(MFImages.NoiseLinear.value, SamplerTypes.Grayscale.value), float2(x, seed), SamplerTypes.Grayscale.value).x
+	threshold_noise = noise * (frequency * 2.0) - frequency
+	threshold_min = threshold + threshold_noise
+	threshold_max = threshold_min - smooth
+	return ME.smoothstep(threshold_min, threshold_max, intensity)
+
+
+def mask_flash(value: Annotated[float, preview_distance()], speed: Annotated[float, 1.0], interval: Annotated[float, 1.0], size: Annotated[float, 0.1], time: Annotated[float, ME.time()]) -> float:
+	"""フラッシュマスクを生成
+
+	Args:
+		value: 値
+		speed: 速度 (1 = 1秒, default = 1.0)
+		interval: 間隔 (秒, default = 1.0)
+		size: 径 (default = 0.1)
+		time: 経過時間 (default = time())
+	Returns:
+		強度
+	"""
+	in_speed = (1.0 + size) * speed
+	in_interval = interval * in_speed
+	in_value = (time * in_speed + value) % in_interval - 1.0
+	return math_101(in_value, size)
 
 
 def mask_stripe(intensity: Annotated[float, preview_distance()], size: Annotated[float, 1.0]) -> float:

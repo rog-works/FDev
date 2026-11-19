@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"5871ef28617cd4d63ec5ed5296c4e49e","path":"App.Main.Core.Logs"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"5871ef28617cd4d63ec5ed5296c4e49e","path":"App.Main.Core.Logs"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include <functional>
 // #include "enum.h"
@@ -14,7 +14,7 @@ class FDevLogs {
 	 * ログ出力フラグ
 	 * @note XXX 最上位バイトを使うとC++でコンパイルエラーになるため使用禁止
 	 */
-	public: enum class FDevFlags {
+	public: enum class Flags {
 		asset = 0x00000002,
 		editor = 0x00000800,
 		all = 0x0fffffff,
@@ -22,14 +22,14 @@ class FDevLogs {
 	/**
 	 * ログの入出力先
 	 */
-	public: enum class FDevDestinations {
+	public: enum class Destinations {
 		defaults = 0x0001,
 		all = 0xffff,
 	};
 	public: inline static bool enabled = true;
-	private: inline static int p__dest_in = (int(FDevDestinations::defaults));
-	private: inline static int p__dest_out = (int(FDevDestinations::defaults));
-	private: inline static int p__flags = (int(FDevFlags::all));
+	private: inline static int p__dest_in = (int(Destinations::defaults));
+	private: inline static int p__dest_out = (int(Destinations::defaults));
+	private: inline static int p__flags = (int(Flags::all));
 	// region 出力フラグ管理
 	// class_method ok
 	public:
@@ -39,7 +39,7 @@ class FDevLogs {
 	 * @return True = 出力有効
 	 * @note @cpp
 	 */
-	static bool ok(FDevFlags flag) {
+	static bool ok(Flags flag) {
 		return FDevLogs::enabled && (FDevLogs::p__dest_in & FDevLogs::p__dest_out) != 0 && (FDevLogs::p__flags & (int(flag))) != 0;
 	}
 	public:
@@ -48,7 +48,7 @@ class FDevLogs {
 	 * @param destination 入力元
 	 * @return True = 出力有効
 	 */
-	static bool dest_in_ok(FDevDestinations destination) {
+	static bool dest_in_ok(Destinations destination) {
 		return (FDevLogs::p__dest_in & (int(destination))) != 0;
 	}
 	public:
@@ -56,7 +56,7 @@ class FDevLogs {
 	 * 入力元追加
 	 * @param destination 入力元
 	 */
-	static void dest_in_on(FDevDestinations destination) {
+	static void dest_in_on(Destinations destination) {
 		FDevLogs::p__dest_in |= (int(destination));
 	}
 	public:
@@ -64,7 +64,7 @@ class FDevLogs {
 	 * 入力元削除
 	 * @param destination 入力元
 	 */
-	static void dest_in_off(FDevDestinations destination) {
+	static void dest_in_off(Destinations destination) {
 		FDevLogs::p__dest_in &= ~(int(destination));
 	}
 	public:
@@ -72,7 +72,7 @@ class FDevLogs {
 	 * 出力先変更
 	 * @param destination 出力先 (default = defaults)
 	 */
-	static void dest_out(FDevDestinations destination = FDevDestinations::defaults) {
+	static void dest_out(Destinations destination = Destinations::defaults) {
 		FDevLogs::p__dest_out = (int(destination));
 	}
 	public:
@@ -81,7 +81,7 @@ class FDevLogs {
 	 * @param flag ログ出力フラグ
 	 * @return True = 出力有効(個別)
 	 */
-	static bool flag_ok(FDevFlags flag) {
+	static bool flag_ok(Flags flag) {
 		return (FDevLogs::p__flags & (int(flag))) != 0;
 	}
 	public:
@@ -89,7 +89,7 @@ class FDevLogs {
 	 * 出力追加
 	 * @param flag ログ出力フラグ
 	 */
-	static void on(FDevFlags flag) {
+	static void on(Flags flag) {
 		FDevLogs::p__flags |= (int(flag));
 	}
 	public:
@@ -97,7 +97,7 @@ class FDevLogs {
 	 * 出力削除
 	 * @param flag ログ出力フラグ
 	 */
-	static void off(FDevFlags flag) {
+	static void off(Flags flag) {
 		FDevLogs::p__flags &= ~(int(flag));
 	}
 	// endregion

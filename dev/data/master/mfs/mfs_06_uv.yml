@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.20","module":{"hash":"45fbd9af7e319bc72432af8febbd2343","path":"script.mfs.mfs_06_uv"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.23","module":{"hash":"dcbad942b9a74771aea09f0d9d7dee6d","path":"script.mfs.mfs_06_uv"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 uv_invert_x:
   name: uv_invert_x
   desc: 'UV座標の進行逆転 (X軸)'
@@ -15,12 +15,13 @@ uv_to_vector:
     - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
   statements:
     - returns: [result, sub: [mul: [uv, 2.0], 1.0], 'ベクトル (-1 ~ 1)']
+# function uv_to_index_3x3
 uv_to_resolution:
   name: uv_to_resolution
   desc: 'UV座標から解像度を算出'
   params:
     - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
-    - var: [dpi_scale, param: [float, dpi_scale, 0.666, 'DPIスケール (default = 0.666)']]
+    - var: [dpi_scale, param: [float, dpi_scale, 0.6666, 'DPIスケール (default = 0.666)']]
   statements:
     - var: [dx, ddx: [uv]]
     - var: [dy, ddy: [uv]]
@@ -58,3 +59,19 @@ uv_radial:
     - var: [ux, math_atan2_clock: [mask: [vector, y], mask: [vector, x]]]
     - var: [uy, length: [vector]]
     - returns: [result, make_float2: [ux, uy], 'UV座標']
+uv_fisheye:
+  name: uv_fisheye
+  desc: 'UV座標リマッピング(魚眼)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [alpha, param: [float, alpha, 1.0, '適用率 (0 <= n <= 1.0, default = 1.0)']]
+  statements:
+    - var: [vector, uv_to_vector: [uv]]
+    - var: [length, length: [vector]]
+    - var: [u_theta, mul: [length, 0.25]]
+    - var: [s, sin: [u_theta]]
+    - var: [s_available, op_gt: [s, 0.0]]
+    - var: [ratio_1, div: [length, max: [s, 0.001]]]
+    - var: [ratio, add: [mul: [ratio_1, s_available], op_not: [s_available]]]
+    - var: [vector2, mul: [vector, lerp: [1.0, ratio, alpha]]]
+    - returns: [result, mul: [add: [vector2, 1.0], 0.5], 'UV座標']

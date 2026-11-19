@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"7ef11060f2085fdd6c56c7db91fbffe9","path":"App.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"cccfc5820e34d1b51a8d92c90d844c4c","path":"App.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/MathFwd.h"
 #include "Materials/MaterialExpressionTextureSample.h"
@@ -16,7 +16,7 @@ class FDevMFBuildCommand {
 	/**
 	 * コマンド種別
 	 */
-	public: enum class FDevRoles {
+	public: enum class Roles {
 		Bool = 0,
 		Integer = 1,
 		Number = 2,
@@ -25,33 +25,33 @@ class FDevMFBuildCommand {
 		Function = 5,
 	};
 	public: FFDevJson data;
-	public: FDevRoles role;
+	public: Roles role;
 	public:
 	/**
 	 * インスタンスを生成
 	 * @param data 定義データ
 	 * @param role_is_function True = 関数, False = 自動判別
 	 */
-	FDevMFBuildCommand(FFDevJson data, bool role_is_function = false) : data(data), role(role_is_function ? FDevMFBuildCommand::FDevRoles::Function : FDevMFBuildCommand::analyze_role(data)) {}
+	FDevMFBuildCommand(FFDevJson data, bool role_is_function = false) : data(data), role(role_is_function ? FDevMFBuildCommand::Roles::Function : FDevMFBuildCommand::analyze_role(data)) {}
 	public:
 	/**
 	 *
 	 * @return コマンド種別
 	 * @note 関数以外の判別に利用
 	 */
-	static FDevRoles analyze_role(FFDevJson data) {
+	static Roles analyze_role(FFDevJson data) {
 		if (data.is_scalar()) {
 			if (data.is_bool()) {
-				return FDevMFBuildCommand::FDevRoles::Bool;
+				return FDevMFBuildCommand::Roles::Bool;
 			} else if (data.is_int()) {
-				return FDevMFBuildCommand::FDevRoles::Integer;
+				return FDevMFBuildCommand::Roles::Integer;
 			} else if (data.is_float()) {
-				return FDevMFBuildCommand::FDevRoles::Number;
+				return FDevMFBuildCommand::Roles::Number;
 			} else {
-				return FDevMFBuildCommand::FDevRoles::String;
+				return FDevMFBuildCommand::Roles::String;
 			}
 		} else {
-			return FDevMFBuildCommand::FDevRoles::Exp;
+			return FDevMFBuildCommand::Roles::Exp;
 		}
 	}
 	public:
@@ -68,9 +68,9 @@ class FDevMFBuildCommand {
 	 * @return 関数名/コマンド名
 	 */
 	FString name() {
-		if (this->role == FDevMFBuildCommand::FDevRoles::Function) {
+		if (this->role == FDevMFBuildCommand::Roles::Function) {
 			return this->data["name"].as_string();
-		} else if (this->role == FDevMFBuildCommand::FDevRoles::Exp) {
+		} else if (this->role == FDevMFBuildCommand::Roles::Exp) {
 			return this->data.key_at(0);
 		} else {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::name()"), *(this->data).ToString(), this->role));
@@ -82,7 +82,7 @@ class FDevMFBuildCommand {
 	 * @return コメント(関数)
 	 */
 	FString desc() {
-		if (this->role != FDevMFBuildCommand::FDevRoles::Function) {
+		if (this->role != FDevMFBuildCommand::Roles::Function) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::desc()"), *(this->data).ToString(), this->role));
 		}
 		return this->data["desc"].as_string();
@@ -93,7 +93,7 @@ class FDevMFBuildCommand {
 	 * @return ハッシュ(関数)
 	 */
 	FString hash() {
-		if (this->role != FDevMFBuildCommand::FDevRoles::Function) {
+		if (this->role != FDevMFBuildCommand::Roles::Function) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::hash()"), *(this->data).ToString(), this->role));
 		}
 		return this->data["hash"].as_string();
@@ -104,7 +104,7 @@ class FDevMFBuildCommand {
 	 * @return 仮引数リスト(関数)
 	 */
 	TArray<FDevMFBuildCommand> params() {
-		if (this->role != FDevMFBuildCommand::FDevRoles::Function) {
+		if (this->role != FDevMFBuildCommand::Roles::Function) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::params()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
@@ -121,7 +121,7 @@ class FDevMFBuildCommand {
 	 * @return ステートメントリスト(関数)
 	 */
 	TArray<FDevMFBuildCommand> statements() {
-		if (this->role != FDevMFBuildCommand::FDevRoles::Function) {
+		if (this->role != FDevMFBuildCommand::Roles::Function) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::statements()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
@@ -163,7 +163,7 @@ class FDevMFBuildCommand {
 		if (!this->is_scalar()) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_float()"), *(this->data).ToString(), this->role));
 		}
-		if (this->role == FDevMFBuildCommand::FDevRoles::String && this->as_string() == "PI") {
+		if (this->role == FDevMFBuildCommand::Roles::String && this->as_string() == "PI") {
 			return PI;
 		} else {
 			return this->data.as_float();
@@ -186,7 +186,7 @@ class FDevMFBuildCommand {
 	 * @return マテリアル関数式の実引数リスト
 	 */
 	TArray<FDevMFBuildCommand> args() {
-		if (this->role != FDevMFBuildCommand::FDevRoles::Exp) {
+		if (this->role != FDevMFBuildCommand::Roles::Exp) {
 			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::args()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
@@ -239,22 +239,22 @@ class FDevMFBuildCommandRunner {
 	 * @param command ビルドコマンド
 	 */
 	static FDevMFExp run_command(FDevMFBuilder* builder, FDevMFBuildCommand command) {
-		if (command.role == FDevMFBuildCommand::FDevRoles::Bool) {
+		if (command.role == FDevMFBuildCommand::Roles::Bool) {
 			return builder->literal_b(command.as_bool());
-		} else if (command.role == FDevMFBuildCommand::FDevRoles::Number) {
+		} else if (command.role == FDevMFBuildCommand::Roles::Number) {
 			return builder->literal_f(command.as_float());
-		} else if (command.role == FDevMFBuildCommand::FDevRoles::String) {
-			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: var_ref, name: %s"), *command.as_string()));
+		} else if (command.role == FDevMFBuildCommand::Roles::String) {
+			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: var_ref, name: %s"), *command.as_string()));
 			return builder->var_ref(command.as_string());
 		}
 		FString name = command.name();
 		TArray<FDevMFBuildCommand> args = command.args();
 		if (name == "get") {
-			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, output: %d"), *name, args.Num(), args[1].as_int()));
+			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, output: %d"), *name, args.Num(), args[1].as_int()));
 		} else if (name == "var") {
-			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, var: %s"), *name, args.Num(), *args[0].as_string()));
+			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, var: %s"), *name, args.Num(), *args[0].as_string()));
 		} else {
-			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d"), *name, args.Num()));
+			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d"), *name, args.Num()));
 		}
 		if (name == "param") {
 			return builder->param(args[0].as_string(), args[1].as_string(), FDevMFBuildCommandRunner::run_command(builder, args[2]), args[3].as_string());
@@ -382,6 +382,8 @@ class FDevMFBuildCommandRunner {
 			return builder->ddx(FDevMFBuildCommandRunner::run_command(builder, args[0]));
 		} else if (name == "ddy") {
 			return builder->ddy(FDevMFBuildCommandRunner::run_command(builder, args[0]));
+		} else if (name == "const_by") {
+			return builder->const_by(args[0].as_string());
 		} else if (name == "ternary") {
 			TTuple<FDevMFExp, FDevMFExp, FDevMFExp> values = {FDevMFBuildCommandRunner::run_command(builder, args[0]), FDevMFBuildCommandRunner::run_command(builder, args[1]), FDevMFBuildCommandRunner::run_command(builder, args[2])};
 			return builder->ternary(values.Get<0>(), values.Get<1>(), values.Get<2>());

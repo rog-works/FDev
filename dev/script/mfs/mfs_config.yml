@@ -15,9 +15,9 @@ env:
     include_dirs: []
   view:
     immutable_param_types:
-      - std::string
-      - std::vector
-      - std::map
+      - FString
+      - TArray
+      - TMap
       - std::function
     i18n:
       ops:
@@ -54,3 +54,6 @@ env:
         var: var
         vars: vars
         proxies: 'atan2_fast|rand_fast|sign|rgb_to_srgb|srgb_to_rgb'
+      layers:
+        tag: 'ZZ'
+        ids: '00|b1'

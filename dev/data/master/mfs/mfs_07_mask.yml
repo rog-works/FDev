@@ -1,4 +1,4 @@
-# @tranp.meta: {"version":"0.9.20","module":{"hash":"b2682e5166e7a57eaa491a02ff040eb4","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.7","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+# @tranp.meta: {"version":"0.9.23","module":{"hash":"c4502040cd8a71edb0bbef13a1f286ea","path":"script.mfs.mfs_07_mask"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 mask_polygon:
   name: mask_polygon
   desc: '多角形マスクを生成'
@@ -216,6 +216,49 @@ mask_clock_cupsule:
     - var: [line_intensity, mask_linear_range: [length: [vector], 1.0, radius]]
     - var: [clock_mask, op_le: [mask_clock: [vector, alpha, center], 1.0]]
     - returns: [result, add: [mul: [line_intensity, clock_mask], mul: [min: [begin_intensity, end_intensity], op_not: [clock_mask]]], '強度']
+mask_aurora:
+  name: mask_aurora
+  desc: 'オーロラマスクを生成'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [alpha, param: [float, alpha, preview_alpha: [0.1], '進捗 (0 ~ 1)']]
+    - var: [height, param: [float, height, 2.0, '指数 (線の高さ, default = 2.0)']]
+    - var: [under, param: [float, under, 8.0, '指数 (下駄, default = 8.0)']]
+    - var: [invert, param: [bool, invert, false, '強度の進行方向 (False=Y-1, True=Y, default = False)']]
+  statements:
+    - var: [y, ternary: [mask: [uv, y], one_minus: [mask: [uv, y]], invert]]
+    - var: [intensity, mask: [sample: [texture: ["solid_noise_linear", "LinearGrayscale"], make_float2: [add: [mask: [uv, x], alpha], alpha], "LinearGrayscale"], x]]
+    - returns: [result, saturate: [add: [mul: [intensity, power: [y, height]], power: [y, under]]], '強度']
+mask_edge_noise:
+  name: mask_edge_noise
+  desc: '先端にかけるノイズを生成'
+  params:
+    - var: [intensity, param: [float, intensity, mask: [tex_coord: [0], y], '強度']]
+    - var: [x, param: [float, x, mask: [tex_coord: [0], x], '揺らぎX (異相。X軸や角度を指定)']]
+    - var: [seed, param: [float, seed, 0.0, '揺らぎY (基本は0。アニメーション用途)']]
+    - var: [threshold, param: [float, threshold, 0.5, 'ノイズの中心強度']]
+    - var: [frequency, param: [float, frequency, 0.5, 'ノイズの振れ幅の半径 (n <= 0.5)']]
+    - var: [smooth, param: [float, smooth, 0.1, '均しの幅 (n <= frequency)']]
+  statements:
+    - var: [noise, mask: [sample: [texture: ["solid_noise_linear", "LinearGrayscale"], make_float2: [x, seed], "LinearGrayscale"], x]]
+    - var: [threshold_noise, sub: [mul: [noise, mul: [frequency, 2.0]], frequency]]
+    - var: [threshold_min, add: [threshold, threshold_noise]]
+    - var: [threshold_max, sub: [threshold_min, smooth]]
+    - returns: [result, smoothstep: [threshold_min, threshold_max, intensity], '強度']
+mask_flash:
+  name: mask_flash
+  desc: 'フラッシュマスクを生成'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [speed, param: [float, speed, 1.0, '速度 (1 = 1秒, default = 1.0)']]
+    - var: [interval, param: [float, interval, 1.0, '間隔 (秒, default = 1.0)']]
+    - var: [size, param: [float, size, 0.1, '径 (default = 0.1)']]
+    - var: [time, param: [float, time, time: [], '経過時間 (default = time())']]
+  statements:
+    - var: [in_speed, mul: [add: [1.0, size], speed]]
+    - var: [in_interval, mul: [interval, in_speed]]
+    - var: [in_value, sub: [mod: [add: [mul: [time, in_speed], value], in_interval], 1.0]]
+    - returns: [result, math_101: [in_value, size], '強度']
 mask_stripe:
   name: mask_stripe
   desc: '縞マスクを生成'

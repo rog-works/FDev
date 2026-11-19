@@ -1,5 +1,8 @@
 from typing import Annotated
 
+from tranp.app.compatible.python.embed import Embed
+from tranp.app.lang.annotation import deprecated
+
 from script.mfs.me import ME
 from script.mfs.me_types import float2
 from script.mfs.mfs_00_preview import preview_alpha, preview_distance, preview_vector
@@ -27,6 +30,25 @@ def math_resolution_to_pixel_size(resolution: Annotated[float2, float2(250.0, 25
 		常に小さい方を返却(タイリング前提)
 	"""
 	return 1.0 / ME.min(resolution.x, resolution.y)
+
+
+@Embed.python
+@deprecated
+def math_resolution_to_uv_offset(resolution: Annotated[float2, float2(250.0, 250.0)]) -> float2:
+	"""解像度から論理的なUVオフセット座標を算出
+
+	Args:
+		resolution: 解像度 (default = 250:250)
+	Returns:
+		オフセット座標
+	Note:
+		```
+		ピクセルは格子であるため、UVも同様に格子と見做すことが出来る。ピクセルに中心は存在せず、論理的(=数学的)な中心と物理的(=スクリーン)な中心は一致せず、
+		1ピクセル以下の差異によって形状(円や四角など)が鏡面で不揃いになるため、オフセットで補正することで歪みを軽減する
+		@deprecated このオフセット自体も歪みの原因になるので、結果的に50歩100歩であまり意味が無い
+		```
+	"""
+	return 1.0 / resolution
 
 
 def math_aspect2d(aspect: Annotated[float, 1.0]) -> float2:

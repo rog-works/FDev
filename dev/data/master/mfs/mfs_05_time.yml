@@ -1,0 +1,8 @@
+# @tranp.meta: {"version":"0.9.23","module":{"hash":"e2bdcf6b5773a85f0295f57a57099b16","path":"script.mfs.mfs_05_time"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+time_alpha:
+  name: time_alpha
+  desc: '経過時間からα値を生成'
+  params:
+    - var: [speed, param: [float, speed, 1.0, '速度 (default = 1.0)']]
+  statements:
+    - returns: [result, mod: [mul: [time: [], speed], 1.0], 'α値 (0 ~ 1)']

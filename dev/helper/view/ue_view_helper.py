@@ -150,13 +150,14 @@ class UEViewHelper:
 		"""
 		problems = [Logs.error.__name__, Logs.warning.__name__]
 
-		tag = calls[calls.find('::') + 2:]
+		logs_name = calls[:calls.find('::')]
+		tag = calls[len(logs_name) + 2:]
 		level = tag if tag in problems else 'info'
 		format_text = f'[#{tag}] [{args[0]}]'
 
 		args_ = []
 		if tag not in problems:
-			args_.append('::'.join([Logs.__name__, Logs.Flags.__name__, tag]))
+			args_.append('::'.join([logs_name, Logs.Flags.__name__, tag]))
 
 		if len(args) == 1:
 			args_.append(f'"{format_text}:"')

@@ -1,5 +1,9 @@
 from typing import Annotated
 
+from tranp.app.compatible.python.embed import Embed
+from tranp.app.lang.annotation import deprecated
+
+from const.const_material import ParametersValues
 from script.mfs.me import ME
 from script.mfs.me_types import float2
 from script.mfs.mfs_02_math import math_010, math_aspect2d, math_atan2_clock
@@ -29,7 +33,24 @@ def uv_to_vector(uv: Annotated[float2, ME.tex_coord(0)]) -> float2:
 	return uv * 2.0 - 1.0
 
 
-def uv_to_resolution(uv: Annotated[float2, ME.tex_coord(0)], dpi_scale: Annotated[float, 0.666]) -> float2:
+@Embed.python
+@deprecated
+def uv_to_index_3x3(uv: Annotated[float2, ME.tex_coord(0)]) -> float2:
+	"""UV座標からベクトルに変換 (3x3インデックス版)
+
+	Args:
+		uv: UV座標
+	Returns:
+		ベクトル (-1 ~ 1)
+	Note:
+		@deprecated 現状使い道は無いが一旦備忘録として残す
+	"""
+	v = uv * 3.0 - 1.5
+	vi = ME.saturate(ME.floor(ME.abs(v) + 0.5))
+	return float2(vi.x * ME.sign(v.x), vi.y * ME.sign(v.y))
+
+
+def uv_to_resolution(uv: Annotated[float2, ME.tex_coord(0)], dpi_scale: Annotated[float, ParametersValues.DPIScale.value]) -> float2:
 	"""UV座標から解像度を算出
 
 	Args:
@@ -84,3 +105,23 @@ def uv_radial(uv: Annotated[float2, ME.tex_coord(0)], offset: Annotated[float2, 
 	ux = math_atan2_clock(vector.y, vector.x)
 	uy = vector.length()
 	return float2(ux, uy)
+
+
+def uv_fisheye(uv: Annotated[float2, ME.tex_coord(0)], alpha: Annotated[float, 1.0]) -> float2:
+	"""UV座標リマッピング(魚眼)
+
+	Args:
+		uv: UV座標
+		alpha: 適用率 (0 <= n <= 1.0, default = 1.0)
+	Returns:
+		UV座標
+	"""
+	vector = uv_to_vector(uv)
+	length = vector.length()
+	u_theta = length * 0.25
+	s = ME.sin(u_theta)
+	s_available = float(s > 0.0)
+	ratio_1 = length / ME.max(s, 0.001)
+	ratio = ratio_1 * s_available + float(not s_available)
+	vector2 = vector * ME.lerp(1.0, ratio, alpha)
+	return (vector2 + 1.0) * 0.5

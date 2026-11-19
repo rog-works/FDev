@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"7bda12c25edbd117c0e80bc95066f550","path":"App.Editor.Asset.AssetMakerFactory"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"7bda12c25edbd117c0e80bc95066f550","path":"App.Editor.Asset.AssetMakerFactory"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"

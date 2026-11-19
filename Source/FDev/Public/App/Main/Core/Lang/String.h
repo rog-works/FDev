@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"4c5db385296dccaac704f3532f090b3c","path":"App.Main.Core.Lang.String"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"4c5db385296dccaac704f3532f090b3c","path":"App.Main.Core.Lang.String"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/StringBuilder.h"
 #include "App/Main/Core/Core.h"
@@ -275,11 +275,11 @@ class FDevString {
 	 */
 	static bool startswith_strict(const FString& string, const FString& prefix, int begin = 0, int end = 0) {
 		if (begin < end && end > 0) {
-			return FDevString::find_strict(string, prefix, begin, end) == begin;
+			return string.Find(*prefix, end, ESearchCase::CaseSensitive, ESearchDir::FromStart, begin) == begin;
 		} else if (begin > 0 && end == 0) {
-			return FDevString::find_strict(string, prefix, begin) == begin;
+			return string.Find(*prefix, prefix.Len(), ESearchCase::CaseSensitive, ESearchDir::FromStart, begin) == begin;
 		} else {
-			return FDevString::find_strict(string, prefix, 0) == 0;
+			return string.Find(*prefix, prefix.Len(), ESearchCase::CaseSensitive, ESearchDir::FromStart, 0) == 0;
 		}
 	}
 	public:
@@ -300,13 +300,13 @@ class FDevString {
 	static bool endswith_strict(const FString& string, const FString& suffix, int begin = 0, int end = 0) {
 		if (begin < end && end > 0) {
 			int expect_at = FMath::Max(begin, end - suffix.Len());
-			return FDevString::find_strict(string, suffix, expect_at, end) == expect_at;
+			return string.Find(*suffix, end, ESearchCase::CaseSensitive, ESearchDir::FromStart, expect_at) == expect_at;
 		} else if (begin > 0 && end == 0) {
 			int expect_at = FMath::Max(begin, string.Len() - suffix.Len());
-			return FDevString::find_strict(string, suffix, expect_at) == expect_at;
+			return string.Find(*suffix, suffix.Len(), ESearchCase::CaseSensitive, ESearchDir::FromStart, expect_at) == expect_at;
 		} else {
 			int expect_at = FMath::Max(0, string.Len() - suffix.Len());
-			return FDevString::find_strict(string, suffix, expect_at) == expect_at;
+			return string.Find(*suffix, suffix.Len(), ESearchCase::CaseSensitive, ESearchDir::FromStart, expect_at) == expect_at;
 		}
 	}
 	public:
@@ -330,7 +330,7 @@ class FDevString {
 		int string_size = end == 0 ? string.Len() : end;
 		int subject_size = subject.Len();
 		while (index <= (string_size - subject_size)) {
-			int found = FDevString::find_strict(string, subject, index, string_size);
+			int found = string.Find(*subject, string_size, ESearchCase::CaseSensitive, ESearchDir::FromStart, index);
 			if (found == -1) {
 				break;
 			}
@@ -356,7 +356,7 @@ class FDevString {
 		TArray<FString> parts = {};
 		int pos0 = 0;
 		while (pos0 < string.Len()) {
-			int pos1 = FDevString::find_strict(string, delimiter, pos0);
+			int pos1 = string.Find(*delimiter, delimiter.Len(), ESearchCase::CaseSensitive, ESearchDir::FromStart, pos0);
 			if (pos1 == -1) {
 				pos1 = string.Len();
 			}

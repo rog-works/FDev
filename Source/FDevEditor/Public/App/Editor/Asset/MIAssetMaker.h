@@ -1,8 +1,10 @@
-// @tranp.meta: {"version":"0.9.23","module":{"hash":"709bbfc8e80cd8925b630cb01233e377","path":"App.Editor.Asset.MIAssetMaker"},"transpiler":{"version":"0.9.10","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"709bbfc8e80cd8925b630cb01233e377","path":"App.Editor.Asset.MIAssetMaker"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
+#include "AssetToolsModule.h"
 #include "Templates/SharedPointer.h"
 #include "UObject/Object.h"
 #include "UObject/ObjectMacros.h"
+#include "UnrealEd/Factories/MaterialInstanceConstantFactoryNew.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "App/Editor/Asset/AssetMaker.h"
@@ -13,8 +15,6 @@
 // #include "typing.h"
 // #include "tranp/app/compatible/cpp/cvar.h"
 // #include "tranp/app/compatible/python/embed.h"
-// #include "UE5/AssetTools/AssetToolsModule.h"
-// #include "UE5/Editor/UnrealEd/Factories/MaterialInstanceConstantFactoryNew.h"
 // #include "const/const_asset.h"
 /**
  * アセット生成モジュール(マテリアルインスタンス)
