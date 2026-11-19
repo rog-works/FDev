@@ -1,0 +1,31 @@
+{
+  "shape_stat_meter": {
+    "via": "ui_master",
+    "hash": "7976693b0f3e050dd00fe4a60fa5714d",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_x_01": true,
+      "a_flag_00_mask_square": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_mask_square_round_fix": true,
+      "a_flag_blend_00_and_b1_on_b1": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.6588235294117647,
+        1.0
+      ],
+      "color_b1": [
+        0.7843137254901961,
+        0.7843137254901961,
+        0.7843137254901961
+      ],
+      "polygon_b1_round_radius": 1.0
+    }
+  }
+}

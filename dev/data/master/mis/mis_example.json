@@ -1,0 +1,448 @@
+{
+  "example_bg": {
+    "via": "ui_master",
+    "hash": "24fec5509bf059147ef52c3b6fb47e8d",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "a_flag_00_intensity_via_texture_10": true,
+      "a_flag_b1": true,
+      "a_flag_b1_color_gradation": true,
+      "a_flag_b1_intensity_curve": true,
+      "a_flag_b1_intensity_via_uv_x_01": true,
+      "color_00": [
+        0.005,
+        0.005,
+        0.005
+      ],
+      "color_00_b": [
+        0.01,
+        0.02,
+        0.05
+      ],
+      "color_b1": [
+        0.005,
+        0.005,
+        0.005
+      ],
+      "color_b1_b": [
+        0.01,
+        0.02,
+        0.05
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.4,
+      "intensity_b1_easing": 3.0,
+      "move_00_speed": 0.02,
+      "opacity_00": 0.25,
+      "texture_00_image": "solid_noise"
+    }
+  },
+  "example_bg3": {
+    "via": "ui_master",
+    "hash": "dddad554ca8e7751ce57153932fe36af",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_scale_with_intensity_01": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_cell_unit_length_01": true,
+      "a_flag_00_mask_circle": true,
+      "a_flag_00_uv_tiling_3x3": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_mask_square_round": true,
+      "a_flag_b1_uv_tiling_3x3": true,
+      "a_flag_blend_00_and_b1_on_b1": true,
+      "cell_00_scale": 1.15,
+      "color_00": [
+        0.0,
+        0.4,
+        1.0
+      ],
+      "color_00_b": [
+        0.0,
+        0.2,
+        1.0
+      ],
+      "color_b1": [
+        0.0,
+        0.4,
+        1.0
+      ],
+      "intensity_00_min": 0.65,
+      "polygon_b1_round_radius": 0.1,
+      "uv_00_tiles": 18.0
+    }
+  },
+  "example_bg4": {
+    "via": "ui_master",
+    "hash": "91b0cb187ce6ff7602cac7c305c88e05",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_xy_01": true,
+      "a_flag_00_mask_square_round": true,
+      "a_flag_00_uv_tiling_3x3": true,
+      "color_00": [
+        0.0,
+        0.0,
+        0.1
+      ],
+      "color_00_b": [
+        0.14,
+        0.01,
+        0.1
+      ],
+      "intensity_00_easing": 3.0,
+      "polygon_00_round_radius": 0.05
+    }
+  },
+  "example_blend_trans": {
+    "via": "ui_master",
+    "hash": "1a99c8ed66f73d2559a1793efdbacaed",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_mask_circle": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_mask_circle": true,
+      "cell_00_scale": 0.8,
+      "cell_b1_offset_x": 0.1,
+      "cell_b1_offset_y": -0.1,
+      "cell_b1_scale": 0.8,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_b1": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "opacity_00": 0.25,
+      "opacity_b1": 0.25
+    }
+  },
+  "example_cell3": {
+    "via": "ui_master",
+    "hash": "0427d9eb739073694c839d7b927599eb",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "a_flag_00_mask_square": true,
+      "a_flag_00_uv_tiling_3x3": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_cell_scale_with_intensity_01": true,
+      "a_flag_b1_clip_rect": true,
+      "a_flag_b1_color_gradation": true,
+      "a_flag_b1_intensity_via_uv_x_10": true,
+      "a_flag_b1_mask_circle": true,
+      "a_flag_b1_uv_tiling_min_scroll": true,
+      "cell_00_aspect": 0.15,
+      "cell_00_offset_x": 0.3,
+      "cell_b1_scale": 1.5,
+      "cell_b1_scale_max": 1.2,
+      "cell_b1_scale_min": 0.25,
+      "clip_b1_rect_center_x": -0.5,
+      "clip_b1_rect_y": 1.0,
+      "color_00": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "color_00_b": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_b1": [
+        0.15,
+        0.15,
+        0.15
+      ],
+      "color_b1_b": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "intensity_00_easing": 1.0,
+      "uv_b1_tiles": 5.0
+    }
+  },
+  "example_cell_flash": {
+    "via": "ui_master",
+    "hash": "2053553b5fbd44c860ac810c7c7f2861",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_cell_rotation": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_via_shape_10_alt": true,
+      "a_flag_00_mask_polygon": true,
+      "a_flag_b1": true,
+      "a_flag_b1_color_trans": true,
+      "a_flag_b1_intensity_via_shape_10_alt": true,
+      "a_flag_b1_mask_square_round": true,
+      "a_flag_b1_uv_tiling_3x3": true,
+      "cell_00_degree": 0.0,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.97,
+        0.65
+      ],
+      "color_b1": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "move_00_speed": 0.25,
+      "polygon_00_sides": 6.0,
+      "polygon_b1_round_radius": 0.25
+    }
+  },
+  "example_cell_round": {
+    "via": "ui_master",
+    "hash": "20cda2bcbd2cf38731e65653e145b5f1",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_xy_01": true,
+      "a_flag_00_mask_hollow": true,
+      "a_flag_00_mask_square_round": true,
+      "a_flag_00_uv_tiling_3x3": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_color_gradation": true,
+      "a_flag_b1_intensity_via_uv_y_01": true,
+      "a_flag_b1_mask_square_round": true,
+      "a_flag_b1_uv_tiling_3x3": true,
+      "cell_00_scale": 0.93,
+      "color_00": [
+        1.0,
+        0.3,
+        0.5
+      ],
+      "color_00_b": [
+        1.0,
+        0.5,
+        0.0
+      ],
+      "color_b1": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_b1_b": [
+        1.0,
+        0.95,
+        0.9
+      ],
+      "hollow_00_line_size": 0.12,
+      "polygon_00_round_radius": 0.1,
+      "polygon_b1_round_radius": 0.1
+    }
+  },
+  "example_circle_ripple": {
+    "via": "ui_master",
+    "hash": "7fdd989311943c3ea5e798ff770f95cb",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_cell_scale_with_intensity_01": true,
+      "a_flag_00_hollow_size_with_intensity_10": true,
+      "a_flag_00_intensity_rotation": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "a_flag_00_mask_circle": true,
+      "a_flag_00_mask_hollow": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hollow_00_line_size": 1.0,
+      "move_00_speed": 0.5
+    }
+  },
+  "example_font_rising": {
+    "via": "ui_master",
+    "hash": "178b3d1c8536411a56dc3530f7cc9b81",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_rotation": true,
+      "a_flag_00_intensity_via_alpha_add": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "move_00_speed": 1.0
+    }
+  },
+  "example_font_text5": {
+    "via": "ui_master",
+    "hash": "c59369e3d188e8b667bc7b9201fd70fa",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.3,
+        0.25,
+        0.06
+      ],
+      "intensity_00_max": 0.65,
+      "intensity_00_min": 0.0
+    }
+  },
+  "example_font_text6": {
+    "via": "ui_master",
+    "hash": "7a1e429c9ec8ba665ec2a1a5f56cfb94",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_mask_flash": true,
+      "a_flag_b1": true,
+      "color_b1": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "flash_00_interval": 3.0,
+      "flash_00_speed": 5.0,
+      "move_00_speed": 1.0
+    }
+  },
+  "example_outline_flash": {
+    "via": "ui_master",
+    "hash": "361e2a885ad8610d316c4a6646557e6c",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_color_rotaion": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_via_shape_01_alt": true,
+      "a_flag_00_mask_aurora": true,
+      "a_flag_00_uv_tiling_3x3_wrap": true,
+      "cell_00_aspect": 0.25,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.7,
+        0.7
+      ],
+      "move_00_speed": 0.1
+    }
+  },
+  "example_polygon_dissolve": {
+    "via": "ui_master",
+    "hash": "bef4942b9fbd78534ee0fcfa0f6cc038",
+    "exports": {
+      "a_flag_00_color_texture": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_dissolve_unit": true,
+      "a_flag_00_intensity_via_dissolve_10_alt": true,
+      "a_flag_00_mask_dissolve": true,
+      "a_flag_b1": true,
+      "a_flag_b1_mask_polygon": true,
+      "a_flag_blend_b1_and_00": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_b1": [
+        1.0,
+        0.1,
+        0.0
+      ],
+      "move_00_alpha": 0.2,
+      "polygon_b1_sides": 3.0,
+      "texture_00_image": "solid_noise"
+    }
+  },
+  "example_tab4_selected": {
+    "via": "ui_master",
+    "hash": "2bb09fb1133b41fe35e4fc824549dd55",
+    "exports": {
+      "a_flag_00_anime": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_via_shape_01_alt": true,
+      "a_flag_00_mask_aurora": true,
+      "a_flag_b1": true,
+      "a_flag_b1_color_gradation": true,
+      "a_flag_b1_color_trans": true,
+      "a_flag_b1_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_b1": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_b1_b": [
+        0.333,
+        0.3,
+        0.17
+      ],
+      "move_00_speed": 0.1
+    }
+  },
+  "example_tiling_diamond": {
+    "via": "ui_master",
+    "hash": "4fbe6303d14db99e3537c94cf8976299",
+    "exports": {
+      "a_flag_00_cell_rotation": true,
+      "a_flag_00_cell_rotation_random": true,
+      "a_flag_00_cell_scale_with_intensity_01": true,
+      "a_flag_00_clip_length": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_cell_unit_length_01": true,
+      "a_flag_00_intensity_via_cell_unit_random": true,
+      "a_flag_00_mask_square": true,
+      "a_flag_00_uv_tiling_3x3": true,
+      "cell_00_degree": 45.0,
+      "cell_00_scale": 0.7071067811865475,
+      "clip_00_length_max": 1.2,
+      "clip_00_length_min": 0.1,
+      "color_00": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "color_00_b": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "intensity_00_length_scale": 1.4142135623730951,
+      "move_00_alpha": 1.0,
+      "uv_00_tiles": 3.0
+    }
+  }
+}

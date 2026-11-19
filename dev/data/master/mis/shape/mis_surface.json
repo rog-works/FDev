@@ -1,0 +1,65 @@
+{
+  "shape_surface_body": {
+    "via": "ui_master",
+    "hash": "25f655e51d159c015851137636ea2660",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_scale_padding_pixel": true,
+      "a_flag_00_cell_scale_padding_pixel_ignore_dpi_scale": true,
+      "a_flag_00_color_intensity_via_minimal_for_line": true,
+      "a_flag_00_color_line_gradation": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_minimal_invert": true,
+      "a_flag_00_intensity_minimal_via_uv_theta": true,
+      "a_flag_00_intensity_via_uv_y_10": true,
+      "a_flag_00_mask_square_round_fix": true,
+      "a_flag_00_size_to_pixel_for_line": true,
+      "a_flag_00_size_to_pixel_for_mask": true,
+      "cell_00_scale_padding_pixel": -0.5,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_line": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_line_b": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ],
+      "hollow_00_center": 0.85,
+      "hollow_00_line_size": 2.0,
+      "intensity_00_max": 1.0,
+      "intensity_00_min": -3.0,
+      "polygon_00_allows_edges": 12.0,
+      "polygon_00_round_radius": 32.0
+    }
+  },
+  "shape_surface_shadow": {
+    "via": "ui_master",
+    "hash": "50a8d1c120287a5192a25a48b6e7ea6f",
+    "exports": {
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_via_shape_01_alt": true,
+      "a_flag_00_mask_hollow": true,
+      "a_flag_00_mask_square_round_fix": true,
+      "a_flag_00_size_to_pixel_for_line": true,
+      "a_flag_00_size_to_pixel_for_mask": true,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hollow_00_center": 1.0,
+      "hollow_00_line_size": 8.0,
+      "opacity_00": 0.25,
+      "polygon_00_allows_edges": 12.0,
+      "polygon_00_round_radius": 36.0,
+      "polygon_00_round_radius_min": 6.0
+    }
+  }
+}

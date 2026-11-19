@@ -1,0 +1,62 @@
+{
+  "shape_slider_cursor": {
+    "via": "ui_master",
+    "hash": "bf118f1b168d8268e3675856501b1ad3",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "a_flag_00_mask_circle": true,
+      "a_flag_00_mask_hollow": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_mask_circle": true,
+      "cell_00_scale": 0.85,
+      "cell_b1_scale": 0.425,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_b1": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "hollow_00_line_size": 0.4
+    }
+  },
+  "shape_slider_cursor_shadow": {
+    "via": "ui_master",
+    "hash": "dcf161cd862acc22c3e6c58fd6a6bb71",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_color_trans": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "a_flag_00_mask_circle": true,
+      "a_flag_00_mask_hollow": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_mask_circle": true,
+      "cell_00_offset_x": 0.075,
+      "cell_00_offset_y": -0.075,
+      "cell_00_scale": 0.85,
+      "cell_b1_offset_x": 0.075,
+      "cell_b1_offset_y": -0.075,
+      "cell_b1_scale": 0.425,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "color_b1": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hollow_00_line_size": 0.4,
+      "opacity_00": 0.25,
+      "opacity_b1": 0.25
+    }
+  }
+}

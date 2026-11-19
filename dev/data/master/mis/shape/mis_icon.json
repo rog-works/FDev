@@ -1,0 +1,90 @@
+{
+  "shape_icon_balloon_caption": {
+    "via": "ui_master",
+    "hash": "cadd92f1f7c18831a4621724ce213e9b",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_scale_padding_pixel": true,
+      "a_flag_00_mask_square_round": true,
+      "cell_00_scale_padding_pixel": -3.0,
+      "color_00": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ],
+      "polygon_00_allows_edges": 11.0,
+      "polygon_00_round_radius": 1.0
+    }
+  },
+  "shape_icon_balloon_shadow": {
+    "via": "ui_master",
+    "hash": "87794b613b42ce2ae987a90b003e4c52",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_offset_to_pixel": true,
+      "a_flag_00_cell_scale_padding_pixel": true,
+      "a_flag_00_mask_square_round": true,
+      "cell_00_offset_x": 3.0,
+      "cell_00_offset_y": -3.0,
+      "cell_00_scale_padding_pixel": -3.0,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "opacity_00": 0.25,
+      "polygon_00_allows_edges": 11.0,
+      "polygon_00_round_radius": 1.0
+    }
+  },
+  "shape_icon_circle": {
+    "via": "ui_master",
+    "hash": "27ed3fb7b293907b0b90c638d8bfe12e",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_scale_padding_pixel": true,
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_color_line": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "a_flag_00_mask_circle": true,
+      "a_flag_00_size_to_pixel_for_line": true,
+      "cell_00_scale_padding_pixel": -3.0,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_line": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "hollow_00_center": 0.85,
+      "hollow_00_line_size": 2.0
+    }
+  },
+  "shape_icon_circle_shadow": {
+    "via": "ui_master",
+    "hash": "91905ff9965288231e7b73d37270a48d",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_offset_to_pixel": true,
+      "a_flag_00_cell_scale_padding_pixel": true,
+      "a_flag_00_mask_circle": true,
+      "cell_00_offset_x": 3.0,
+      "cell_00_offset_y": -3.0,
+      "cell_00_scale_padding_pixel": -3.0,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "opacity_00": 0.25
+    }
+  }
+}

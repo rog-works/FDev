@@ -1,0 +1,21 @@
+{
+  "shape_marker_arrow": {
+    "via": "ui_master",
+    "hash": "179ace5a3d391b84ce62c7af0f455ec6",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_mask_polygon": true,
+      "a_flag_b1": true,
+      "a_flag_b1_anti": true,
+      "a_flag_b1_mask_clock": true,
+      "cell_00_aspect": 0.5,
+      "cell_00_offset_y": 0.3125,
+      "cell_00_scale": 0.15,
+      "cell_b1_scale": 0.5,
+      "cupsule_b1_center": -0.125,
+      "cupsule_b1_radius": 0.2,
+      "move_b1_alpha": 0.25,
+      "polygon_00_sides": 3.0
+    }
+  }
+}

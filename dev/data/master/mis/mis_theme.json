@@ -1,0 +1,740 @@
+{
+  "theme_animal": {
+    "via": "ui_master",
+    "hash": "7666efe5c241ca6c7d50b01a49277bf4",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.45098039215686275,
+        0.07058823529411765,
+        0.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.7450980392156863,
+        0.5411764705882353
+      ],
+      "intensity_00_easing": 3.0
+    }
+  },
+  "theme_blood": {
+    "via": "ui_master",
+    "hash": "3e53349ce2f31ab82e8be416f8fc0285",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.45098039215686275,
+        0.0,
+        0.0
+      ],
+      "color_00_c": [
+        0.12156862745098039,
+        0.03137254901960784,
+        0.0
+      ],
+      "intensity_00_easing": 3.0,
+      "intensity_00_length_scale": 2.8284271247461903,
+      "intensity_00_offset_x": -0.5,
+      "intensity_00_offset_y": 0.5
+    }
+  },
+  "theme_blueprint": {
+    "via": "ui_master",
+    "hash": "5996449bcf566e2e6f67fadc886a1f29",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.6588235294117647,
+        1.0
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.5
+    }
+  },
+  "theme_bronze": {
+    "via": "ui_master",
+    "hash": "71630b67a1c9985818b2048645beda1e",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "color_00_b": [
+        0.45098039215686275,
+        0.07058823529411765,
+        0.0
+      ],
+      "color_00_c": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "intensity_00_easing": 4.0
+    }
+  },
+  "theme_bulb": {
+    "via": "ui_master",
+    "hash": "a6b16d140a909e8266a44e75fca900e8",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "color_00": [
+        0.6705882352941176,
+        0.4117647058823529,
+        0.0
+      ],
+      "color_00_b": [
+        0.9803921568627451,
+        0.807843137254902,
+        0.0
+      ],
+      "color_00_c": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "intensity_00_max": 0.85,
+      "intensity_00_min": 0.0
+    }
+  },
+  "theme_coin": {
+    "via": "ui_master",
+    "hash": "617e0f2f5afabba621c73cb94dd11efd",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.6705882352941176,
+        0.4117647058823529,
+        0.0
+      ],
+      "color_00_c": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "intensity_00_easing": 5.0,
+      "intensity_00_length_scale": 2.8284271247461903,
+      "intensity_00_offset_x": -0.5,
+      "intensity_00_offset_y": 0.5
+    }
+  },
+  "theme_cool": {
+    "via": "ui_master",
+    "hash": "b1928224bcc862968d9db6d79c845587",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.0,
+        0.23529411764705882,
+        1.0
+      ],
+      "intensity_00_easing": 5.0
+    }
+  },
+  "theme_earth": {
+    "via": "ui_master",
+    "hash": "878998777bed989360a5f961cb8b2de5",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.45098039215686275,
+        0.0
+      ],
+      "color_00_b": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ]
+    }
+  },
+  "theme_fire": {
+    "via": "ui_master",
+    "hash": "44fc8f40622f604cb7ff8d16d39c7aad",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.9803921568627451,
+        0.807843137254902,
+        0.0
+      ],
+      "color_00_b": [
+        0.45098039215686275,
+        0.0,
+        0.0
+      ],
+      "intensity_00_max": 0.75,
+      "intensity_00_min": 0.0
+    }
+  },
+  "theme_gold": {
+    "via": "ui_master",
+    "hash": "11504bf0aa8f9f71b04e234710656de0",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "color_00_b": [
+        0.6705882352941176,
+        0.4117647058823529,
+        0.0
+      ],
+      "color_00_c": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "intensity_00_easing": 4.0
+    }
+  },
+  "theme_grass": {
+    "via": "ui_master",
+    "hash": "178f34eeac6cd58183e8b50bae8b0404",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.45098039215686275,
+        0.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.7450980392156863,
+        0.5411764705882353
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.5
+    }
+  },
+  "theme_ground": {
+    "via": "ui_master",
+    "hash": "50c7dcc8cc694d2e2ae6341df3ad2e01",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.6705882352941176,
+        0.4117647058823529,
+        0.0
+      ],
+      "color_00_b": [
+        0.12156862745098039,
+        0.03137254901960784,
+        0.0
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.5
+    }
+  },
+  "theme_heart": {
+    "via": "ui_master",
+    "hash": "09e778528f3f01cc0083ad40d70aaeab",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.45098039215686275,
+        0.0,
+        0.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ],
+      "intensity_00_max": 0.75,
+      "intensity_00_min": 0.0
+    }
+  },
+  "theme_hot": {
+    "via": "ui_master",
+    "hash": "f65172632f6aac1686e3e8a39784d033",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.45098039215686275,
+        0.0,
+        0.0
+      ],
+      "intensity_00_easing": 5.0
+    }
+  },
+  "theme_jewel": {
+    "via": "ui_master",
+    "hash": "d05029370f67166219353afbbac81b63",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "color_00_b": [
+        0.0,
+        0.23529411764705882,
+        1.0
+      ],
+      "color_00_c": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "intensity_00_easing": 4.0
+    }
+  },
+  "theme_lightning": {
+    "via": "ui_master",
+    "hash": "9b619195c4f8a02dc1ef5fc824816472",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        0.9803921568627451,
+        0.807843137254902,
+        0.0
+      ],
+      "intensity_00_max": 0.6,
+      "intensity_00_min": 0.25
+    }
+  },
+  "theme_m1_m2": {
+    "via": "ui_master",
+    "hash": "ca5587a87edd08e1e02001f20a5f7f36",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ]
+    }
+  },
+  "theme_m1_red": {
+    "via": "ui_master",
+    "hash": "aeea73aae09fc0575f4d2bd3e4c002f1",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.45098039215686275,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "theme_m23_m1": {
+    "via": "ui_master",
+    "hash": "e44643ccb5aaa070824f9fa420162248",
+    "exports": {
+      "a_flag_00_color_gradation_ab_to_c": true,
+      "a_flag_00_intensity_via_uv_x_01": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ],
+      "color_00_c": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "theme_m2_m1": {
+    "via": "ui_master",
+    "hash": "88dd0763cfed098409a69dea771e5560",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_alpha": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "theme_m_360": {
+    "via": "ui_master",
+    "hash": "888bde3a280046f0815c474e68ca491c",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_xy_01": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ]
+    }
+  },
+  "theme_m_h23": {
+    "via": "ui_master",
+    "hash": "718461c51c962e5fd3b56295387aac3f",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_x_01": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ]
+    }
+  },
+  "theme_m_h32": {
+    "via": "ui_master",
+    "hash": "337d34c45617872a0e6f860c64c59049",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_x_01": true,
+      "color_00": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ],
+      "color_00_b": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ]
+    }
+  },
+  "theme_m_v23": {
+    "via": "ui_master",
+    "hash": "b9a22aacfac85048dcd1f91f3c8b9a05",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ]
+    }
+  },
+  "theme_medicine": {
+    "via": "ui_master",
+    "hash": "48ba4e927f41f7f9a39d93fe655d9b51",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        0.12941176470588237,
+        0.6039215686274509
+      ],
+      "color_00_b": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_c": [
+        0.0,
+        1.0,
+        0.4235294117647059
+      ]
+    }
+  },
+  "theme_night": {
+    "via": "ui_master",
+    "hash": "0ee2c9d86c86cb2b8b5f015f096df39f",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.1450980392156863,
+        0.0,
+        1.0
+      ],
+      "color_00_b": [
+        1.0,
+        0.3137254901960784,
+        0.7215686274509804
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.5
+    }
+  },
+  "theme_paper": {
+    "via": "ui_master",
+    "hash": "91bef9ce7b546d0ce5a4174cbb635c83",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.6588235294117647,
+        1.0
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.5
+    }
+  },
+  "theme_pin": {
+    "via": "ui_master",
+    "hash": "e51da42c0e62cb2e409c483d65067329",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_xy_01": true,
+      "a_flag_00_uv_mirror": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.45098039215686275,
+        0.0,
+        0.0
+      ],
+      "intensity_00_easing": 3.0,
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.1
+    }
+  },
+  "theme_plastic": {
+    "via": "ui_master",
+    "hash": "a82588e2bad65fa3dde08b5dbb5a608e",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.21568627450980393,
+        0.21568627450980393
+      ],
+      "color_00_c": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "intensity_00_easing": 3.0,
+      "intensity_00_length_scale": 2.8284271247461903,
+      "intensity_00_offset_x": -0.5,
+      "intensity_00_offset_y": 0.5
+    }
+  },
+  "theme_rainbow": {
+    "via": "ui_master",
+    "hash": "6e475f3a828e4a698bae15d97afff4f8",
+    "exports": {
+      "a_flag_00_color_spectrum": true,
+      "a_flag_00_intensity_via_uv_y_01": true
+    }
+  },
+  "theme_silver": {
+    "via": "ui_master",
+    "hash": "edc49bde7fc4a142e9c5ee8d44a1e38f",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.21568627450980393,
+        0.21568627450980393
+      ],
+      "color_00_c": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "intensity_00_easing": 4.0
+    }
+  },
+  "theme_smash": {
+    "via": "ui_master",
+    "hash": "e41a3f3e0d5e868bb351301c8be55d47",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "color_00": [
+        0.9803921568627451,
+        0.807843137254902,
+        0.0
+      ],
+      "color_00_b": [
+        0.0,
+        0.45098039215686275,
+        0.0
+      ],
+      "intensity_00_max": 1.0,
+      "intensity_00_min": 0.4
+    }
+  },
+  "theme_star": {
+    "via": "ui_master",
+    "hash": "e850d54c1965277b44f5737ba1c0652f",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.0,
+        0.45098039215686275,
+        0.0
+      ],
+      "color_00_b": [
+        0.9803921568627451,
+        0.807843137254902,
+        0.0
+      ],
+      "intensity_00_max": 0.5,
+      "intensity_00_min": 0.0
+    }
+  },
+  "theme_stone": {
+    "via": "ui_master",
+    "hash": "00c496b7124e9ddfb5c3f4f8a248ec46",
+    "exports": {
+      "a_flag_00_color_gradation": true,
+      "a_flag_00_intensity_via_uv_y_01": true,
+      "color_00": [
+        0.7843137254901961,
+        0.7843137254901961,
+        0.7843137254901961
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.21568627450980393,
+        0.21568627450980393
+      ],
+      "intensity_00_max": 0.75,
+      "intensity_00_min": 0.0
+    }
+  },
+  "theme_water": {
+    "via": "ui_master",
+    "hash": "0e26055e4c3b2078d4434b0dd3ce6d49",
+    "exports": {
+      "a_flag_00_color_gradation3": true,
+      "a_flag_00_intensity_curve": true,
+      "a_flag_00_intensity_via_length_01": true,
+      "color_00": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_00_b": [
+        0.21568627450980393,
+        0.6588235294117647,
+        1.0
+      ],
+      "color_00_c": [
+        0.0,
+        0.23529411764705882,
+        1.0
+      ],
+      "intensity_00_easing": 3.0,
+      "intensity_00_length_scale": 2.8284271247461903,
+      "intensity_00_offset_x": -0.5,
+      "intensity_00_offset_y": 0.5
+    }
+  }
+}

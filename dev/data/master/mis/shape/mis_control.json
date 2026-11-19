@@ -1,0 +1,23 @@
+{
+  "shape_control_select_caret": {
+    "via": "ui_master",
+    "hash": "b7d5c92225d7cf50a4ba1889072eec82",
+    "exports": {
+      "a_flag_00_anti": true,
+      "a_flag_00_cell_rotation": true,
+      "a_flag_00_mask_cupsule": true,
+      "a_flag_00_uv_invert": true,
+      "cell_00_degree": 135.0,
+      "cell_00_offset_y": -0.1,
+      "color_00": [
+        0.0,
+        0.403921568627451,
+        1.0
+      ],
+      "cupsule_00_begin": 0.0,
+      "cupsule_00_end": 0.75,
+      "cupsule_00_radius": 0.15,
+      "uv_00_invert_border_x": 0.5
+    }
+  }
+}
