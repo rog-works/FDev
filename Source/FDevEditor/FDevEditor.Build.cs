@@ -13,6 +13,7 @@ public class FDevEditor : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] {
 			"Core", "CoreUObject", "Engine",
 			"FDev",
+			"UnrealEd", "RHI",
 		});
 
 		// シャドーイングのエラーを抑制
