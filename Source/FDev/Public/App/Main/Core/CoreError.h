@@ -11,7 +11,7 @@
  * @see data/template/statement/throw.j2
  * ```
  */
-class FDevCoreError : public std::exception {
+class CoreError : public std::exception {
 	using std::exception::exception;
 	private: FString p__message;
 	public:
@@ -19,7 +19,7 @@ class FDevCoreError : public std::exception {
 	 * インスタンスを生成
 	 * @param message エラーメッセージ
 	 */
-	FDevCoreError(const FString& message) : exception(), p__message(message) {}
+	CoreError(const FString& message) : exception(), p__message(message) {}
 	public:
 	/**
 	 *

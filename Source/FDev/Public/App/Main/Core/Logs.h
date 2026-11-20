@@ -9,7 +9,7 @@
 /**
  * ロガー
  */
-class FDevLogs {
+class Logs {
 	/**
 	 * ログ出力フラグ
 	 * @note XXX 最上位バイトを使うとC++でコンパイルエラーになるため使用禁止
@@ -40,7 +40,7 @@ class FDevLogs {
 	 * @note @cpp
 	 */
 	static bool ok(Flags flag) {
-		return FDevLogs::enabled && (FDevLogs::p__dest_in & FDevLogs::p__dest_out) != 0 && (FDevLogs::p__flags & (int(flag))) != 0;
+		return Logs::enabled && (Logs::p__dest_in & Logs::p__dest_out) != 0 && (Logs::p__flags & (int(flag))) != 0;
 	}
 	public:
 	/**
@@ -49,7 +49,7 @@ class FDevLogs {
 	 * @return True = 出力有効
 	 */
 	static bool dest_in_ok(Destinations destination) {
-		return (FDevLogs::p__dest_in & (int(destination))) != 0;
+		return (Logs::p__dest_in & (int(destination))) != 0;
 	}
 	public:
 	/**
@@ -57,7 +57,7 @@ class FDevLogs {
 	 * @param destination 入力元
 	 */
 	static void dest_in_on(Destinations destination) {
-		FDevLogs::p__dest_in |= (int(destination));
+		Logs::p__dest_in |= (int(destination));
 	}
 	public:
 	/**
@@ -65,7 +65,7 @@ class FDevLogs {
 	 * @param destination 入力元
 	 */
 	static void dest_in_off(Destinations destination) {
-		FDevLogs::p__dest_in &= ~(int(destination));
+		Logs::p__dest_in &= ~(int(destination));
 	}
 	public:
 	/**
@@ -73,7 +73,7 @@ class FDevLogs {
 	 * @param destination 出力先 (default = defaults)
 	 */
 	static void dest_out(Destinations destination = Destinations::defaults) {
-		FDevLogs::p__dest_out = (int(destination));
+		Logs::p__dest_out = (int(destination));
 	}
 	public:
 	/**
@@ -82,7 +82,7 @@ class FDevLogs {
 	 * @return True = 出力有効(個別)
 	 */
 	static bool flag_ok(Flags flag) {
-		return (FDevLogs::p__flags & (int(flag))) != 0;
+		return (Logs::p__flags & (int(flag))) != 0;
 	}
 	public:
 	/**
@@ -90,7 +90,7 @@ class FDevLogs {
 	 * @param flag ログ出力フラグ
 	 */
 	static void on(Flags flag) {
-		FDevLogs::p__flags |= (int(flag));
+		Logs::p__flags |= (int(flag));
 	}
 	public:
 	/**
@@ -98,7 +98,7 @@ class FDevLogs {
 	 * @param flag ログ出力フラグ
 	 */
 	static void off(Flags flag) {
-		FDevLogs::p__flags &= ~(int(flag));
+		Logs::p__flags &= ~(int(flag));
 	}
 	// endregion
 	// region ログ出力

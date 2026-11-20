@@ -73,7 +73,7 @@ class FDevMFBuildCommand {
 		} else if (this->role == FDevMFBuildCommand::Roles::Exp) {
 			return this->data.key_at(0);
 		} else {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::name()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::name()"), *(this->data).ToString(), this->role));
 		}
 	}
 	public:
@@ -83,7 +83,7 @@ class FDevMFBuildCommand {
 	 */
 	FString desc() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::desc()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::desc()"), *(this->data).ToString(), this->role));
 		}
 		return this->data["desc"].as_string();
 	}
@@ -94,7 +94,7 @@ class FDevMFBuildCommand {
 	 */
 	FString hash() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::hash()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::hash()"), *(this->data).ToString(), this->role));
 		}
 		return this->data["hash"].as_string();
 	}
@@ -105,7 +105,7 @@ class FDevMFBuildCommand {
 	 */
 	TArray<FDevMFBuildCommand> params() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::params()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::params()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
 			TArray<FDevMFBuildCommand> l_ret;
@@ -122,7 +122,7 @@ class FDevMFBuildCommand {
 	 */
 	TArray<FDevMFBuildCommand> statements() {
 		if (this->role != FDevMFBuildCommand::Roles::Function) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::statements()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s, %d"), TEXT("FDevMFBuildCommand::statements()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
 			TArray<FDevMFBuildCommand> l_ret;
@@ -139,7 +139,7 @@ class FDevMFBuildCommand {
 	 */
 	bool as_bool() {
 		if (!this->is_scalar()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_bool()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_bool()"), *(this->data).ToString(), this->role));
 		}
 		return this->data.as_bool();
 	}
@@ -150,7 +150,7 @@ class FDevMFBuildCommand {
 	 */
 	FString as_string() {
 		if (!this->is_scalar()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_string()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_string()"), *(this->data).ToString(), this->role));
 		}
 		return this->data.as_string();
 	}
@@ -161,7 +161,7 @@ class FDevMFBuildCommand {
 	 */
 	float as_float() {
 		if (!this->is_scalar()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_float()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_float()"), *(this->data).ToString(), this->role));
 		}
 		if (this->role == FDevMFBuildCommand::Roles::String && this->as_string() == "PI") {
 			return PI;
@@ -176,7 +176,7 @@ class FDevMFBuildCommand {
 	 */
 	int as_int() {
 		if (!this->is_scalar()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_int()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::as_int()"), *(this->data).ToString(), this->role));
 		}
 		return this->data.as_int();
 	}
@@ -187,7 +187,7 @@ class FDevMFBuildCommand {
 	 */
 	TArray<FDevMFBuildCommand> args() {
 		if (this->role != FDevMFBuildCommand::Roles::Exp) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::args()"), *(this->data).ToString(), this->role));
+			throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %d"), TEXT("FDevMFBuildCommand::args()"), *(this->data).ToString(), this->role));
 		}
 		return [&]() -> TArray<FDevMFBuildCommand> {
 			TArray<FDevMFBuildCommand> l_ret;
@@ -244,17 +244,17 @@ class FDevMFBuildCommandRunner {
 		} else if (command.role == FDevMFBuildCommand::Roles::Number) {
 			return builder->literal_f(command.as_float());
 		} else if (command.role == FDevMFBuildCommand::Roles::String) {
-			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: var_ref, name: %s"), *command.as_string()));
+			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: var_ref, name: %s"), *command.as_string()));
 			return builder->var_ref(command.as_string());
 		}
 		FString name = command.name();
 		TArray<FDevMFBuildCommand> args = command.args();
 		if (name == "get") {
-			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, output: %d"), *name, args.Num(), args[1].as_int()));
+			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, output: %d"), *name, args.Num(), args[1].as_int()));
 		} else if (name == "var") {
-			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, var: %s"), *name, args.Num(), *args[0].as_string()));
+			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d, var: %s"), *name, args.Num(), *args[0].as_string()));
 		} else {
-			log_info(FDevLogs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d"), *name, args.Num()));
+			log_info(Logs::Flags::asset, "[#asset] [FDevMFBuildCommandRunner::run_command]: %s", *FString::Printf(TEXT("command: %s, args: %d"), *name, args.Num()));
 		}
 		if (name == "param") {
 			return builder->param(args[0].as_string(), args[1].as_string(), FDevMFBuildCommandRunner::run_command(builder, args[2]), args[3].as_string());

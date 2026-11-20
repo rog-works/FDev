@@ -1,17 +1,15 @@
 {%- if fullyname.startswith('App.') and fullyname.split('#')[1].count('.') == 0 -%}
-	{%- if prefix -%}
-		{{ alias }}{{ env_get('app_name') }}{{ original }}
-	{%- elif alias -%}
-		{{ env_get('app_name') }}{{ alias }}
+	{%- if fullyname.split('#')[1] not in ['String', 'Logs', 'CoreError'] -%}
+		{%- if prefix -%}
+			{{ alias }}{{ env_get('app_name') }}{{ original }}
+		{%- elif alias -%}
+			{{ env_get('app_name') }}{{ alias }}
+		{%- else -%}
+			{{ env_get('app_name') }}{{ original }}
+		{%- endif -%}
 	{%- else -%}
-		{{ env_get('app_name') }}{{ original }}
+		{% include('alias/_other.j2') %}
 	{%- endif -%}
 {%- else -%}
-	{%- if prefix -%}
-		{{ alias }}{{ original }}
-	{%- elif alias -%}
-		{% if alias.startswith('_') and not alias.endswith('__') %}p{% endif %}{{ alias }}
-	{%- else -%}
-		{% if original.startswith('_') and not original.endswith('__') %}p{% endif %}{{ original }}
-	{%- endif -%}
+	{% include('alias/_other.j2') %}
 {%- endif -%}

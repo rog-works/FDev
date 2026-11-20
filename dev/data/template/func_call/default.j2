@@ -1,4 +1,4 @@
-{%- if calls.startswith(env_get('app_name') + 'Logs') and not reg_match('::(ok|dest_in_ok|dest_in_on|dest_in_off|dest_out|flag_ok|on|off)$', calls) -%}
+{%- if calls.startswith('Logs') and not reg_match('::(ok|dest_in_ok|dest_in_on|dest_in_off|dest_out|flag_ok|on|off)$', calls) -%}
 	{{ build_log_call(calls, arguments) }}{% if is_statement %};{% endif %}
 {%- elif calls == 'checkf' -%}
 	{%- set string = '*FString(' + arguments[1] + ')' if is_quoted_literal(arguments[1]) else '*' + arguments[1] -%}
@@ -27,13 +27,13 @@
 	{{ calls }}(reinterpret_cast<UTF8CHAR*>(({{ arguments[0] }}))){% if is_statement %};{% endif %}
 {%- elif calls == 'ToSharedRef' -%}
 	{{ arguments[0] }}.ToSharedRef()
-{%- elif calls == (env_get('app_name') + 'String::find_strict') -%}
+{%- elif calls == 'String::find_strict' -%}
 	{%- if (arguments | length) == 4 -%}
 		{{ arguments[0] }}.{{ i18n('classes', 'str.find') }}(*{{ arguments[1] }}, {{ arguments[3] }}, ESearchCase::CaseSensitive, ESearchDir::FromStart, {{ arguments[2] }}){% if is_statement %};{% endif -%}
 	{%- else -%}
 		{{ arguments[0] }}.{{ i18n('classes', 'str.find') }}(*{{ arguments[1] }}, {{ arguments[1] }}.{{ i18n('cpp', 'string.size') }}(), ESearchCase::CaseSensitive, ESearchDir::FromStart, {{ arguments[2] }}){% if is_statement %};{% endif -%}
 	{%- endif -%}
-{%- elif calls == (env_get('app_name') + 'String::replace_strict') -%}
+{%- elif calls == 'String::replace_strict' -%}
 	{{ arguments[0] }}.Replace(*{{ arguments[1] }}, *{{ arguments[2] }}, ESearchCase::CaseSensitive){% if is_statement %};{% endif %}
 {%- else -%}
 	{{ calls }}({{ arguments | join(', ') }}){% if is_statement %};{% endif %}

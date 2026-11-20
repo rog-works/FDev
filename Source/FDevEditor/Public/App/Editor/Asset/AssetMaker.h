@@ -108,14 +108,14 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 		FString asset_path = this->to_asset_path(src);
 		UObject* asset = this->find_asset(asset_path);
 		if (!force && asset && this->skip_update(asset)) {
-			log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("skip: %s"), *asset_path));
+			log_info(Logs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("skip: %s"), *asset_path));
 			return false;
 		} else if (asset == nullptr) {
-			log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("new: %s"), *asset_path));
+			log_info(Logs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("new: %s"), *asset_path));
 			this->run_new(asset_path);
 			return true;
 		} else {
-			log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("update: %s"), *asset_path));
+			log_info(Logs::Flags::asset, "[#asset] [UFDevAssetMaker::create]: %s", *FString::Printf(TEXT("update: %s"), *asset_path));
 			this->run_update(asset);
 			return true;
 		}
@@ -139,7 +139,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @return アセット
 	 */
 	virtual UObject* resolve_asset(const FString& asset_path) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -188,7 +188,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @return アセット
 	 */
 	virtual UObject* new_asset_impl(UPackage* package, const FString& asset_path) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -207,7 +207,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 	 * @param asset アセット
 	 */
 	virtual void build_asset_impl(UObject* asset) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -221,7 +221,7 @@ class FDEVEDITOR_API UFDevAssetMaker : public UObject {
 		FSavePackageArgs save_args{};
 		save_args.TopLevelFlags = EObjectFlags::RF_Public | EObjectFlags::RF_Standalone;
 		if (!package->SavePackage(package, asset, (*filepath), save_args)) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::Fatal]: %s, %s, %s"), TEXT("UFDevAssetMaker::save_asset"), *asset->GetPathName(), *filepath));
+			throw CoreError(FString::Printf(TEXT("[Errors::Fatal]: %s, %s, %s"), TEXT("UFDevAssetMaker::save_asset"), *asset->GetPathName(), *filepath));
 		}
 	}
 	public:

@@ -204,7 +204,7 @@ class FDevJsonEntry {
 			this->set_float(FCString::Atof(*json_str.Mid(begin, end - (begin))));
 			return 1;
 		} else if (entry_type == FDevJsonEntryTypes::String) {
-			this->set_string(FDevString::unescape(json_str.Mid(begin + 1, end - 1 - (begin + 1))));
+			this->set_string(String::unescape(json_str.Mid(begin + 1, end - 1 - (begin + 1))));
 			return 1;
 		}
 		int step = 1;

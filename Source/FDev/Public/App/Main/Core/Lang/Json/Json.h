@@ -252,7 +252,7 @@ struct FDEV_API FFDevJson {
 	 */
 	int length() const {
 		if (!this->iterable()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::length()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::length()"), *(*this).ToString()));
 		}
 		return this->cursor->length();
 	}
@@ -264,7 +264,7 @@ struct FDEV_API FFDevJson {
 	 */
 	const TArray<FString>& keys() const {
 		if (this->cursor->entry_type != FDevJsonEntryTypes::Object) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::keys()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::keys()"), *(*this).ToString()));
 		}
 		return this->cursor->keys;
 	}
@@ -276,7 +276,7 @@ struct FDEV_API FFDevJson {
 	 */
 	TArray<FFDevJson> entries() {
 		if (!this->iterable()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::entries()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::entries()"), *(*this).ToString()));
 		}
 		return [&]() -> TArray<FFDevJson> {
 			TArray<FFDevJson> l_ret;
@@ -313,11 +313,11 @@ struct FDEV_API FFDevJson {
 	 */
 	bool has_key(const FString& key) const {
 		if (this->cursor->entry_type == FDevJsonEntryTypes::Array) {
-			return FDevString::is_number(key) && FCString::Atoi(*key) >= 0 && FCString::Atoi(*key) < this->length();
+			return String::is_number(key) && FCString::Atoi(*key) >= 0 && FCString::Atoi(*key) < this->length();
 		} else if (this->cursor->entry_type == FDevJsonEntryTypes::Object) {
 			return this->cursor->keys.Contains(key);
 		} else {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::has_key"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::has_key"), *(*this).ToString()));
 		}
 	}
 	public:
@@ -334,7 +334,7 @@ struct FDEV_API FFDevJson {
 		} else if (this->cursor->entry_type == FDevJsonEntryTypes::Object) {
 			return this->cursor->keys[index];
 		} else {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::key_at"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::key_at"), *(*this).ToString()));
 		}
 	}
 	public:
@@ -347,7 +347,7 @@ struct FDEV_API FFDevJson {
 	 */
 	FFDevJson at(int index) const {
 		if (!this->iterable()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::at"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::at"), *(*this).ToString()));
 		}
 		return FFDevJson((this->cursor->entries[index]).Get());
 	}
@@ -366,7 +366,7 @@ struct FDEV_API FFDevJson {
 			int index = this->cursor->keys.Find(key);
 			return FFDevJson((this->cursor->entries[index]).Get());
 		} else {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::by"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::by"), *(*this).ToString()));
 		}
 	}
 	public:
@@ -420,7 +420,7 @@ struct FDEV_API FFDevJson {
 	 */
 	bool as_bool() {
 		if (this->cursor->entry_type != FDevJsonEntryTypes::Boolean) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_bool()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_bool()"), *(*this).ToString()));
 		}
 		return this->cursor->as_bool;
 	}
@@ -432,7 +432,7 @@ struct FDEV_API FFDevJson {
 	 */
 	int as_int() {
 		if (this->cursor->entry_type != FDevJsonEntryTypes::Integer) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_int()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_int()"), *(*this).ToString()));
 		}
 		return this->cursor->as_int;
 	}
@@ -444,7 +444,7 @@ struct FDEV_API FFDevJson {
 	 */
 	float as_float() {
 		if (this->cursor->entry_type != FDevJsonEntryTypes::Float) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_float()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_float()"), *(*this).ToString()));
 		}
 		return this->cursor->as_float;
 	}
@@ -456,7 +456,7 @@ struct FDEV_API FFDevJson {
 	 */
 	const FString& as_string() {
 		if (this->cursor->entry_type != FDevJsonEntryTypes::String) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_string()"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::as_string()"), *(*this).ToString()));
 		}
 		return this->cursor->as_string;
 	}
@@ -471,7 +471,7 @@ struct FDEV_API FFDevJson {
 	template<typename T_Value>
 	void set_value(const T_Value& value) {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::set_value"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::set_value"), *(*this).ToString()));
 		}
 		if constexpr (std::is_same_v<T_Value, bool>) {
 			this->cursor->set_bool(value);
@@ -501,11 +501,11 @@ struct FDEV_API FFDevJson {
 	template<typename T_Value>
 	void apply_at(int index, const T_Value& value) {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_at"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_at"), *(*this).ToString()));
 		} else if (this->cursor->entry_type != FDevJsonEntryTypes::Array) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_at"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_at"), *(*this).ToString()));
 		} else if (!(index >= 0 && index <= this->length() + 1)) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s, %d"), TEXT("FFDevJson::apply_at"), *(*this).ToString(), index));
+			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s, %d"), TEXT("FFDevJson::apply_at"), *(*this).ToString(), index));
 		}
 		if (index < this->length()) {
 			this->at(index).set_value(value);
@@ -540,9 +540,9 @@ struct FDEV_API FFDevJson {
 	template<typename T_Value>
 	void apply_of(const FString& key, const T_Value& value) {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_of"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_of"), *(*this).ToString()));
 		} else if (this->cursor->entry_type != FDevJsonEntryTypes::Object) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_of"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::apply_of"), *(*this).ToString()));
 		}
 		if (this->has_key(key)) {
 			this->by(key).set_value(value);
@@ -574,7 +574,7 @@ struct FDEV_API FFDevJson {
 	 */
 	void freeze(bool on = true) {
 		if (!this->is_root()) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::freeze"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::freeze"), *(*this).ToString()));
 		}
 		this->cursor->freeze(on);
 	}
@@ -590,9 +590,9 @@ struct FDEV_API FFDevJson {
 	 */
 	void remove_at(int index) {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_at"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_at"), *(*this).ToString()));
 		} else if (this->cursor->entry_type != FDevJsonEntryTypes::Array) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_at"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_at"), *(*this).ToString()));
 		}
 		this->cursor->remove_at(index);
 	}
@@ -606,9 +606,9 @@ struct FDEV_API FFDevJson {
 	 */
 	void remove_of(const FString& key) {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_of"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_of"), *(*this).ToString()));
 		} else if (this->cursor->entry_type != FDevJsonEntryTypes::Object) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_of"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::remove_of"), *(*this).ToString()));
 		}
 		this->cursor->remove_of(key);
 	}
@@ -619,7 +619,7 @@ struct FDEV_API FFDevJson {
 	 */
 	void clear() {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::clear"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::clear"), *(*this).ToString()));
 		}
 		this->cursor->clear();
 	}
@@ -652,7 +652,7 @@ struct FDEV_API FFDevJson {
 	 */
 	void from_json(FFDevJson json) {
 		if (this->cursor->read_only) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::from_json"), *(*this).ToString()));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotAllowed]: %s, %s"), TEXT("FFDevJson::from_json"), *(*this).ToString()));
 		}
 		this->cursor->copy_value(json.cursor);
 	}
@@ -680,7 +680,7 @@ struct FDEV_API FFDevJson {
 			builder->Append(LexToString(entry->as_float));
 		} else if (entry->entry_type == FDevJsonEntryTypes::String) {
 			builder->Append("\"");
-			builder->Append(FDevString::escape(entry->as_string, '"'));
+			builder->Append(String::escape(entry->as_string, '"'));
 			builder->Append("\"");
 		} else if (entry->entry_type == FDevJsonEntryTypes::Array) {
 			builder->Append("[");

@@ -31,8 +31,8 @@ class FDevAssetPaths {
 	 * @throw InvalidArguments ドット/シャープを含むパスを指定
 	 */
 	static FString pick_name(const FString& path) {
-		if (FDevString::count(path, ".") != 0 || FDevString::count(path, "#") != 0) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::pick_name"), *path));
+		if (String::count(path, ".") != 0 || String::count(path, "#") != 0) {
+			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::pick_name"), *path));
 		}
 		return path.Mid(path.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd) + 1, path.Len() - (path.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd) + 1));
 	}
@@ -78,7 +78,7 @@ class FDevAssetPaths {
 	 */
 	static FString to_ue_save_dir(const FString& path) {
 		if (path.StartsWith("/")) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_dir"), *path));
+			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_dir"), *path));
 		}
 		return FDevDSN::joined(FDevPackageConst::Game, path.Mid(0, path.Find(TEXT("/"), ESearchCase::IgnoreCase, ESearchDir::FromEnd)), "/");
 	}
@@ -91,7 +91,7 @@ class FDevAssetPaths {
 	 */
 	static FString to_ue_save_package_path(const FString& path) {
 		if (path.StartsWith("/")) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_package_path"), *path));
+			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_package_path"), *path));
 		}
 		return FDevDSN::joined(FDevPackageConst::Game, path, "/");
 	}
@@ -104,7 +104,7 @@ class FDevAssetPaths {
 	 */
 	static FString to_ue_save_filepath(const FString& ue_path) {
 		if (!ue_path.StartsWith(FDevPackageConst::Game)) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_filepath"), *ue_path));
+			throw CoreError(FString::Printf(TEXT("[Errors::InvalidArguments]: %s, %s"), TEXT("FDevAssetPaths::to_ue_save_filepath"), *ue_path));
 		}
 		return FPackageName::LongPackageNameToFilename(ue_path, FPackageName::GetAssetPackageExtension());
 	}

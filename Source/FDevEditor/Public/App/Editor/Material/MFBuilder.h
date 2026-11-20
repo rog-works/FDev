@@ -797,9 +797,9 @@ class FDevMFBuilder {
 	FDevMFExp mask(FDevMFExp value, const FString& key) {
 		UMaterialExpressionComponentMask* exp = NewObject<UMaterialExpressionComponentMask>(this->p__mf);
 		exp->Input.Connect(value.index, value.exp);
-		exp->R = FDevString::count(key, "x") > 0;
-		exp->G = FDevString::count(key, "y") > 0;
-		exp->B = FDevString::count(key, "z") > 0;
+		exp->R = String::count(key, "x") > 0;
+		exp->G = String::count(key, "y") > 0;
+		exp->B = String::count(key, "z") > 0;
 		exp->A = key == "w";
 		this->p__append_exp(exp);
 		return FDevMFExp(exp);
@@ -974,7 +974,7 @@ class FDevMFBuilder {
 	FDevMFExp call(const FString& func_name, const TArray<FDevMFExp>& args) {
 		UMaterialExpressionMaterialFunctionCall* exp = NewObject<UMaterialExpressionMaterialFunctionCall>(this->p__mf);
 		// XXX 関数名の接頭辞をフォルダー名とする
-		FString src = FString::Printf(TEXT("%s/%s"), *FDevString::split(func_name, "_")[0], *func_name);
+		FString src = FString::Printf(TEXT("%s/%s"), *String::split(func_name, "_")[0], *func_name);
 		exp->SetMaterialFunction(this->p__assets->asset_of<UMaterialFunction>(FDevAssetPaths::to_path("material/func", src)));
 		int index = 0;
 		for (auto& arg : args) {

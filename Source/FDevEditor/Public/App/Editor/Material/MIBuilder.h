@@ -139,7 +139,7 @@ class FDevMIBuildCommandRunner {
 			} else if (com.is_string()) {
 				builder->a_texture(key, com.as_string());
 			} else {
-				throw FDevCoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %s"), TEXT("FDevMIBuildCommandRunner::run"), *key, *(com).ToString()));
+				throw CoreError(FString::Printf(TEXT("[Errors::Never]: %s, %s, %s"), TEXT("FDevMIBuildCommandRunner::run"), *key, *(com).ToString()));
 			}
 		}
 		builder->build();

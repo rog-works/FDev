@@ -125,7 +125,7 @@ class FDevJsonParser {
 				entry_type = FDevJsonEntryTypes::Float;
 			}
 			end += 1;
-			if (!FDevString::is_number(json_str, begin, end + 1)) {
+			if (!String::is_number(json_str, begin, end + 1)) {
 				break;
 			}
 		}
@@ -244,7 +244,7 @@ class FDevJsonParser {
 				return {FDevJsonEntryTypes::Array, end};
 			} else if (json_str[end] == '{') {
 				return {FDevJsonEntryTypes::Object, end};
-			} else if (FDevString::is_number(json_str, end, end + 1)) {
+			} else if (String::is_number(json_str, end, end + 1)) {
 				return {FDevJsonEntryTypes::Float, end};
 			} else if (end_token.Len() > 0 && json_str[end] == end_token[0]) {
 				return {FDevJsonEntryTypes::Unknown, end};

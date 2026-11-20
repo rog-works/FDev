@@ -63,9 +63,9 @@ class FDEV_API UFDevAssetStorageImpl : public UFDevIAssetStorage {
 		TSoftObjectPtr<UObject> resolver{FSoftObjectPath(ue_asset_path)};
 		UObject* asset = resolver.LoadSynchronous();
 		if (!asset) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("UFDevAssetStorageImpl::load_asset"), *ue_asset_path));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("UFDevAssetStorageImpl::load_asset"), *ue_asset_path));
 		}
-		log_info(FDevLogs::Flags::asset, "[#asset] [UFDevAssetStorageImpl::load_asset]: %s", *FString::Printf(TEXT("path: %s, dsn: %s"), *path, *asset->GetPathName()));
+		log_info(Logs::Flags::asset, "[#asset] [UFDevAssetStorageImpl::load_asset]: %s", *FString::Printf(TEXT("path: %s, dsn: %s"), *path, *asset->GetPathName()));
 		return asset;
 	}
 };
@@ -146,7 +146,7 @@ class FDEV_API UFDevMasterStorageImpl : public UFDevIMasterStorage {
 	 * @return True = オリジン
 	 */
 	bool for_origin(const FString& path) {
-		return FDevString::count(path, "#") == 0;
+		return String::count(path, "#") == 0;
 	}
 	public:
 	/**

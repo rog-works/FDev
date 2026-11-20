@@ -21,7 +21,7 @@ class FDEV_API UFDevIAssetStorage : public UObject {
 	 * @return True = 存在
 	 */
 	virtual bool exists(const FString& path) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -32,7 +32,7 @@ class FDEV_API UFDevIAssetStorage : public UObject {
 	 * @throw NotFound 存在しないアセットを指定
 	 */
 	virtual UObject* load(const FString& path, bool cache = true) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 };
 /**
@@ -48,7 +48,7 @@ class FDEV_API UFDevIMasterStorage : public UObject {
 	 * @return True = 存在
 	 */
 	virtual bool exists(const FString& path) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 	public:
 	/**
@@ -59,6 +59,6 @@ class FDEV_API UFDevIMasterStorage : public UObject {
 	 * @throw NotFound 存在しないアセットを指定
 	 */
 	virtual FFDevJson load(const FString& path, bool cache = true) {
-		throw FDevCoreError(TEXT("[Errors::MustBeImplemented]:"));
+		throw CoreError(TEXT("[Errors::MustBeImplemented]:"));
 	}
 };

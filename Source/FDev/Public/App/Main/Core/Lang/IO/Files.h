@@ -50,7 +50,7 @@ class FDevFiles {
 		FString abs_filepath = FPaths::Combine(FPaths::ProjectDir(), filepath);
 		FBufferArchive buff{};
 		if (!FFileHelper::LoadFileToArray(buff, (*abs_filepath))) {
-			throw FDevCoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("FDevFiles::load"), *abs_filepath));
+			throw CoreError(FString::Printf(TEXT("[Errors::NotFound]: %s, %s"), TEXT("FDevFiles::load"), *abs_filepath));
 		}
 		return FDevFiles::p__to_str(buff);
 	}

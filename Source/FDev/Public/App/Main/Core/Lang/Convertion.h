@@ -12,7 +12,7 @@
 template<typename T>
 T* FDevsafe_addr(T* value_at) {
 	if (!value_at) {
-		throw FDevCoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_addr")));
+		throw CoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_addr")));
 	}
 	return value_at;
 }
@@ -24,7 +24,7 @@ T* FDevsafe_addr(T* value_at) {
 template<typename T>
 T* FDevsafe_weak(T* value_at) {
 	if (!(value_at && value_at)) {
-		throw FDevCoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_weak")));
+		throw CoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_weak")));
 	}
 	return value_at;
 }
@@ -36,7 +36,7 @@ T* FDevsafe_weak(T* value_at) {
 template<typename T>
 TSharedPtr<T, ESPMode::NotThreadSafe> FDevsafe_shared(TSharedPtr<T, ESPMode::NotThreadSafe> value_at) {
 	if (!value_at) {
-		throw FDevCoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_shared")));
+		throw CoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_shared")));
 	}
 	return value_at;
 }
@@ -48,7 +48,7 @@ TSharedPtr<T, ESPMode::NotThreadSafe> FDevsafe_shared(TSharedPtr<T, ESPMode::Not
 template<typename T_Obj>
 T_Obj* FDevsafe_obj(T_Obj* obj) {
 	if (!(obj && IsValidChecked(obj))) {
-		throw FDevCoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_obj")));
+		throw CoreError(FString::Printf(TEXT("[Errors::AccessViolation]: %s"), TEXT("FDevsafe_obj")));
 	}
 	return obj;
 }

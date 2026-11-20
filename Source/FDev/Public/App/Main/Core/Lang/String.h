@@ -8,7 +8,7 @@
 /**
  * 文字列操作ユーティリティー
  */
-class FDevString {
+class String {
 	protected: inline static char p_Zero = '0';
 	protected: inline static char p_Nine = '9';
 	protected: inline static char p_a = 'a';
@@ -91,7 +91,7 @@ class FDevString {
 	 * @return トリム後の文字列
 	 */
 	static FString trim(const FString& string, char chara) {
-		return FDevString::rtrim(FDevString::ltrim(string, chara), chara);
+		return String::rtrim(String::ltrim(string, chara), chara);
 	}
 	public:
 	/**
@@ -106,11 +106,11 @@ class FDevString {
 		int begin_ = FMath::Min(length, FMath::Max(0, begin));
 		int end_ = FMath::Min(length, FMath::Max(begin_, end != -1 ? end : length));
 		for (auto index = begin_; index < end_; index += 1) {
-			if (index == begin_ && string[index] == FDevString::p_Minus) {
+			if (index == begin_ && string[index] == String::p_Minus) {
 				continue;
-			} else if (string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine) {
+			} else if (string[index] >= String::p_Zero && string[index] <= String::p_Nine) {
 				continue;
-			} else if (string[index] == FDevString::p_Dot) {
+			} else if (string[index] == String::p_Dot) {
 				continue;
 			} else {
 				return false;
@@ -131,13 +131,13 @@ class FDevString {
 		int begin_ = FMath::Min(length, FMath::Max(0, begin));
 		int end_ = FMath::Min(length, FMath::Max(begin_, end != -1 ? end : length));
 		for (auto index = begin_; index < end_; index += 1) {
-			if ((index > begin_ && string[index] >= FDevString::p_Zero && string[index] <= FDevString::p_Nine)) {
+			if ((index > begin_ && string[index] >= String::p_Zero && string[index] <= String::p_Nine)) {
 				continue;
-			} else if ((string[index] >= FDevString::p_a && string[index] <= FDevString::p_z)) {
+			} else if ((string[index] >= String::p_a && string[index] <= String::p_z)) {
 				continue;
-			} else if ((string[index] >= FDevString::p_A && string[index] <= FDevString::p_Z)) {
+			} else if ((string[index] >= String::p_A && string[index] <= String::p_Z)) {
 				continue;
-			} else if ((string[index] == FDevString::p_Underscore)) {
+			} else if ((string[index] == String::p_Underscore)) {
 				continue;
 			} else {
 				return false;
@@ -202,16 +202,16 @@ class FDevString {
 	 */
 	static FString escape(const FString& string, char chara) {
 		FString target = FString("") + chara;
-		if (FDevString::count(string, target) == 0 && FDevString::count(string, "\\") == 0) {
+		if (String::count(string, target) == 0 && String::count(string, "\\") == 0) {
 			return string;
 		}
 		TStringBuilder<256> builder{};
 		int begin = 0;
 		int end = begin;
 		while (end < string.Len()) {
-			if (string[end] == chara || string[end] == FDevString::p_Backslash) {
+			if (string[end] == chara || string[end] == String::p_Backslash) {
 				builder.Append(string.Mid(begin, end - (begin)));
-				builder.AppendChar(FDevString::p_Backslash);
+				builder.AppendChar(String::p_Backslash);
 				builder.AppendChar(string[end]);
 				begin = end + 1;
 			}
@@ -229,7 +229,7 @@ class FDevString {
 	 * @return エスケープ解除後の文字列
 	 */
 	static FString unescape(const FString& string) {
-		if (FDevString::count(string, "\\") == 0) {
+		if (String::count(string, "\\") == 0) {
 			return string;
 		}
 		TStringBuilder<256> builder{};
@@ -364,7 +364,7 @@ class FDevString {
 			pos0 = pos1 + delimiter.Len();
 		}
 		// 対象の文字列が空文字、または末尾が区切り文字の場合は空文字を要素に追加する
-		if (string.Len() == 0 || FDevString::endswith_strict(string, delimiter)) {
+		if (string.Len() == 0 || String::endswith_strict(string, delimiter)) {
 			parts.Add("");
 		}
 		return parts;

@@ -31,12 +31,12 @@ class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 	 * ```
 	 */
 	TTuple<bool, TArray<TTuple<FString, FString>>> parse_args(const FString& argv) {
-		TArray<FString> blocks = FDevString::split(argv, "-");
+		TArray<FString> blocks = String::split(argv, "-");
 		blocks.RemoveAt(0);
 		TArray<TTuple<FString, FString>> args = {};
 		bool force = false;
 		for (auto& block : blocks) {
-			TArray<FString> arg_pair = FDevString::split(FDevString::trim(block, ' '), "=");
+			TArray<FString> arg_pair = String::split(String::trim(block, ' '), "=");
 			if (!(arg_pair.Num() == 2 && arg_pair[0] == "Maker")) {
 				continue;
 			}
@@ -45,9 +45,9 @@ class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 			if (arg_value.StartsWith("\"") && arg_value.EndsWith("\"")) {
 				arg_value = arg_value.Mid(1, arg_value.Len() - 1 - (1));
 			}
-			TArray<FString> pairs = FDevString::split(arg_value, ", ");
+			TArray<FString> pairs = String::split(arg_value, ", ");
 			for (auto& pair : pairs) {
-				TArray<FString> elems = FDevString::split(pair, ": ");
+				TArray<FString> elems = String::split(pair, ": ");
 				if (elems.Num() == 2) {
 					args.Add({elems[0], elems[1]});
 				} else if (elems[0] != "force") {

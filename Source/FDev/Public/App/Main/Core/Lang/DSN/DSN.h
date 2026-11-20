@@ -52,7 +52,7 @@ class FDevDSN {
 	 * @return 要素数
 	 */
 	static int count(const FString& path, const FString& delimiter = Delimiter) {
-		return path.Len() == 0 ? 0 : FDevString::count(path, delimiter) + 1;
+		return path.Len() == 0 ? 0 : String::count(path, delimiter) + 1;
 	}
 	public:
 	/**
@@ -65,7 +65,7 @@ class FDevDSN {
 		if (path.Len() == 0) {
 			return {};
 		} else {
-			return FDevString::split(path, delimiter);
+			return String::split(path, delimiter);
 		}
 	}
 	public:
@@ -76,7 +76,7 @@ class FDevDSN {
 	 * @return 連結したパス
 	 */
 	static FString join(const TArray<FString>& elems, const FString& delimiter = Delimiter) {
-		return FDevString::join(elems, delimiter);
+		return String::join(elems, delimiter);
 	}
 	public:
 	/**
@@ -139,7 +139,7 @@ class FDevDSN {
 	 * @return 要素
 	 */
 	static FString last(const FString& path, const FString& delimiter = Delimiter) {
-		if (path.Len() == 0 || FDevString::count(path, delimiter) == 0) {
+		if (path.Len() == 0 || String::count(path, delimiter) == 0) {
 			return path;
 		}
 		int begin = path.Find(delimiter, ESearchCase::IgnoreCase, ESearchDir::FromEnd) + 1;
@@ -154,7 +154,7 @@ class FDevDSN {
 	 * @return パス
 	 */
 	static FString pad_left(const FString& path, int count, const FString& delimiter = Delimiter) {
-		if (FDevString::count(path, delimiter) < count) {
+		if (String::count(path, delimiter) < count) {
 			return "";
 		}
 		int begin = 0;
@@ -172,7 +172,7 @@ class FDevDSN {
 	 * @return パス
 	 */
 	static FString pad_right(const FString& path, int count, const FString& delimiter = Delimiter) {
-		if (FDevString::count(path, delimiter) < count) {
+		if (String::count(path, delimiter) < count) {
 			return "";
 		}
 		int end = path.Len() - 1;
