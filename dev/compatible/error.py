@@ -4,7 +4,7 @@ from tranp.app.compatible.cpp.cvar import CP
 from tranp.app.compatible.python.embed import Embed
 
 
-@Embed.alias('FDevCoreError')
+@Embed.alias('CoreError')
 class CompatibleError(Exception):
 	"""互換用の基底クラス"""
 

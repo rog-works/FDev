@@ -70,7 +70,7 @@ class FDEVEDITOR_API UFDevAssetMakerCommandlet : public UCommandlet {
 			for (auto& [tag, target] : args) {
 				this->make_asset(tag, target, force);
 			}
-		} catch (const FDevCoreError& e) {
+		} catch (const CoreError& e) {
 			log_error("[#error] [UFDevAssetMakerCommandlet::Main]: %s", *e.message());
 		}
 		return 0;
