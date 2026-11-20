@@ -5,7 +5,7 @@
 /** ログカテゴリー(アプリケーション用) */
 FDEV_API DECLARE_LOG_CATEGORY_EXTERN(LogApp, Log, All);
 
-#define CORE_LOGGER_INFO(flag, format, ...) if (FDevLogs::ok(flag)) { UE_LOG(LogApp, Display, TEXT(format), ##__VA_ARGS__) }
+#define CORE_LOGGER_INFO(flag, format, ...) if (Logs::ok(flag)) { UE_LOG(LogApp, Display, TEXT(format), ##__VA_ARGS__) }
 #define CORE_LOGGER_WARNING(format, ...) UE_LOG(LogApp, Warning, TEXT(format), ##__VA_ARGS__)
 
 #if WITH_EDITOR
