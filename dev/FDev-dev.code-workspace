@@ -13,7 +13,6 @@
 		"files.associations": {
 			"*.json.data": "json"
 		},
-		"autoDocstring.docstringFormat": "google-notypes",
 		"ruff.enable": true,
 		"ruff.lint.enable": false,
 	},
