@@ -19,7 +19,7 @@
 				"'${config:FDev.ue_path}\\Engine\\Binaries\\Win64\\UnrealEditor-Cmd.exe'",
 				"'${workspaceFolder}\\${workspaceFolderBasename}.uproject'",
 				"-run=FDevAssetMakerCommandlet",
-				"-Maker=\"mfs\"",
+				"-Maker=\"mfs, mis\"",
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
