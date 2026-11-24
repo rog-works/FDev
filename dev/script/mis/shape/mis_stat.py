@@ -1,6 +1,6 @@
-from const.const_asset import AssetNames
+from const.const_asset import AssetSrcs
 from const.const_color import ColorCodes
-from script.mfs.mfs_10_exports import exports_ui_main
+from script.mfs.func.exports.mfs_exports import exports_ui_main
 from script.mis.core.mi_definition import DataDict, MIDefinition
 from script.mis.core.mi_params import ColorParams, IntensityParams, ShapeParams
 
@@ -22,4 +22,4 @@ class Definitions:
 			ShapeParams(mi).round(1.0)
 			ColorParams(mi).base(ColorCodes.M1p1)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi

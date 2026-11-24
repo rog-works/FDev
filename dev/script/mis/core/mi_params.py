@@ -4,8 +4,8 @@ from compatible.error import Errors
 from const.const_color import ColorCodes
 from const.const_layout import Opacities, OutlineCenters, OutlineSizes, Paddings
 from const.const_material import EasingIndexs, MFImages, SquareEdges, SquareSides
-from script.mfs.me_types import float3, texture
-from script.mfs.mfs_10_exports import exports_00, exports_ui_main
+from script.mfs.core.me_types import float3, texture
+from script.mfs.func.exports.mfs_exports import exports_00, exports_ui_main
 from script.mis.core.mi_definition import MIDefinition
 
 

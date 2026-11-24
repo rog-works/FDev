@@ -16,15 +16,15 @@
 			"command": "C:/Windows/System32/cmd.exe",
 			"args": [
 				"//c",
-				"'${workspaceFolder}\\..\\..\\UE_5.8\\Engine\\Binaries\\Win64\\UnrealEditor-Cmd.exe'",
+				"'${config:FDev.ue_path}\\Engine\\Binaries\\Win64\\UnrealEditor-Cmd.exe'",
 				"'${workspaceFolder}\\${workspaceFolderBasename}.uproject'",
 				"-run=FDevAssetMakerCommandlet",
-				"-Maker=\"mfs\"",
+				"-Maker=\"mfs, mis\"",
 			],
 			"problemMatcher": "$msCompile",
 			"type": "shell",
 			"options": {
-				"cwd": "${workspaceFolder}\\..\\..\\UE_5.8"
+				"cwd": "${config:FDev.ue_path}"
 			},
 		},
 		{

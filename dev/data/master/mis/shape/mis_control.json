@@ -1,6 +1,6 @@
 {
   "shape_control_select_caret": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "b7d5c92225d7cf50a4ba1889072eec82",
     "exports": {
       "a_flag_00_anti": true,

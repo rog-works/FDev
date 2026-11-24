@@ -1,4 +1,4 @@
-from const.const_asset import AssetNames
+from const.const_asset import AssetSrcs
 from const.const_color import ColorCodes
 from script.mis.core.mi_definition import DataDict, MIDefinition
 from script.mis.core.mi_params import ColorParams, IntensityParams, LayoutParams, ShapeParams
@@ -24,7 +24,7 @@ class Definitions:
 			ShapeParams(mi).circle()
 			ColorParams(mi).base(ColorCodes.M2)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def shape_slider_cursor_shadow(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -42,4 +42,4 @@ class Definitions:
 			ShapeParams(mi).circle()
 			ColorParams(mi).shadow()
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi

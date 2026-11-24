@@ -1,0 +1,225 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"f38e52743170f3bf7250a7cc9cfc01a5","path":"script.mfs.func.tiling.mfs_tiling"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.math.mfs_math
+  - func.matrix.mfs_matrix
+  - func.op.mfs_op_logic
+  - func.preview.mfs_preview
+  - func.uv.mfs_uv
+  - func.op.mfs_op
+func/tiling/tiling_3:
+  name: tiling_3
+  desc: '全長を1として3分割し、中央値が先端と終端に繋がる様にループしてタイリング'
+  params:
+    - var: [value, param: [float, value, preview_alpha: [1.0], '値']]
+    - var: [length, param: [float, length, 3.0, '全長']]
+    - var: [unit, param: [float, unit, 1.0, '分割単位 (default = 1.0)']]
+  statements:
+    - var: [in_a, op_lt: [value, unit]]
+    - var: [in_b, mul: [op_not: [in_a], op_lt: [value, sub: [length, unit]]]]
+    - var: [in_c, op_not: [proxy_sign: [add: [in_a, in_b]]]]
+    - var: [b_length, sub: [length, mul: [unit, 2.0]]]
+    - var: [b_loops, floor: [add: [div: [b_length, unit], 0.999]]]
+    - var: [b_unit, min: [div: [b_length, b_loops], unit]]
+    # 中央値を等分割して余剰が出ないように補正
+    - var: [b_value_0, mod: [sub: [value, unit], b_unit]]
+    - var: [b_value, mul: [div: [b_value_0, b_unit], unit]]
+    - var: [wa, mul: [value, in_a]]
+    - var: [wb, mul: [add: [unit, b_value], in_b]]
+    - var: [wc, mul: [sub: [value, sub: [length, mul: [unit, 3.0]]], in_c]]
+    - var: [whole, add: [add: [wa, wb], wc]]
+    - var: [ca, mul: [div: [value, unit], in_a]]
+    - var: [cb, mul: [div: [b_value_0, b_unit], in_b]]
+    - var: [cc, mul: [div: [sub: [value, sub: [length, unit]], unit], in_c]]
+    - var: [cell, add: [add: [ca, cb], cc]]
+    - var: [ib, mul: [add: [1.0, floor: [div: [sub: [value, unit], b_unit]]], in_b]]
+    - var: [ic, mul: [add: [1.0, b_loops], in_c]]
+    - var: [index, add: [ib, ic]]
+    - returns: [whole, whole, '全体の進捗']
+    - returns: [cell, cell, 'セル単位の進捗']
+    - returns: [index, index, 'インデックス']
+func/tiling/tiling_3x3_wrap_index:
+  name: tiling_3x3_wrap_index
+  desc: '3x3タイリング時の外周インデックスを算出'
+  params:
+    - var: [uv_index, param: [float2, uv_index, float2: [0.0, 0.0], 'UV座標 (インデックス)']]
+    - var: [cells, param: [float2, cells, float2: [3.0, 3.0], '軸毎のセルの数']]
+  statements:
+    - var: [x_left, op_lt: [mask: [uv_index, x], 1.0]]
+    - var: [x_right, op_ge: [mask: [uv_index, x], sub: [mask: [cells, x], 1.0]]]
+    - var: [y_top, op_lt: [mask: [uv_index, y], 1.0]]
+    - var: [y_bottom, op_ge: [mask: [uv_index, y], sub: [mask: [cells, y], 1.0]]]
+    - var: [y_center, mul: [op_not: [y_top], op_not: [y_bottom]]]
+    - var: [x_top, mul: [mask: [uv_index, x], y_top]]
+    - var: [x_top_v, mask: [cells, x]]
+    - var: [y_right, mul: [add: [min: [sub: [mask: [uv_index, y], 1.0], sub: [mask: [cells, y], 2.0]], x_top_v], mul: [x_right, y_center]]]
+    - var: [y_right_v, sub: [add: [x_top_v, mask: [cells, y]], 2.0]]
+    - var: [x_bottom, mul: [add: [sub: [sub: [mask: [cells, x], 1.0], mask: [uv_index, x]], y_right_v], y_bottom]]
+    - var: [x_bottom_v, add: [y_right_v, mask: [cells, x]]]
+    - var: [y_left, mul: [mul: [add: [min: [sub: [sub: [mask: [cells, y], 2.0], mask: [uv_index, y]], sub: [mask: [cells, y], 2.0]], x_bottom_v], x_left], y_center]]
+    - returns: [result, add: [add: [add: [x_top, x_bottom], y_right], y_left], '外周インデックス']
+func/tiling/tiling_uv:
+  name: tiling_uv
+  desc: 'UV座標のタイリング'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [tiles, param: [float, tiles, 2.0, 'タイル数 (default = 2.0)']]
+  statements:
+    - returns: [result, mod: [mul: [uv, tiles], 1.0], 'UV座標']
+# function tiling_uv_3x3
+func/tiling/tiling_uv_3x3_components:
+  name: tiling_uv_3x3_components
+  desc: 'UV座標のタイリング(3x3)の演算結果を生成'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+  statements:
+    - var: [fix_aspect2d, math_aspect2d: [aspect]]
+    - var: [max_aspect2d, div: [1.0, fix_aspect2d]]
+    - var: [deform, div: [uv, fix_aspect2d]]
+    # XXX 分割代入は前方省略出来ないため、wx/wyは変数宣言のみ
+    - vars: [wx, cx, ix, tiling_3: [mul: [mask: [deform, x], 3.0], mul: [mask: [max_aspect2d, x], 3.0], 1.0]]
+    - vars: [wy, cy, iy, tiling_3: [mul: [mask: [deform, y], 3.0], mul: [mask: [max_aspect2d, y], 3.0], 1.0]]
+    - var: [uv_whole, div: [make_float2: [wx, wy], 3.0]]
+    - var: [uv_cell, make_float2: [cx, cy]]
+    - var: [uv_index, make_float2: [ix, iy]]
+    - var: [cells, floor: [add: [div: [3.0, fix_aspect2d], 0.999]]]
+    - returns: [uv_whole, uv_whole, '全体']
+    - returns: [uv_cell, uv_cell, 'セル毎']
+    - returns: [uv_index, uv_index, 'インデックス']
+    - returns: [cells, cells, '軸毎のセルの数']
+func/tiling/tiling_uv_3x3_wrap_internal:
+  name: tiling_uv_3x3_wrap_internal
+  desc: 'UV座標をタイリング(3x3/帯状)'
+  params:
+    - var: [uv_cell, param: [float2, uv_cell, float2: [0.0, 0.0], 'UV座標 (セル毎)']]
+    - var: [uv_index, param: [float2, uv_index, float2: [0.0, 0.0], 'UV座標 (インデックス)']]
+    - var: [cells, param: [float2, cells, float2: [3.0, 3.0], '軸毎のセルの数']]
+  statements:
+    # マスク
+    - var: [mask_center_x, mul: [op_gt: [mask: [uv_index, x], 0.0], op_lt: [mask: [uv_index, x], sub: [mask: [cells, x], 1.0]]]]
+    - var: [mask_center_y, mul: [op_gt: [mask: [uv_index, y], 0.0], op_lt: [mask: [uv_index, y], sub: [mask: [cells, y], 1.0]]]]
+    - var: [mask_core, mul: [mask_center_x, mask_center_y]]
+    - var: [mask_cross, mul: [add: [mask_center_x, mask_center_y], op_not: [mask_core]]]
+    - var: [mask_edge, mul: [op_not: [mask_cross], op_not: [mask_core]]]
+    # ベクトル
+    - var: [mask_left, op_lt: [mask: [uv_index, x], 1.0]]
+    - var: [mask_right, op_ge: [mask: [uv_index, x], sub: [mask: [cells, x], 1.0]]]
+    - var: [mask_top, op_lt: [mask: [uv_index, y], 1.0]]
+    - var: [mask_bottom, op_ge: [mask: [uv_index, y], sub: [mask: [cells, y], 1.0]]]
+    - var: [vx, add: [mul: [mask_left, -1.0], mul: [mask_right, 1.0]]]
+    - var: [vy, add: [mul: [mask_top, -1.0], mul: [mask_bottom, 1.0]]]
+    # 回転角度
+    - var: [u_theta_org, math_atan2_clock: [vy, vx]]
+    - var: [u_edge, mul: [one_minus: [sub: [u_theta_org, 0.125]], mask_edge]]
+    - var: [u_cross, mul: [one_minus: [u_theta_org], mask_cross]]
+    - var: [u_theta, add: [u_edge, u_cross]]
+    # 3x3
+    - var: [uv_3x3, add: [matrix_rotation2d: [sub: [uv_cell, 0.5], u_theta], 0.5]]
+    # X軸の進捗
+    - var: [index, tiling_3x3_wrap_index: [uv_index, cells]]
+    - var: [divides, add: [mul: [max: [mask: [cells, x], mask: [cells, y]], 2.0], 2.0]]
+    - var: [x_scale_radial, div: [4.0, divides]]
+    - var: [x_scale_whole, div: [1.0, divides]]
+    - var: [x_offset, mod: [mul: [index, x_scale_whole], 1.0]]
+    - var: [x_whole, min: [add: [x_offset, mul: [mask: [uv_3x3, x], x_scale_whole]], 1.0]]
+    # UV
+    - var: [uv_whole, make_float2: [x_whole, mask: [uv_3x3, y]]]
+    - var: [uv_edge_radial_0, uv_radial: [uv_3x3, float2: [0.5, -0.5], 2.0]]
+    - var: [uv_edge_radial, make_float2: [mask: [uv_edge_radial_0, x], one_minus: [mask: [uv_edge_radial_0, y]]]]
+    - var: [uv_edge, mul: [add: [mul: [uv_edge_radial, make_float2: [x_scale_radial, 1.0]], make_float2: [x_offset, 0.0]], mask_edge]]
+    - var: [uv_cross, mul: [uv_whole, mask_cross]]
+    - returns: [result, add: [uv_edge, uv_cross], 'UV座標']
+# function tiling_uv_3x3_wrap
+func/tiling/tiling_uv_min_scroll:
+  name: tiling_uv_min_scroll
+  desc: 'UV座標のタイリング(比率小)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+  statements:
+    - var: [aspect2d, math_aspect2d: [aspect]]
+    - returns: [result, div: [uv, aspect2d], 'UV座標']
+func/tiling/tiling_uv_even_for_ui:
+  name: tiling_uv_even_for_ui
+  desc: 'UV座標をタイリング(UI用/等分)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [tiles, param: [float, tiles, 1.0, 'タイリング数 (default = 1.0)']]
+  statements:
+    - var: [uv_cell, tiling_uv: [uv, tiles]]
+    - var: [uv_index, floor: [mul: [uv, tiles]]]
+    - var: [cells, make_float2: [tiles, tiles]]
+    - returns: [uv_cell, uv_cell, 'セル毎の進捗']
+    - returns: [uv_index, uv_index, 'インデックス']
+    - returns: [cells, cells, '軸毎のセルの数']
+func/tiling/tiling_uv_3x3_for_ui:
+  name: tiling_uv_3x3_for_ui
+  desc: 'UV座標をタイリング(UI用/3x3)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+    - var: [tiles, param: [float, tiles, 1.0, 'タイリング数 (default = 1.0)']]
+  statements:
+    - vars: [uv_whole_3x3, uv_cell_3x3, uv_index_3x3, cells_3x3, tiling_uv_3x3_components: [uv, aspect]]
+    - var: [uv_cell, tiling_uv: [uv_whole_3x3, tiles]]
+    - var: [in_tiles, max: [floor: [div: [tiles, 3.0]], 1.0]]
+    - var: [uv_index_offset, floor: [mul: [uv_cell_3x3, in_tiles]]]
+    - var: [uv_index, add: [mul: [uv_index_3x3, in_tiles], uv_index_offset]]
+    - var: [cells, mul: [cells_3x3, in_tiles]]
+    - returns: [uv_cell, uv_cell, 'セル毎の進捗']
+    - returns: [uv_index, uv_index, 'インデックス']
+    - returns: [cells, cells, '軸毎のセルの数']
+func/tiling/tiling_uv_3x3_wrap_for_ui:
+  name: tiling_uv_3x3_wrap_for_ui
+  desc: 'UV座標をタイリング(UI用/3x3/帯状)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+    - var: [tiles, param: [float, tiles, 1.0, 'タイリング数 (default = 1.0)']]
+  statements:
+    # XXX 分割代入は前方省略出来ないため、uv_whole_3x3は変数宣言のみ
+    - vars: [uv_whole_3x3, uv_cell_3x3, uv_index_3x3, cells_3x3, tiling_uv_3x3_components: [uv, aspect]]
+    - var: [uv_cell, tiling_uv: [tiling_uv_3x3_wrap_internal: [uv_cell_3x3, uv_index_3x3, cells_3x3], tiles]]
+    - var: [uv_index_offset, mod: [floor: [mul: [uv_whole_3x3, tiles]], tiles]]
+    - var: [uv_index, add: [mul: [uv_index_3x3, tiles], uv_index_offset]]
+    - var: [cells, mul: [cells_3x3, tiles]]
+    - returns: [uv_cell, uv_cell, 'セル毎の進捗']
+    - returns: [uv_index, uv_index, 'インデックス']
+    - returns: [cells, cells, '軸毎のセルの数']
+func/tiling/tiling_uv_min_scroll_for_ui:
+  name: tiling_uv_min_scroll_for_ui
+  desc: 'UV座標をタイリング(UI用/比率小)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+    - var: [tiles, param: [float, tiles, 1.0, 'タイリング数 (default = 1.0)']]
+  statements:
+    - var: [uv_whole, tiling_uv_min_scroll: [uv, aspect]]
+    - var: [uv_cell, tiling_uv: [uv_whole, tiles]]
+    - var: [uv_index_offset, mod: [floor: [mul: [uv_whole, tiles]], tiles]]
+    - var: [uv_index, add: [mul: [floor: [uv_whole], tiles], uv_index_offset]]
+    - var: [cells, mul: [floor: [add: [div: [1.0, math_aspect2d: [aspect]], 0.999]], tiles]]
+    - returns: [uv_cell, uv_cell, 'セル毎の進捗']
+    - returns: [uv_index, uv_index, 'インデックス']
+    - returns: [cells, cells, '軸毎のセルの数']
+func/tiling/tiling_uv_for_ui:
+  name: tiling_uv_for_ui
+  desc: 'UV座標をタイリング(UI用)'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+    - var: [aspect, param: [float, aspect, 1.0, 'アスペクト比 (default = 1.0)']]
+    - var: [tiles, param: [float, tiles, 1.0, 'タイリング数 (default = 1.0)']]
+    - var: [on_3x3, param: [bool, on_3x3, false, 'フラグ(3x3) (default = False)']]
+    - var: [on_3x3_wrap, param: [bool, on_3x3_wrap, false, 'フラグ(3x3/帯状) (default = False)']]
+    - var: [on_scroll, param: [bool, on_scroll, false, 'フラグ(比率小) (default = False)']]
+  statements:
+    - vars: [uv_cell_0, uv_index_0, cells_0, tiling_uv_even_for_ui: [uv, tiles]]
+    - vars: [uv_cell_1, uv_index_1, cells_1, tiling_uv_3x3_for_ui: [uv, aspect, tiles]]
+    - vars: [uv_cell_2, uv_index_2, cells_2, tiling_uv_3x3_wrap_for_ui: [uv, aspect, tiles]]
+    - vars: [uv_cell_3, uv_index_3, cells_3, tiling_uv_min_scroll_for_ui: [uv, aspect, tiles]]
+    - var: [uv_cell, ternary: [uv_cell_3, op_switch_2d: [uv_cell_1, uv_cell_2, uv_cell_0, on_3x3, on_3x3_wrap], on_scroll]]
+    - var: [uv_index, ternary: [uv_index_3, op_switch_2d: [uv_index_1, uv_index_2, uv_index_0, on_3x3, on_3x3_wrap], on_scroll]]
+    - var: [cells, ternary: [cells_3, op_switch_2d: [cells_1, cells_2, cells_0, on_3x3, on_3x3_wrap], on_scroll]]
+    - returns: [uv_cell, uv_cell, '進捗']
+    - returns: [uv_index, uv_index, 'インデックス']
+    - returns: [cells, cells, '軸毎のセルの数']

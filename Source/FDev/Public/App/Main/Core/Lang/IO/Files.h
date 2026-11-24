@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"33bd7847761df45f6c35b3573bebcf3a","path":"App.Main.Core.Lang.IO.Files"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"33bd7847761df45f6c35b3573bebcf3a","path":"App.Main.Core.Lang.IO.Files"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Containers/StringConv.h"
 #include "Misc/FileHelper.h"

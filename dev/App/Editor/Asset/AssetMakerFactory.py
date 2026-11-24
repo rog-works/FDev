@@ -6,8 +6,8 @@ from UE5.CoreUObject.UObject.Object import NewObject, UClass, UObject
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UFUNCTION, BlueprintCallable, DefaultToSelf
 
 from App.Editor.Asset.AssetMaker import AssetMaker
-from App.Editor.Asset.MFAssetMaker import MFAssetMaker
-from App.Editor.Asset.MIAssetMaker import MIAssetMaker
+from App.Editor.Asset.Impl.MFAssetMaker import MFAssetMaker
+from App.Editor.Asset.Impl.MIAssetMaker import MIAssetMaker
 from App.Main.Core.Asset.Assets import Assets
 from App.Main.Core.Asset.AssetStorageImpl import AssetStorageImpl, MasterStorageImpl
 

@@ -1,6 +1,6 @@
 {
   "shape_stat_meter": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "7976693b0f3e050dd00fe4a60fa5714d",
     "exports": {
       "a_flag_00_color_gradation": true,

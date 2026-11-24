@@ -1,0 +1,65 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"6950a64ac2b0a479dae0fd3543aeab3c","path":"script.mfs.func.op.mfs_op_logic"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.preview.mfs_preview
+func/op/op_and:
+  name: op_and
+  desc: 'AND条件'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [defaults, param: [float, defaults, 0.0, 'デフォルト値']]
+    - var: [is_a, param: [bool, is_a, false, '条件A']]
+    - var: [is_b, param: [bool, is_b, false, '条件B']]
+  statements:
+    - returns: [result, ternary: [ternary: [value, defaults, is_b], defaults, is_a], '真の値']
+func/op/op_or:
+  name: op_or
+  desc: 'OR条件'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [defaults, param: [float, defaults, 0.0, 'デフォルト値']]
+    - var: [is_a, param: [bool, is_a, false, '条件A']]
+    - var: [is_b, param: [bool, is_b, false, '条件B']]
+  statements:
+    - returns: [result, ternary: [value, ternary: [value, defaults, is_b], is_a], '真の値']
+func/op/op_switch_ab:
+  name: op_switch_ab
+  desc: '入力値ABの切り替え。どちらも無効な場合はデフォルト値を返す'
+  params:
+    - var: [a, param: [float, a, 0.0, '値A']]
+    - var: [b, param: [float, b, 0.5, '値B']]
+    - var: [defaults, param: [float, defaults, 1.0, 'デフォルト値']]
+    - var: [is_a, param: [bool, is_a, false, 'True = Aが有効']]
+    - var: [is_b, param: [bool, is_b, false, 'True = Bが有効']]
+  statements:
+    - returns: [result, ternary: [a, ternary: [b, defaults, is_b], is_a], '真の値']
+func/op/op_switch_2d:
+  name: op_switch_2d
+  desc: '入力値ABの切り替え。どちらも無効な場合はデフォルト値を返す'
+  params:
+    - var: [a, param: [float2, a, float2: [0.0, 0.0], '値A']]
+    - var: [b, param: [float2, b, float2: [0.5, 0.5], '値B']]
+    - var: [defaults, param: [float2, defaults, float2: [1.0, 1.0], 'デフォルト値']]
+    - var: [is_a, param: [bool, is_a, false, 'True = Aが有効']]
+    - var: [is_b, param: [bool, is_b, false, 'True = Bが有効']]
+  statements:
+    - returns: [result, ternary: [a, ternary: [b, defaults, is_b], is_a], '真の値']
+func/op/op_switch_dir:
+  name: op_switch_dir
+  desc: '進行方向に沿って入力値を取得。どちらも無効な場合はデフォルト値を返す'
+  params:
+    - var: [then, param: [float, then, 0.0, '値']]
+    - var: [defaults, param: [float, defaults, 1.0, 'デフォルト値']]
+    - var: [is_01, param: [bool, is_01, false, 'True = 0 -> 1']]
+    - var: [is_10, param: [bool, is_10, false, 'True = 1 -> 0']]
+  statements:
+    - returns: [result, ternary: [then, ternary: [one_minus: [then], defaults, is_10], is_01], '真の値']
+func/op/op_switch_dir_multiply:
+  name: op_switch_dir_multiply
+  desc: '進行方向に沿って入力値を取得し、デフォルト値と乗算。どちらも無効な場合はデフォルト値を返す'
+  params:
+    - var: [then, param: [float, then, 0.0, '値']]
+    - var: [defaults, param: [float, defaults, 1.0, 'デフォルト値']]
+    - var: [is_01, param: [bool, is_01, false, 'True = 0 -> 1']]
+    - var: [is_10, param: [bool, is_10, false, 'True = 1 -> 0']]
+  statements:
+    - returns: [result, ternary: [mul: [defaults, then], ternary: [mul: [defaults, one_minus: [then]], defaults, is_10], is_01], '真の値']

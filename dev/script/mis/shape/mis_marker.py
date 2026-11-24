@@ -1,5 +1,5 @@
-from const.const_asset import AssetNames
-from script.mfs.mfs_10_exports import exports_00
+from const.const_asset import AssetSrcs
+from script.mfs.func.exports.mfs_exports import exports_00
 from script.mis.core.mi_definition import DataDict, MIDefinition
 from script.mis.core.mi_params import LayoutParams, ParamsBase, ShapeParams
 
@@ -20,7 +20,7 @@ class Definitions:
 			MarkerParams(mi).shape_clock_45()
 			LayoutParams(mi).scale(0.5)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 
 class MarkerParams(ParamsBase):

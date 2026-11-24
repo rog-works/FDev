@@ -1,6 +1,6 @@
 {
   "shape_icon_balloon_caption": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "cadd92f1f7c18831a4621724ce213e9b",
     "exports": {
       "a_flag_00_anti": true,
@@ -17,7 +17,7 @@
     }
   },
   "shape_icon_balloon_shadow": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "87794b613b42ce2ae987a90b003e4c52",
     "exports": {
       "a_flag_00_anti": true,
@@ -38,7 +38,7 @@
     }
   },
   "shape_icon_circle": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "27ed3fb7b293907b0b90c638d8bfe12e",
     "exports": {
       "a_flag_00_anti": true,
@@ -69,7 +69,7 @@
     }
   },
   "shape_icon_circle_shadow": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "91905ff9965288231e7b73d37270a48d",
     "exports": {
       "a_flag_00_anti": true,

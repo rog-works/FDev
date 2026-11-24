@@ -1,12 +1,14 @@
 # @see Engine/Source/Runtime/Engine/Public/Materials/MaterialExpression.h
 
+from typing import Annotated
+
 from tranp.app.compatible.cpp.cvar import CP
 from tranp.app.compatible.python.embed import Embed
 from tranp.app.lang.convertion import as_a
 from UE5.Core.Misc.Guid import Guid
 from UE5.Core.UObject.NameTypes import Name
 from UE5.CoreUObject.UObject.Object import GenStruct, UObject
-from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, USTRUCT
+from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UPROPERTY, USTRUCT
 
 
 @Embed.alias('U', prefix=True)
@@ -23,6 +25,27 @@ class MaterialExpression(UObject):
 		self.MaterialExpressionEditorX = 0
 		self.MaterialExpressionEditorY = 0
 
+
+@Embed.struct
+@Embed.alias('F', prefix=True)
+@Embed.ignore(GenStruct)
+@USTRUCT()
+class MaterialExpressionCollection(GenStruct):
+	"""マテリアル関数式コレクション"""
+
+	Expressions: Annotated[list[CP[MaterialExpression]], UPROPERTY()]
+
+	def __init__(self) -> None:
+		"""インスタンスを生成"""
+		self.Expressions = []
+
+	def AddExpression(self, exp: CP[MaterialExpression]) -> None:
+		"""Args: exp: マテリアル関数式"""
+		self.Expressions.append(exp)
+
+	def Empty(self) -> None:
+		"""式リストを初期化"""
+		self.Expressions.clear()
 
 
 @Embed.struct

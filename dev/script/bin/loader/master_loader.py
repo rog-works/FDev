@@ -5,7 +5,7 @@ from io import TextIOWrapper
 from typing import IO, Any
 
 from const.const_asset import AssetDomains, AssetFormats
-from helper.env.directories import cache_dir, master_dir, project_dir, script_dir
+from helper.env.directories import cache_dir, master_dir, script_dir
 from helper.schema.json_serialize import save_json
 
 
@@ -42,39 +42,30 @@ class MasterLoader(metaclass=ABCMeta):
 		...
 
 	@classmethod
-	@abstractmethod
-	def dryrun(cls, filepath: str, pretty: bool = False) -> None:
-		"""空実行
-
-		Args:
-			filepath: 入力データのファイルパス
-			pretry: True = 整形 (default = False) (default = False)
-		"""
-		...
-
-	@classmethod
 	def _support_hash(cls) -> bool:
 		"""Returns: True = ハッシュ保存に対応"""
 		return False
 
 	@classmethod
-	def save(cls, filepaths: list[str], force: bool = False) -> None:
+	def save(cls, output_dir: str, filepaths: list[str], force: bool = False) -> None:
 		"""マスターデータを出力
 
 		Args:
+			output_dir: 出力ディレクトリー
 			filepaths: 入力データのファイルパスリスト
 			force: True = 強制出力 (default = False)
 		"""
 		if cls._support_hash():
-			cls._save_with_hash(filepaths, force)
+			cls._save_with_hash(output_dir, filepaths, force)
 		else:
-			cls._save_without_hash(filepaths, force)
+			cls._save_without_hash(output_dir, filepaths, force)
 
 	@classmethod
-	def _save_with_hash(cls, filepaths: list[str], force: bool) -> None:
+	def _save_with_hash(cls, output_dir: str, filepaths: list[str], force: bool) -> None:
 		"""マスターデータを出力(ハッシュ対応)
 
 		Args:
+			output_dir: 出力ディレクトリー
 			filepaths: 入力データのファイルパスリスト
 			force: True = 強制出力
 		"""
@@ -82,46 +73,49 @@ class MasterLoader(metaclass=ABCMeta):
 		new_hash = cls._calc_hash(filepaths)
 		old_hash = cls._load_hash(hash_filepath)
 		if force or new_hash != old_hash:
-			cls._save_impl(filepaths, force)
+			cls._save_impl(output_dir, filepaths, force)
 			cls._save_hash(hash_filepath, new_hash)
 
 	@classmethod
-	def _save_without_hash(cls, filepaths: list[str], force: bool) -> None:
+	def _save_without_hash(cls, output_dir: str, filepaths: list[str], force: bool) -> None:
 		"""マスターデータを出力(ハッシュ非対応)
 
 		Args:
+			output_dir: 出力ディレクトリー
 			filepaths: 入力データのファイルパスリスト
 			force: True = 強制出力
 		"""
-		cls._save_impl(filepaths, force)
+		cls._save_impl(output_dir, filepaths, force)
 
 	@classmethod
 	@abstractmethod
-	def _save_impl(cls, filepaths: list[str], force: bool) -> None:
+	def _save_impl(cls, output_dir: str, filepaths: list[str], force: bool) -> None:
 		"""マスターデータを出力
 
 		Args:
+			output_dir: 出力ディレクトリー
 			filepaths: 入力データのファイルパスリスト
 			force: True = 強制出力
 		"""
 		...
 
 	@classmethod
-	def _open_app(cls, src: str) -> TextIOWrapper:
+	def _open_app(cls, output_dir: str, src: str) -> TextIOWrapper:
 		"""出力データのファイルを開く(アプリケーション用) @see _open"""
-		return cls._open(AssetDomains.MasterApp.value, src)
+		return cls._open(output_dir, AssetDomains.MasterApp.value, src)
 
 	@classmethod
-	def _open(cls, domain: str, src: str) -> TextIOWrapper:
+	def _open(cls, output_dir: str, domain: str, src: str) -> TextIOWrapper:
 		"""出力データのファイルを開く
 
 		Args:
+			output_dir: 出力ディレクトリー
 			domain: アセットドメイン
 			src: 出力データのソースパス
 		Returns:
 			IO
 		"""
-		filepath = os.path.join(project_dir(), AssetFormats.MasterFilepath.value.format(path=os.path.join(domain, src)))
+		filepath = os.path.join(output_dir, AssetFormats.MasterFilepath.value.format(path=os.path.join(domain, src)))
 		return open(filepath, mode='w', encoding='utf-8', newline='')
 
 	@classmethod

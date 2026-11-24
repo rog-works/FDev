@@ -7,10 +7,32 @@ from UE5.CoreUObject.UObject.Object import UObject
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS
 
 
+@Embed.alias('F', prefix=True)
+class CollectionScalarParameter:
+	"""コレクションパラメーター(スカラー) Note: XXX 本来はUStructだが省略"""
+
+	Id: Guid
+	ParameterName: str
+	DefaultValue: float
+
+	def __init__(self) -> None:
+		"""インスタンスを生成"""
+		self.Id = Guid()
+		self.ParameterName = ''
+		self.DefaultValue = 0.0
+
+
 @Embed.alias('U', prefix=True)
 @UCLASS()
 class MaterialParameterCollection(UObject):
 	"""マテリアルパラメーターコレクション"""
+
+	ScalarParameters: list[CollectionScalarParameter]
+
+	def __init__(self) -> None:
+		"""インスタンスを生成"""
+		super().__init__()
+		self.ScalarParameters = []
 
 	def GetParameterId(self, name: Name) -> Guid:
 		"""名前に対応するGuidを返却

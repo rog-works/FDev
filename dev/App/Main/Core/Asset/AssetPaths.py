@@ -155,3 +155,24 @@ class AssetPaths:
 		return AssetFormats.MasterFilepath.value.format(path=path)
 
 	# endregion
+	# region マテリアル関数
+
+	@classmethod
+	def to_mf_src(cls, func_name: str) -> str:
+		"""マテリアル関数の名前からアセットソースパスに変換
+
+		Args:
+			func_name: マテリアル関数の名前
+		Returns:
+			アセットソースパス(ドメイン相対/マテリアル)
+		Note:
+			```
+			* XXX 関数名の接頭辞をフォルダー名とする
+			* 例: color_gradation -> func/color/color_gradation
+			* @see script/mfs/template/class/class.j2
+			* @see script/mfs/template/function/function.j2
+			```
+		"""
+		return 'func/{dir}/{name}'.format(dir=func_name.split('_')[0], name=func_name)
+
+	# endregion

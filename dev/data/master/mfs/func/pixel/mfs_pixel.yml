@@ -1,0 +1,17 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"329163eb8c186dc86423c6f908cf3f49","path":"script.mfs.func.pixel.mfs_pixel"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.preview.mfs_preview
+func/pixel/pixel_antialias:
+  name: pixel_antialias
+  desc: '強度からα値を算出'
+  params:
+    - var: [intensity, param: [float, intensity, preview_distance: [], '強度 (0 ~ 1)']]
+  statements:
+    - var: [dx, abs: [ddx: [intensity]]]
+    - var: [dy, abs: [ddy: [intensity]]]
+    # 下限値: 0除算の対処
+    # 上限値: 数値に必然性はなく、0.5 ~ 1.0程度が適量。大きいほどアンチエイリアスが利く半面、極端に小さい・細い図形が潰れる。DPIスケールと相関性がある？
+    - var: [width, clamp: [add: [dx, dy], 0.001, 0.7]]
+    - returns: [result, saturate: [div: [one_minus: [intensity], width]], 'α値']
+# function pixel_antialias_thin_line
+# function pixel_clamp_line_size

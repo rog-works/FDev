@@ -13,16 +13,16 @@
   - {{ env_get('i18n.coms.var') }}: [{{ param_elems[1] }}, {{ env_get('i18n.coms.param') }}: [{{ param_elems[0] }}, {{ param_elems[1] }}, {{ param_elems[2] }}, '{{ doc.on['@param_' + param_elems[1]] }}']]
   {%- endfor %}
 {{ env_get('i18n.keys.statements') }}:
-  {%- for statement in statements %}
+  {%- for statement in statements -%}
     {%- if statement.startswith('#') %}
   {{ statement }}
-    {%- elif statement.startswith('returns') %}
+    {%- elif statement.startswith('returns') -%}
       {%- for ret in statement.split('\n') %}
   - {{ ret[:-1] }}, '{{ doc.on['@return_' + (loop.index0 | string)] }}']
-      {%- endfor %}
+      {%- endfor -%}
     {%- elif statement %}
   - {{ statement }}
     {%- endif -%}
-  {%- endfor %}
-  {%- endfilter %}
-{%- endmacro %}
+  {%- endfor -%}
+  {%- endfilter -%}
+{%- endmacro -%}

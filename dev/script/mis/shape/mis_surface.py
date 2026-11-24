@@ -1,4 +1,4 @@
-from const.const_asset import AssetNames
+from const.const_asset import AssetSrcs
 from const.const_color import ColorCodes
 from const.const_layout import Bounds, OutlineCenters, OutlineSizes, Paddings
 from const.const_material import SquareEdges
@@ -21,7 +21,7 @@ class Definitions:
 		ShapeParams(mi).outline(OutlineSizes.S)
 		ColorParams(mi).outline(ColorCodes.M2, ColorCodes.M3)
 		IntensityParams(mi).minimal().outline().clock().invert()
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def shape_surface_shadow(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -30,4 +30,4 @@ class Definitions:
 		ShapeParams(mi).ring(Paddings.Shadow.value + 2.0).center(OutlineCenters.Shadow).to_pixel()
 		ColorParams(mi).shadow().opacity_with(intensity=True)
 		IntensityParams(mi).shape()
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi

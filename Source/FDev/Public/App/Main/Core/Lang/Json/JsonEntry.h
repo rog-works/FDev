@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"fecd6c08d45df28c241d3e5870a37ebf","path":"App.Main.Core.Lang.Json.JsonEntry"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"fecd6c08d45df28c241d3e5870a37ebf","path":"App.Main.Core.Lang.Json.JsonEntry"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "App/Main/Core/Lang/Json/JsonParser.h"
 #include "App/Main/Core/Lang/String.h"

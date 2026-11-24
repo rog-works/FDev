@@ -4,7 +4,8 @@ template_dirs:
   - script/mfs/template
   - ${tranp_dir}/data/cpp/template
 input_globs:
-  - script/mfs/mfs_*.py
+  - script/mfs/func/**/*.py
+  - script/mfs/material/**/*.py
 exclude_patterns: []
 output_dirs:
   - script/:./data/master
@@ -33,7 +34,7 @@ env:
         '!': op_not
       types:
         vectors: 'float2|float3|float4'
-        exports: 'bool|float|float3|texture|curve'
+        exports: 'bool|float|float3|texture'
         props: 'x|y|z|w|xy|xyz'
         methods: 'append|cross|dot|length|normalize'
         texture: texture
@@ -56,4 +57,6 @@ env:
         proxies: 'atan2_fast|rand_fast|sign|rgb_to_srgb|srgb_to_rgb'
       layers:
         tag: 'ZZ'
-        ids: '00|b1'
+        ids:
+          - '00'
+          - 'b1'

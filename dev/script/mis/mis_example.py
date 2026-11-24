@@ -1,11 +1,11 @@
 import math
 
-from const.const_asset import AssetNames
+from const.const_asset import AssetSrcs
 from const.const_color import ColorCodes
 from const.const_layout import Opacities
 from const.const_material import EasingIndexs, MFImages
-from script.mfs.me_types import float3
-from script.mfs.mfs_10_exports import exports_00, exports_b1, exports_ui_main
+from script.mfs.core.me_types import float3
+from script.mfs.func.exports.mfs_exports import exports_00, exports_b1, exports_ui_main
 from script.mis.core.mi_definition import DataDict, MIDefinition
 from script.mis.core.mi_params import ColorOptions, ColorParams, IntensityParams, LayoutParams, ParamsBase, ShapeParams
 
@@ -26,7 +26,7 @@ class Definitions:
 			ExampleParams(mi).color_base(float3(0.005, 0.005, 0.005), float3(0.01, 0.02, 0.05))
 			IntensityParams(mi).uv(x=True).curve(EasingIndexs.Sin180)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_bg3(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -47,14 +47,14 @@ class Definitions:
 			ShapeParams(mi).square_round(0.1).tiling(x3=True)
 			ExampleParams(mi).color_base(float3(0.0, 0.4, 1.0))
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_bg4(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
 		ShapeParams(mi).square_round(0.05).tiling(x3=True)
 		ExampleParams(mi).color_base(float3(0.0, 0.0, 0.1), float3(0.14, 0.01, 0.1))
 		IntensityParams(mi).uv(x=True, y=True).curve(EasingIndexs.Sin180)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_blend_trans(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -68,7 +68,7 @@ class Definitions:
 			ShapeParams(mi).circle()
 			ColorParams(mi).base(ColorCodes.M1p4).opacity(Opacities.Shadow)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_cell3(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -95,7 +95,7 @@ class Definitions:
 			# color
 			ExampleParams(mi).color_base(float3(0.15, 0.15, 0.15), float3(0.05, 0.05, 0.05))
 			IntensityParams(mi).uv(x=True, invert=True)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_cell_flash(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -108,7 +108,7 @@ class Definitions:
 			ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0)).opacity_with(intensity=True)
 			IntensityParams(mi).shape(invert=True)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_cell_round(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -123,7 +123,7 @@ class Definitions:
 			ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0), float3(1.0, 0.95, 0.9))
 			IntensityParams(mi).uv(y=True)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_circle_ripple(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -136,19 +136,19 @@ class Definitions:
 		ShapeParams(mi).ring(1.0)
 		# color
 		ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0))
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_font_rising(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
 		ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0), float3(0.0, 1.0, 1.0))
 		IntensityParams(mi).uv(y=True).rotation().alpha(add=True).anime(1.0)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_font_text5(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
 		ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0), float3(0.3, 0.25, 0.06))
 		IntensityParams(mi).uv(y=True).min_max(0.0, 0.65)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_font_text6(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -162,7 +162,7 @@ class Definitions:
 		with mi.for_bg():
 			ExampleParams(mi).color_base(float3(0.0, 0.0, 0.0))
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_outline_flash(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -175,7 +175,7 @@ class Definitions:
 		# color
 		ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0), float3(1.0, 0.7, 0.7)).rotation().opacity_with(intensity=True)
 		IntensityParams(mi).shape().anime(0.1)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_polygon_dissolve(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -197,7 +197,7 @@ class Definitions:
 			ShapeParams(mi).polygon(3.0, anti=False)
 			ExampleParams(mi).color_base(float3(1.0, 0.1, 0.0))
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_tab4_selected(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -210,7 +210,7 @@ class Definitions:
 			ExampleParams(mi).color_base(float3(1.0, 1.0, 1.0), float3(0.333, 0.3, 0.17)).opacity_with(intensity=True)
 			IntensityParams(mi).uv(y=True)
 
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def example_tiling_diamond(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -234,7 +234,7 @@ class Definitions:
 		mi.decl(exports_00.clip_ZZ_length_min, 0.1)
 		# color
 		ExampleParams(mi).color_base(float3(1.0, 1.0, 0.0), float3(0.0, 1.0, 1.0))
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 
 class ExampleParams(ParamsBase):

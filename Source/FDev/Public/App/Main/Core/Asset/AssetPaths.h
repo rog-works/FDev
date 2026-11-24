@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"b8670adeeb7e16c75b26e31e72fd0837","path":"App.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"1f6cd9b83f2a2569c97cfe1c1f2ce2b0","path":"App.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "App/Main/Const/ProjectConst.h"
@@ -128,6 +128,24 @@ class FDevAssetPaths {
 	 */
 	static FString to_master_filepath(const FString& path) {
 		return FString::Printf(TEXT("Content/%s.json.data"), *path);
+	}
+	// endregion
+	// region マテリアル関数
+	public:
+	/**
+	 * マテリアル関数の名前からアセットソースパスに変換
+	 * @param func_name マテリアル関数の名前
+	 * @return アセットソースパス(ドメイン相対/マテリアル)
+	 * @note
+	 * ```
+	 * * XXX 関数名の接頭辞をフォルダー名とする
+	 * * 例: color_gradation -> func/color/color_gradation
+	 * * @see script/mfs/template/class/class.j2
+	 * * @see script/mfs/template/function/function.j2
+	 * ```
+	 */
+	static FString to_mf_src(const FString& func_name) {
+		return FString::Printf(TEXT("func/%s/%s"), *String::split(func_name, "_")[0], *func_name);
 	}
 	// endregion
 };
