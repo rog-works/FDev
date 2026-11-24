@@ -28,7 +28,7 @@ FDev
 * [Jinja2](https://github.com/pallets/jinja) >= 3.1.6
 * [PyYAML](https://pypi.org/project/PyYAML/) >= 6.0.3
 * [NumPy](https://numpy.org/ja/) >= 2.2.5
-* [tranp](https://github.com/rog-works/tranp) >= 0.9.24
+* [tranp](https://github.com/rog-works/tranp) >= 0.9.25
 
 # Python開発環境
 
