@@ -1,6 +1,6 @@
 {
   "example_bg": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "24fec5509bf059147ef52c3b6fb47e8d",
     "exports": {
       "a_flag_00_anime": true,
@@ -40,7 +40,7 @@
     }
   },
   "example_bg3": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "dddad554ca8e7751ce57153932fe36af",
     "exports": {
       "a_flag_00_anti": true,
@@ -76,7 +76,7 @@
     }
   },
   "example_bg4": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "91b0cb187ce6ff7602cac7c305c88e05",
     "exports": {
       "a_flag_00_anti": true,
@@ -100,7 +100,7 @@
     }
   },
   "example_blend_trans": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "1a99c8ed66f73d2559a1793efdbacaed",
     "exports": {
       "a_flag_00_anti": true,
@@ -127,7 +127,7 @@
     }
   },
   "example_cell3": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "0427d9eb739073694c839d7b927599eb",
     "exports": {
       "a_flag_00_color_gradation": true,
@@ -175,7 +175,7 @@
     }
   },
   "example_cell_flash": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "2053553b5fbd44c860ac810c7c7f2861",
     "exports": {
       "a_flag_00_anime": true,
@@ -211,7 +211,7 @@
     }
   },
   "example_cell_round": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "20cda2bcbd2cf38731e65653e145b5f1",
     "exports": {
       "a_flag_00_anti": true,
@@ -253,7 +253,7 @@
     }
   },
   "example_circle_ripple": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "7fdd989311943c3ea5e798ff770f95cb",
     "exports": {
       "a_flag_00_anime": true,
@@ -273,7 +273,7 @@
     }
   },
   "example_font_rising": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "178b3d1c8536411a56dc3530f7cc9b81",
     "exports": {
       "a_flag_00_anime": true,
@@ -295,7 +295,7 @@
     }
   },
   "example_font_text5": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "c59369e3d188e8b667bc7b9201fd70fa",
     "exports": {
       "a_flag_00_color_gradation": true,
@@ -315,7 +315,7 @@
     }
   },
   "example_font_text6": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "7a1e429c9ec8ba665ec2a1a5f56cfb94",
     "exports": {
       "a_flag_00_anime": true,
@@ -332,7 +332,7 @@
     }
   },
   "example_outline_flash": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "361e2a885ad8610d316c4a6646557e6c",
     "exports": {
       "a_flag_00_anime": true,
@@ -357,7 +357,7 @@
     }
   },
   "example_polygon_dissolve": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "bef4942b9fbd78534ee0fcfa0f6cc038",
     "exports": {
       "a_flag_00_color_texture": true,
@@ -384,7 +384,7 @@
     }
   },
   "example_tab4_selected": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "2bb09fb1133b41fe35e4fc824549dd55",
     "exports": {
       "a_flag_00_anime": true,
@@ -414,7 +414,7 @@
     }
   },
   "example_tiling_diamond": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "4fbe6303d14db99e3537c94cf8976299",
     "exports": {
       "a_flag_00_cell_rotation": true,

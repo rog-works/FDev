@@ -1,0 +1,51 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"755a1659e025d93ff3f2d4761c459a95","path":"script.mfs.func.op.mfs_op"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.preview.mfs_preview
+func/op/op_not:
+  name: op_not
+  desc: '0と1を反転'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値 (0 or 1)']]
+  statements:
+    - returns: [result, one_minus: [value], '0 or 1']
+func/op/op_ge:
+  name: op_ge
+  desc: 'value >= threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 0.0, '閾値 (default = 0.0)']]
+  statements:
+    - returns: [result, step: [threshold, value], '0 or 1']
+func/op/op_le:
+  name: op_le
+  desc: 'value <= threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 1.0, '閾値 (default = 1.0)']]
+  statements:
+    - returns: [result, step: [value, threshold], '0 or 1']
+func/op/op_gt:
+  name: op_gt
+  desc: 'value > threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 0.0, '閾値 (default = 0.0)']]
+  statements:
+    - returns: [result, one_minus: [step: [value, threshold]], '0 or 1']
+func/op/op_lt:
+  name: op_lt
+  desc: 'value < threshold = 1'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [threshold, param: [float, threshold, 1.0, '閾値 (deafult = 1.0)']]
+  statements:
+    - returns: [result, one_minus: [step: [threshold, value]], '0 or 1']
+func/op/op_in:
+  name: op_in
+  desc: 'min <= value <= max'
+  params:
+    - var: [value, param: [float, value, preview_distance: [], '値']]
+    - var: [minimum, param: [float, minimum, 0.0, '下限 (deafult = 0.0)']]
+    - var: [maximum, param: [float, maximum, 1.0, '上限 (deafult = 1.0)']]
+  statements:
+    - returns: [result, mul: [op_ge: [value, minimum], op_le: [value, maximum]], '0 or 1']

@@ -2,11 +2,12 @@ import os
 import sys
 from typing import TypedDict
 
+from helper.env.directories import project_dir
 from script.bin.loader.master_loader import MasterLoader
 from script.bin.loader.mfs_loader import MFSLoader
 from script.bin.loader.mis_loader import MISLoader
 
-ArgsDict = TypedDict('ArgsDict', {'input': str, 'domains': list[str], 'force': bool, 'pretty': bool, 'help': bool})
+ArgsDict = TypedDict('ArgsDict', {'output': str, 'domains': list[str], 'force': bool, 'help': bool})
 
 
 class Args:
@@ -19,18 +20,15 @@ class Args:
 			argv: 引数リスト
 		"""
 		data = self._parse(argv)
-		self.input = data['input']
+		self.output = data['output']
 		self.domains = data['domains']
 		self.force = data['force']
-		self.pretty = data['pretty']
 		self.help = data['help']
 
 	@property
 	def mode(self) -> str:
 		"""Returns: 実行モード"""
-		if self.input:
-			return 'dryrun'
-		elif self.help:
+		if self.help:
 			return 'help'
 		else:
 			return 'output'
@@ -44,20 +42,17 @@ class Args:
 			引数一覧
 		"""
 		args: ArgsDict = {
-			'input': '',
+			'output': project_dir(),
 			'domains': [],
 			'force': False,
-			'pretty': False,
 			'help': False,
 		}
 		while len(argv) > 0:
 			arg = argv.pop(0)
-			if arg == '-i':
-				args['input'] = argv.pop(0)
+			if arg == '-o':
+				args['output'] = os.path.abspath(argv.pop(0))
 			elif arg == '-f':
 				args['force'] = True
-			elif arg == '--pretty':
-				args['pretty'] = True
 			elif arg == '-h':
 				args['help'] = True
 			elif not arg.startswith('-'):
@@ -88,8 +83,6 @@ class App:
 		"""実行処理"""
 		if self.args.mode == 'help':
 			self._run_help()
-		elif self.args.mode == 'dryrun':
-			self._run_dryrun()
 		else:
 			self._run_output()
 
@@ -101,19 +94,9 @@ $ bin/master
 $ bin/master -f
 $ bin/master [-f] [{'] ['.join(domains)}]
 
-## Dryrun
-$ bin/master -i path/to/({'|'.join(domains)})/xxx.ext [--pretty]
-
 ## Show help
 $ bin/master -h
 """)
-
-	def _run_dryrun(self) -> None:
-		"""実行処理(空実行)"""
-		filepath = os.path.abspath(os.path.join(os.getcwd(), self.args.input))
-		for loader in self.loaders():
-			if self.args.input.find(f'/{loader.domain()}/') != -1:
-				loader.dryrun(filepath, self.args.pretty)
 
 	def _run_output(self) -> None:
 		"""実行処理(マスターデータ出力)"""
@@ -122,7 +105,7 @@ $ bin/master -h
 			if runnable:
 				root_dir = loader.master_root()
 				filepaths = loader.find_files(root_dir)
-				loader.save(filepaths, self.args.force)
+				loader.save(self.args.output, filepaths, self.args.force)
 
 
 if __name__ == '__main__':

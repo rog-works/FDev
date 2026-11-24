@@ -6,8 +6,8 @@ from typing import ClassVar, Self, TypeAlias, TypedDict, TypeVar
 from const.const_material import Layers
 from helper.schema.json_serialize import to_json
 from helper.view.relay_analyzer import RelayAnalyzer
-from script.mfs.me_types import float3, texture
-from script.mfs.mfs_10_exports import exports_ui_main
+from script.mfs.core.me_types import float3, texture
+from script.mfs.func.exports.mfs_exports import exports_ui_main
 
 T_Param = TypeVar('T_Param', bool, float, float3, texture)
 ParamTypes: TypeAlias = bool | float | float3 | texture

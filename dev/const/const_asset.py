@@ -11,6 +11,7 @@ class AssetDomains(Enum):
 	Material = 'material'
 	MaterialConst = Material + '/const'
 	MaterialFunc = Material + '/func'
+	MaterialMaterial = Material + '/material'
 	# マスター
 	Master = 'master'
 	MasterApp = 'master/app'
@@ -24,8 +25,13 @@ class AssetNames(Enum):
 	MIs = 'mis'
 	# マテリアル
 	Parameters = 'parameters'
-	UIMaster = 'ui_master'
-	UIMasterAdd = 'ui_master_add'
+
+
+class AssetSrcs(Enum):
+	"""アセットソースパス"""
+	# マテリアル
+	UIMaster = 'material/ui/ui_master'
+	UIMasterAdd = 'material/ui/ui_master_add'
 
 
 class AssetFormats(Enum):

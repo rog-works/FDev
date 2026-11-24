@@ -1,5 +1,8 @@
 {%- if operator == '-' and left == '1.0' -%}
 	{{ env_get('i18n.coms.one_minus') }}: [{{ right }}]
+{%- elif operator in '+-*/%' -%}
+	{{ env_get('i18n.ops.' + operator) }}: [{{ left }}, {{ right }}]
 {%- else -%}
+	{{- emit_depends('"func/op/mfs_op.h"') -}}
 	{{ env_get('i18n.ops.' + operator) }}: [{{ left }}, {{ right }}]
 {%- endif -%}

@@ -1,0 +1,85 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"2f7096a4fbf6f46d0f493d4e29087d4f","path":"script.mfs.func.ui.mfs_ui_main"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.color.mfs_color
+  - func.exports.mfs_exports
+  - func.op.mfs_op_logic
+  - func.pixel.mfs_pixel
+  - func.ui.mfs_ui_layer
+  - func.uv.mfs_uv
+  - func.op.mfs_op
+func/ui/ui_blend_layer:
+  name: ui_blend_layer
+  desc: 'UI用レイヤー合成'
+  params:
+    - var: [color_fg, param: [float3, color_fg, float3: [0.0, 0.0, 0.0], 'ベースカラー(前景)']]
+    - var: [color_bg, param: [float3, color_bg, float3: [0.0, 0.0, 0.0], 'ベースカラー(背景)']]
+    - var: [mask_fg, param: [float, mask_fg, 0.0, 'マスク(前景)']]
+    - var: [mask_bg, param: [float, mask_bg, 0.0, 'マスク(背景)']]
+    - var: [opacity_fg, param: [float, opacity_fg, 0.0, '透過率(前景)']]
+    - var: [opacity_bg, param: [float, opacity_bg, 0.0, '透過率(背景)']]
+    - var: [anti_fg, param: [float, anti_fg, 0.0, 'アンチエイリアス(前景)']]
+    - var: [anti_bg, param: [float, anti_bg, 0.0, 'アンチエイリアス(背景)']]
+  statements:
+    - var: [not_fg, op_not: [mask_fg]]
+    - var: [not_bg, op_not: [mask_bg]]
+    - var: [on_fg, mul: [mask_fg, not_bg]]
+    - var: [on_bg, mul: [mask_bg, not_fg]]
+    - var: [on_blend, mul: [mask_fg, mask_bg]]
+    - var: [on_outside, mul: [not_fg, not_bg]]
+    - var: [alpha_fg, mul: [opacity_fg, anti_fg]]
+    - var: [alpha_bg, mul: [opacity_bg, anti_bg]]
+    # XXX `alpha_bg / alpha_fg`に必然性はないが、色飛びを防止をできる。半面、前景が低α値の際に背景の色見が強く出てしまう欠点有り
+    - var: [alpha_target, saturate: [div: [alpha_bg, clamp: [alpha_fg, 0.001, 1.0]]]]
+    - var: [color_fg_only, mul: [color_fg, on_fg]]
+    - var: [color_bg_only, mul: [color_bg, on_bg]]
+    # 前景と背景を背景のα値で合成し、その結果と前景を前景のα値で合成
+    - var: [color_blend, mul: [color_gradation_ab_to_c: [color_fg, color_bg, color_fg, alpha_target, alpha_fg], on_blend]]
+    - var: [color, add: [add: [color_fg_only, color_bg_only], color_blend]]
+    - var: [opacity, color_blend_a: [opacity_bg, opacity_fg]]
+    - var: [opacity_anti, color_blend_a: [alpha_bg, alpha_fg]]
+    - var: [anti_fg_only, mul: [anti_fg, on_fg]]
+    - var: [anti_bg_only, mul: [anti_bg, on_bg]]
+    # 透過率からアンチエイリアス適用後の透過率にするための減衰倍率を算出 (opacity: 透過率, opacity_anti: アンチエイリアス適用後の透過率)
+    - var: [anti_blend, mul: [saturate: [div: [opacity_anti, clamp: [opacity, 0.001, 1.0]]], on_blend]]
+    - var: [anti_outside, mul: [1.0, on_outside]]
+    - var: [anti, add: [add: [add: [anti_fg_only, anti_bg_only], anti_blend], anti_outside]]
+    - returns: [color, color, 'ベースカラー, アンチエイリアス']
+    - returns: [anti, anti, '']
+func/ui/ui_main:
+  name: ui_main
+  desc: 'UI用マテリアルエントリーポイント'
+  params:
+    - var: [uv, param: [float2, uv, tex_coord: [0], 'UV座標']]
+  statements:
+    - exports_ui_main: []
+    # 解像度
+    - var: [dpi_scale, const_by: ["DPIScale"]]
+    - var: [resolution, ternary: [make_float2: [resolution_width, resolution_height], uv_to_resolution: [uv, dpi_scale], a_flag_resolution_manualy]]
+    # レイヤー
+    - vars: [color_00_0, opacity_00_0, intensity_00, ui_layer_00: [uv, resolution, dpi_scale]]
+    - vars: [color_b1_0, opacity_b1_0, intensity_b1, ui_layer_b1: [uv, resolution, dpi_scale]]
+    # マスク
+    - var: [mask_00_1, ternary: [mul: [op_le: [intensity_00, 1.0], op_gt: [opacity_00_0, 0.0]], 0.0, a_flag_00]]
+    - var: [mask_b1_1, ternary: [mul: [op_le: [intensity_b1, 1.0], op_gt: [opacity_b1_0, 0.0]], 0.0, a_flag_b1]]
+    - var: [mask_00, ternary: [0.0, op_or: [mul: [mask_00_1, mask_b1_1], mask_00_1, a_flag_blend_00_and_b1_on_b1, a_flag_blend_b1_and_00], a_flag_blend_b1_not_00]]
+    - var: [mask_b1, op_switch_ab: [mul: [mask_b1_1, mask_00_1], mul: [mask_b1_1, op_not: [mask_00_1]], mask_b1_1, a_flag_blend_b1_and_00, a_flag_blend_b1_not_00]]
+    # アンチエイリアス
+    - var: [anti_00_0, op_and: [pixel_antialias: [intensity_00], mask_00, a_flag_00, a_flag_00_anti]]
+    - var: [anti_b1_0, op_and: [pixel_antialias: [intensity_b1], mask_b1, a_flag_b1, a_flag_b1_anti]]
+    - var: [anti_00, op_or: [mul: [anti_00_0, anti_b1_0], anti_00_0, a_flag_blend_00_and_b1_on_b1, a_flag_blend_b1_and_00]]
+    - var: [anti_b1, ternary: [mul: [anti_00_0, anti_b1_0], anti_b1_0, a_flag_blend_b1_and_00]]
+    # α値
+    - var: [opacity_00, ternary: [mul: [opacity_00_0, mask_00], 0.0, a_flag_00]]
+    - var: [opacity_b1, ternary: [mul: [opacity_b1_0, mask_b1], 0.0, a_flag_b1]]
+    # ベースカラー
+    - var: [color_00, ternary: [color_00_0, float3: [0.0, 0.0, 0.0], a_flag_00]]
+    - var: [color_b1, ternary: [color_b1_0, float3: [0.0, 0.0, 0.0], a_flag_b1]]
+    - vars: [color_blend, anti_blend, ui_blend_layer: [color_00, color_b1, mask_00, mask_b1, opacity_00, opacity_b1, anti_00, anti_b1]]
+    - var: [color, ternary: [ternary: [color_blend, color_00, a_flag_b1], color_b1, a_flag_00]]
+    - var: [anti, ternary: [ternary: [anti_blend, anti_00, a_flag_b1], anti_b1, a_flag_00]]
+    # 透過率
+    - var: [opacity_0, ternary: [opacity_00, 0.0, a_flag_00]]
+    - var: [opacity_1, ternary: [color_blend_a: [opacity_b1, opacity_0], opacity_0, a_flag_b1]]
+    - var: [opacity, mul: [opacity_1, anti]]
+    - returns: [color, color, 'ベースカラー']
+    - returns: [opacity, opacity, 'α値']

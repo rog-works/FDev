@@ -1,6 +1,6 @@
 {
   "shape_slider_cursor": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "bf118f1b168d8268e3675856501b1ad3",
     "exports": {
       "a_flag_00_anti": true,
@@ -27,7 +27,7 @@
     }
   },
   "shape_slider_cursor_shadow": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "dcf161cd862acc22c3e6c58fd6a6bb71",
     "exports": {
       "a_flag_00_anti": true,

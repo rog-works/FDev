@@ -6,7 +6,7 @@ from UE5.Core.Templates.SharedPointer import ObjectPtr
 from UE5.CoreUObject.UObject.Object import GenStruct
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UFUNCTION, USTRUCT
 from UE5.Engine.Materials.MaterialExpression import ExpressionInput, MaterialExpression
-from UE5.Engine.Materials.MaterialFunction import MaterialFunctionInterface
+from UE5.Engine.Materials.MaterialFunctionInterface import MaterialFunctionInterface
 
 from App.Main.Core.Lang.Convertion import safe_addr
 
@@ -63,18 +63,12 @@ class MaterialExpressionMaterialFunctionCall(MaterialExpression):
 		Args:
 			mf: マテリアル関数
 		Note:
-			紐付けを行うことで引数と戻り値のリストが生成される
+			XXX C++では紐付けと同時に引数と戻り値のリストが生成される。Pythonでは再現不能なため何もしない
 		"""
 		self.MaterialFunction = ObjectPtr[MaterialFunctionInterface](mf)
-
-		for _ in range(mf.on.args_num):
-			self.FunctionInputs.append(FunctionExpressionInput())
-
-		for _ in range(mf.on.return_num):
-			self.FunctionOutputs.append(FunctionExpressionOutput())
 
 	@Embed.python
 	def __str__(self) -> str:
 		"""文字列表現"""
 		join_args = ', '.join([str(arg.Input) for arg in self.FunctionInputs])
-		return f'<call: name: {safe_addr(self.MaterialFunction.Get).on.GetFName()}, args: [{join_args}], returns: x{len(self.FunctionOutputs)}>'
+		return f'<call: name: {safe_addr(self.MaterialFunction.Get).on.GetFName()}, args: [{join_args}]>'

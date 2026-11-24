@@ -1,4 +1,4 @@
-from const.const_asset import AssetNames
+from const.const_asset import AssetSrcs
 from const.const_color import ColorCodes
 from const.const_layout import OutlineSizes, Paddings
 from script.mis.core.mi_definition import DataDict, MIDefinition
@@ -15,7 +15,7 @@ class Definitions:
 		LayoutParams(mi).padding(Paddings.Icon.value)
 		ShapeParams(mi).balloon()
 		ColorParams(mi).base(ColorCodes.M3)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def shape_icon_balloon_shadow(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -23,7 +23,7 @@ class Definitions:
 		LayoutParams(mi).offset().lb(Paddings.Icon.value).to_pixel()
 		ShapeParams(mi).balloon()
 		ColorParams(mi).shadow()
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def shape_icon_circle(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -34,7 +34,7 @@ class Definitions:
 		# outline
 		ShapeParams(mi).outline(OutlineSizes.S)
 		ColorParams(mi).outline(ColorCodes.M2)
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi
 
 	@classmethod
 	def shape_icon_circle_shadow(cls, mi: MIDefinition) -> tuple[str, MIDefinition]:
@@ -42,4 +42,4 @@ class Definitions:
 		LayoutParams(mi).offset().lb(Paddings.Icon.value).to_pixel()
 		ShapeParams(mi).circle()
 		ColorParams(mi).shadow()
-		return AssetNames.UIMaster.value, mi
+		return AssetSrcs.UIMaster.value, mi

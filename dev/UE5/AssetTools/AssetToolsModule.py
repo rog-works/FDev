@@ -2,7 +2,7 @@
 
 from tranp.app.compatible.cpp.cvar import CP, CRef
 from tranp.app.compatible.python.embed import Embed
-from UE5.CoreUObject.UObject.Object import UClass, UObject
+from UE5.CoreUObject.UObject.Object import NewObject, UClass, UObject
 from UE5.CoreUObject.UObject.ObjectMacros import UCLASS
 
 from App.Main.Const.ProjectConst import PackageConst
@@ -15,7 +15,6 @@ class Factory(UObject):
 	"""ファクトリー(基底) Note: @see Engine/Source/Editor/UnrealEd/Classes/Factories/Factory.h"""
 
 	@Embed.python
-	@Embed.allow_override
 	def create(self, name: str, uclass: CP[UClass]) -> CP[UObject]:
 		"""アセットを生成
 
@@ -25,7 +24,19 @@ class Factory(UObject):
 		Returns:
 			生成したアセットのインスタンス
 		"""
-		raise Errors.MustBeImplemented(name, uclass)
+		asset = NewObject(uclass.on.origin, CP(self), uclass, name)
+		self.initialize(asset)
+		return asset
+
+	@Embed.python
+	@Embed.allow_override
+	def initialize(self, asset: CP[UObject]) -> None:
+		"""アセットを初期化
+
+		Args:
+			asset: アセット
+		"""
+		...
 
 
 class IAssetTools:

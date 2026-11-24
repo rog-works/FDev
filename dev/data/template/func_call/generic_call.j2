@@ -10,6 +10,8 @@
 	{{ arguments[0] }}
 {%- elif calls == 'UPROPERTY' -%}
 	{{ calls }}({{ arguments | join(', ') }})
+{%- elif calls == 'zerofill_array' -%}
+	{{ arguments[1] }}.SetNumZeroed({{ arguments[2] }}){% if is_statement %};{% endif -%}
 {%- elif calls == 'sizeof' -%}
 	{{- calls }}({{ arguments[0] }}){% if is_statement %};{% endif -%}
 {%- else -%}

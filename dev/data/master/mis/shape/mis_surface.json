@@ -1,6 +1,6 @@
 {
   "shape_surface_body": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "25f655e51d159c015851137636ea2660",
     "exports": {
       "a_flag_00_anti": true,
@@ -40,7 +40,7 @@
     }
   },
   "shape_surface_shadow": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "50a8d1c120287a5192a25a48b6e7ea6f",
     "exports": {
       "a_flag_00_color_trans": true,

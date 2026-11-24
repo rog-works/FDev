@@ -1,0 +1,19 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"a8029cc1ad3a2bb3202a07216b58a6ef","path":"script.mfs.func.op.mfs_op_bit"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.op.mfs_op
+func/op/op_bit4_on:
+  name: op_bit4_on
+  desc: '指定のビットを判定'
+  params:
+    - var: [flags, param: [float, flags, 1.0, '1.0 ~ 15.0']]
+    - var: [index, param: [float, index, 1.0, '1.0 ~ 4.0']]
+  statements:
+    - var: [mask_4, op_gt: [index, 3.0]]
+    - var: [mask_3, mul: [op_lt: [index, 4.0], op_gt: [index, 2.0]]]
+    - var: [mask_2, mul: [op_lt: [index, 3.0], op_gt: [index, 1.0]]]
+    - var: [mask_1, op_lt: [index, 2.0]]
+    - var: [bit4, mul: [mask_4, op_ge: [mod: [mul: [flags, 0.125], 2.0], 1.0]]]
+    - var: [bit3, mul: [mask_3, op_ge: [mod: [mul: [flags, 0.25], 2.0], 1.0]]]
+    - var: [bit2, mul: [mask_2, op_ge: [mod: [mul: [flags, 0.5], 2.0], 1.0]]]
+    - var: [bit1, mul: [mask_1, op_ge: [mod: [flags, 2.0], 1.0]]]
+    - returns: [result, add: [add: [add: [bit4, bit3], bit2], bit1], '0 or 1']

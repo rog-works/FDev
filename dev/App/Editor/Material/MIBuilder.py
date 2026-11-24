@@ -95,12 +95,12 @@ class MIBuildCommandRunner:
 
 	@classmethod
 	def via_src(cls, data: Json) -> str:
-		"""生成元のマテリアルソースパスを取得
+		"""生成元のマテリアルのソースパスを取得
 
 		Args:
 			data: コマンドデータ
 		Returns:
-			マテリアルソースパス
+			アセットソースパス(ドメイン相対/マテリアル)
 		"""
 		return data['via'].as_string
 

@@ -38,28 +38,17 @@ class MISLoader(MasterLoader):
 
 	@classmethod
 	@override
-	def dryrun(cls, filepath: str, pretty: bool = False) -> None:
-		"""空実行
-
-		Args:
-			filepath: 入力データのファイルパス
-			pretry: True = 整形 (default = False)
-		"""
-		for master in MISMaster.load(filepath):
-			print(master.pretty() if pretty else master.to_json())
-
-	@classmethod
-	@override
 	def _support_hash(cls) -> bool:
 		"""Returns: True = ハッシュ保存に対応"""
 		return True
 
 	@classmethod
 	@override
-	def _save_impl(cls, filepaths: list[str], force: bool) -> None:
+	def _save_impl(cls, output_dir: str, filepaths: list[str], force: bool) -> None:
 		"""マスターデータを出力
 
 		Args:
+			output_dir: 出力ディレクトリー
 			filepaths: 入力データのファイルパスリスト
 			force: True = 強制出力
 		"""
@@ -67,7 +56,7 @@ class MISLoader(MasterLoader):
 		for filepath in filepaths:
 			masters.extend(MISMaster.load(filepath))
 
-		with cls._open_app(cls.domain()) as f:
+		with cls._open_app(output_dir, cls.domain()) as f:
 			cls._write_json({master.src: master.data for master in masters}, f)
 
 

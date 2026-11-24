@@ -1,0 +1,21 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"c1735babb39940320494d32bed8de293","path":"script.mfs.func.preview.mfs_preview"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends: []
+func/preview/preview_vector:
+  name: preview_vector
+  desc: 'UV座標を基に2次元ベクトルを生成(プレビュー用)'
+  params: []
+  statements:
+    - returns: [result, sub: [mul: [tex_coord: [0], 2.0], 1.0], '2次元ベクトル (-1 ~ 1)']
+func/preview/preview_distance:
+  name: preview_distance
+  desc: 'UV座標を基に距離を生成(プレビュー用)'
+  params: []
+  statements:
+    - returns: [result, length: [preview_vector: []], '距離']
+func/preview/preview_alpha:
+  name: preview_alpha
+  desc: 'α値を生成(プレビュー用)'
+  params:
+    - var: [speed, param: [float, speed, 1.0, '速度 (default = 1.0)']]
+  statements:
+    - returns: [result, mod: [mul: [time: [], speed], 1.0], 'α値 (0 ~ 1)']

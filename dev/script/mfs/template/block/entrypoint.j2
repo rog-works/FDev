@@ -1,6 +1,22 @@
 # {{ meta_header }}
-{%- for statement in statements %}
-{%- if statement -%}
+{%- set _imports = namespace(at=[]) -%}
+{%- for statement in statements -%}
+	{%- if statement.startswith('import:') -%}
+		{%- set _imports.at = _imports.at + [statement[('import: script.mfs.' | length):]] -%}
+	{%- endif -%}
+{%- endfor %}
+{%- for depended in depends -%}
+	{%- set _module_path = depended.replace('/', '.')[1:-3] -%}
+	{%- if _module_path not in _imports.at -%}
+		{%- set _imports.at = _imports.at + [_module_path] -%}
+	{%- endif -%}
+{%- endfor %}
+depends:{% if not _imports.at %} []{% endif %}
+{%- for _module_path in _imports.at %}
+  - {{ _module_path }}
+{%- endfor -%}
+{%- for statement in statements -%}
+	{%- if statement and not statement.startswith('import:') %}
 {{ statement }}
-{%- endif -%}
+	{%- endif -%}
 {%- endfor %}{{ '\n' }}

@@ -1,0 +1,14 @@
+# @tranp.meta: {"version":"0.9.25","module":{"hash":"3532092c4936a5727e018e340c8f8742","path":"script.mfs.material.ui_master"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+depends:
+  - func.ui.mfs_ui_main
+material/ui/ui_master:
+  name: ui_master
+  desc: 'マテリアル(UI)'
+  params: []
+  statements:
+    - schema_domain: ["UI"]
+    - schema_blend: ["Translucent"]
+    - var: [uv, tex_coord: [0]]
+    - vars: [color, opacity, ui_main: [uv]]
+    - output_emissive_color: [color]
+    - output_opacity: [opacity]

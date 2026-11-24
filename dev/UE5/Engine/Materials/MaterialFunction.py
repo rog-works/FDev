@@ -4,37 +4,16 @@ from typing import Annotated
 
 from tranp.app.compatible.cpp.cvar import CP
 from tranp.app.compatible.python.embed import Embed
-from UE5.CoreUObject.UObject.Object import GenStruct, UObject
-from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UPROPERTY, USTRUCT
-from UE5.Engine.Materials.MaterialExpression import MaterialExpression
-
-
-@Embed.struct
-@Embed.alias('F', prefix=True)
-@Embed.ignore(GenStruct)
-@USTRUCT()
-class MaterialExpressionCollection(GenStruct):
-	"""マテリアル関数式コレクション Note: @see MaterialExpression.h"""
-
-	Expressions: Annotated[list[CP[MaterialExpression]], UPROPERTY()]
-
-	def __init__(self) -> None:
-		"""インスタンスを生成"""
-		self.Expressions = []
-
-	def AddExpression(self, exp: CP[MaterialExpression]) -> None:
-		"""Args: exp: マテリアル関数式"""
-		self.Expressions.append(exp)
-
-	def Empty(self) -> None:
-		"""式リストを初期化"""
-		self.Expressions.clear()
+from UE5.CoreUObject.UObject.Object import NewObject, UObject
+from UE5.CoreUObject.UObject.ObjectMacros import UCLASS, UPROPERTY
+from UE5.Engine.Materials.MaterialExpression import MaterialExpression, MaterialExpressionCollection
+from UE5.Engine.Materials.MaterialFunctionInterface import MaterialFunctionInterface
 
 
 @Embed.alias('U', prefix=True)
 @UCLASS()
 class MaterialFunctionEditorOnlyData(UObject):
-	"""エディター専用データ"""
+	"""エディター専用データ(マテリアル関数)"""
 
 	ExpressionCollection: Annotated[MaterialExpressionCollection, UPROPERTY()]
 
@@ -46,36 +25,23 @@ class MaterialFunctionEditorOnlyData(UObject):
 
 @Embed.alias('U', prefix=True)
 @UCLASS()
-class MaterialFunctionInterface(UObject):
-	"""マテリアル関数(基底)"""
-
-	args_num: int
-	return_num: int
-
-	def __init__(self) -> None:
-		super().__init__()
-		# @test XXX モック経由で設定する想定
-		self.args_num = 0
-		self.return_num = 0
-
-
-@Embed.alias('U', prefix=True)
-@UCLASS()
 class MaterialFunction(MaterialFunctionInterface):
 	"""マテリアル関数"""
 
 	Description: str
-	__EditorOnlyData: CP[MaterialFunctionEditorOnlyData]
+	__EditorOnlyData: CP[MaterialFunctionEditorOnlyData] | None
 
 	def __init__(self) -> None:
 		"""インスタンスを生成"""
 		super().__init__()
 		self.Description = ''
-		# @python
-		self.__EditorOnlyData = self.CreateDefaultSubobject(MaterialFunctionEditorOnlyData, '__EditorOnlyData')
+		self.__EditorOnlyData = None
 
 	def GetEditorOnlyData(self) -> CP[MaterialFunctionEditorOnlyData]:
 		"""Returns: エディター専用データ"""
+		if not self.__EditorOnlyData:
+			self.__EditorOnlyData = NewObject(MaterialFunctionEditorOnlyData, CP(self))
+
 		return self.__EditorOnlyData
 
 	@Embed.python

@@ -1,6 +1,6 @@
 {
   "shape_marker_arrow": {
-    "via": "ui_master",
+    "via": "material/ui/ui_master",
     "hash": "179ace5a3d391b84ce62c7af0f455ec6",
     "exports": {
       "a_flag_00_anti": true,

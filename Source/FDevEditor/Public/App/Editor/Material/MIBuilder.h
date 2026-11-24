@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"507a8544bc076ffa2b685affb7ef1010","path":"App.Editor.Material.MIBuilder"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.24","module":{"hash":"ae72c99210a7e3f604eb20f9eea3bb51","path":"App.Editor.Material.MIBuilder"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/Color.h"
 #include "Misc/Guid.h"
@@ -113,9 +113,9 @@ class FDevMIBuilder {
 class FDevMIBuildCommandRunner {
 	public:
 	/**
-	 * 生成元のマテリアルソースパスを取得
+	 * 生成元のマテリアルのソースパスを取得
 	 * @param data コマンドデータ
-	 * @return マテリアルソースパス
+	 * @return アセットソースパス(ドメイン相対/マテリアル)
 	 */
 	static FString via_src(FFDevJson data) {
 		return data["via"].as_string();
