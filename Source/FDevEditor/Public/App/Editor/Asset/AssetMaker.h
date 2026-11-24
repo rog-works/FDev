@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"9af4da79e0344dd800743a52d3cc15a5","path":"App.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"9af4da79e0344dd800743a52d3cc15a5","path":"App.Editor.Asset.AssetMaker"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "UObject/Object.h"

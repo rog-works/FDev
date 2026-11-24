@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"ec1336f417736d24b41b01ec416de21c","path":"App.Main.Core.Lang.DSN.DSN"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"ec1336f417736d24b41b01ec416de21c","path":"App.Main.Core.Lang.DSN.DSN"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "App/Main/Core/Core.h"
 // #include "typing.h"

@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"717e8002b5b811a7646c4bc0717b9f63","path":"App.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"717e8002b5b811a7646c4bc0717b9f63","path":"App.Editor.Material.MFBuildCommand"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Math/MathFwd.h"
 #include "Materials/MaterialExpressionTextureSample.h"

@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"23df144accdd5d4ad2dcade1061acc01","path":"App.Editor.Asset.Impl.MIAssetMaker"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"23df144accdd5d4ad2dcade1061acc01","path":"App.Editor.Asset.Impl.MIAssetMaker"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetToolsModule.h"
 #include "Templates/SharedPointer.h"

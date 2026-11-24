@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"49472999bebca32528a5d46bbeb7c246","path":"App.Editor.Asset.Impl.MFAssetMaker"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"49472999bebca32528a5d46bbeb7c246","path":"App.Editor.Asset.Impl.MFAssetMaker"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "AssetToolsModule.h"
 #include "UObject/Object.h"

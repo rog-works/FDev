@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"1f6cd9b83f2a2569c97cfe1c1f2ce2b0","path":"App.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"1f6cd9b83f2a2569c97cfe1c1f2ce2b0","path":"App.Main.Core.Asset.AssetPaths"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "App/Main/Const/ProjectConst.h"

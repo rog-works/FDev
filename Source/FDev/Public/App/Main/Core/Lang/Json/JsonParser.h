@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"a02fbc4d3f40b7a98b413e90578a6909","path":"App.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"a02fbc4d3f40b7a98b413e90578a6909","path":"App.Main.Core.Lang.Json.JsonParser"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "App/Main/Core/Lang/String.h"
 // #include "enum.h"

@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"3403f8e4f93aafb6466d195ce54ccab8","path":"App.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"3403f8e4f93aafb6466d195ce54ccab8","path":"App.Main.Core.Asset.AssetStorageImpl"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "Misc/Paths.h"
 #include "UObject/Object.h"

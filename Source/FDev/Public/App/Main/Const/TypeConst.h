@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"1e3ce69844a3c14fc6159d251f0e5946","path":"App.Main.Const.TypeConst"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"1e3ce69844a3c14fc6159d251f0e5946","path":"App.Main.Const.TypeConst"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/ObjectMacros.h"
 #include "TypeConst.generated.h"

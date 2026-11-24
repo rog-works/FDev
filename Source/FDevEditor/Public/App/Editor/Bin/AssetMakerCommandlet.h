@@ -1,4 +1,4 @@
-// @tranp.meta: {"version":"0.9.24","module":{"hash":"0eb0dbb36d9adab27d4b7bd707f3ba03","path":"App.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.11","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
+// @tranp.meta: {"version":"0.9.25","module":{"hash":"0eb0dbb36d9adab27d4b7bd707f3ba03","path":"App.Editor.Bin.AssetMakerCommandlet"},"transpiler":{"version":"0.9.12","module":"tranp.app.implements.cpp.transpiler.py2cpp.Py2Cpp"}}
 #pragma once
 #include "UObject/ObjectMacros.h"
 #include "Commandlets/Commandlet.h"
