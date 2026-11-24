@@ -9,4 +9,6 @@
 		"Plugins": true,
 		"Saved/": true,
 	},
+	// UE用の設定
+	"FDev.ue_path": "${workspaceFolder}\\..\\..\\UE_5.8"
 }
